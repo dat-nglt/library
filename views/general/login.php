@@ -17,9 +17,23 @@
     </div>
     <button id="loginBtn" name="login" type="submit" disabled>Đăng nhập</button>
     <div id="or">Hoặc</div>
-    <button type="button" class="login-with-google-btn">
-      <a href="<?= $url ?>" style="color: #757575;">Đăng nhập với Google</a>
-    </button>
+    <div id="g_id_onload"
+    data-client_id="554567692253-kgdu69c1indcvdctlnmi9r0083eeh2qg.apps.googleusercontent.com"
+    data-context="signin"
+    data-ux_mode="popup"
+    data-callback="handleCredentialResponse"
+    data-auto_prompt="false">
+</div>
+
+<div class="g_id_signin"
+    data-type="standard"
+    data-shape="rectangular"
+    data-theme="outline"
+    data-text="signin_with"
+    data-size="large"
+    data-logo_alignment="left">
+</div>
+
   </form>
 </div>
 
