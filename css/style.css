@@ -9,6 +9,21 @@
   --orange-color: #D7653B;
   --green-color: #195F2D;
   --border-radius: 5px;
+  --white-cl: white;
+  --black-cl: black;
+  --purple-cl: rgb(116, 4, 103);
+  --red-cl: rgb(250, 54, 50);
+  --red-black-cl: rgb(217, 13, 9);
+  --green-cl: rgb(3, 165, 3);
+  --green-black-cl: rgb(14, 130, 14);
+  --black-gray-cl: #1d2327;
+  --blue-dark-cl: rgb(0, 61, 111);
+  --blue-cl: rgb(0, 122, 222);
+  --blue-white-cl: rgb(18, 149, 255);
+  --orange-cl: rgb(255, 177, 8);
+  --gray-cl: rgb(172, 172, 172);
+  --gray-white-cl: rgb(198, 198, 198);
+  --gray-black-cl: #2c3338;
 }
 
 a {

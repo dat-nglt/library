@@ -3,16 +3,16 @@
   position: relative;
   margin: 0 0 0 0;
   width: 100%;
-  height: 100%;
+  height: 480px;
   background-position: 50%;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
-  height: 100vh;
+  background-size: 100%;
+  opacity: 0.6;
 }
 
 .login > form {
   position: absolute;
-  top: 100px;
+  top: 85px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -55,7 +55,7 @@
   font-size: 14px;
   font-weight: 600;
   color: #867c7c;
-  width: 350px;
+  width: 270px;
   padding: 10px 15px;
   border-radius: var(--border-radius);
   border: 1px solid #cdcdcd;
@@ -65,7 +65,7 @@
 .login .input-field i {
   cursor: pointer;
   position: absolute;
-  right: -30px;
+  right: -20px;
   top: 58%;
 }
 

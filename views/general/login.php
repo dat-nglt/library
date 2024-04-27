@@ -1,3 +1,13 @@
+<?php
+if (isset($data) && $data !== []) {
+  $notificationType = $data['notification']['type'];
+  $notificationMessage = $data['notification']['message'];
+  $notificationLink = $data['notification']['link'];
+  $notificationType($notificationMessage, $notificationLink);
+}
+?>
+
+
 <div class="login">
   <form action="?controller=user&action=login" method="POST">
     <div class="input-field">
@@ -16,23 +26,18 @@
       <label for="nhoMatKhau">Nhớ mật khẩu</label>
     </div>
     <button id="loginBtn" name="login" type="submit" disabled>Đăng nhập</button>
-    <div id="or">Hoặc</div>
-    <div id="g_id_onload"
-    data-client_id="554567692253-kgdu69c1indcvdctlnmi9r0083eeh2qg.apps.googleusercontent.com"
-    data-context="signin"
-    data-ux_mode="popup"
-    data-callback="handleCredentialResponse"
-    data-auto_prompt="false">
-</div>
 
-<div class="g_id_signin"
-    data-type="standard"
-    data-shape="rectangular"
-    data-theme="outline"
-    data-text="signin_with"
-    data-size="large"
-    data-logo_alignment="left">
-</div>
+    <div id="or">Hoặc</div>
+    <div class="login__google" style="margin: 0 auto">
+      <div id="g_id_onload" data-client_id="554567692253-kgdu69c1indcvdctlnmi9r0083eeh2qg.apps.googleusercontent.com"
+        data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse" data-auto_prompt="false">
+      </div>
+
+      <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
+        data-text="signin_with" data-size="large" data-logo_alignment="left">
+      </div>
+    </div>
+
 
   </form>
 </div>
@@ -67,3 +72,4 @@
   });
 
 </script>
+<script src="https://accounts.google.com/gsi/client" async></script>

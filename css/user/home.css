@@ -1,0 +1,32 @@
+.user-search {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  display: flex;
+  background: rgba(154, 143, 143, 0.80);
+  padding: 30px;
+}
+
+.user-search-sub {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 65% 15%;
+  line-height: 29px;
+  font-size: 18px;
+  overflow: hidden;
+
+}
+.select-search,
+.input-search,
+#btn-search {
+    width: 100%;
+    padding: 15px 10px;
+
+}
+
+input.input-search {
+    outline: none;
+}
+
