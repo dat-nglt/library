@@ -1,0 +1,24 @@
+.profile {
+  border: 1px solid #333;
+  display: flex;
+  width: fit-content;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 220px;
+}
+
+.profile .menu {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-right: 1px solid #333;
+}
+
+.profile .content {
+  padding: 10px
+}
+
+.profile .content .input-fields {
+  margin-bottom: 10px;
+}

@@ -11,9 +11,12 @@ require './message.php';
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-jquery/2.13.1/cloudinary-jquery.min.js"></script>
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/login.css">
   <link rel="stylesheet" href="./css/user/main.css">
+  <link rel="stylesheet" href="./css/user/profile.css">
   <link rel="stylesheet" href="./css/admin/main.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.28/sweetalert2.all.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.28/sweetalert2.css">
@@ -42,9 +45,7 @@ require './message.php';
     // Sign out the user
     function signOut(authID) {
       document.getElementsByClassName("pro-data")[0].innerHTML = '';
-      document.querySelector("#btnWrap").classList.remove("hidden");
-      document.querySelector(".pro-data").classList.add("hidden");
-    }    
+    }
   </script>
 
   <title>TRUNG TÂM HỌC LIỆU CTUT</title>

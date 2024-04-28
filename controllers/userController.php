@@ -12,8 +12,6 @@ class userController extends baseController
   }
   public function index()
   {
-    // $data = $this->userModel->getAll();
-    // $row = mysqli_fetch_all($data);
     return $this->loadview('user.home', []);
   }
 
@@ -26,18 +24,28 @@ class userController extends baseController
       $result = mysqli_fetch_assoc($this->userModel->getAccount($taiKhoan));
       if ($result && password_verify($matKhau, $result['password'])) {
         $_SESSION[$result['id']] = $result;
-        return $this->loadView('user.home', ['notification' => ['type' => 'success', 'message' => 'Đăng nhập thành công', 'link' => 'http://localhost/libary']]);
+        return $this->loadView('user.home', ['notification' => ['type' => 'success', 'message' => 'Đăng nhập thành công', 'link' => 'http://localhost/library']]);
       } else {
         return $this->loadview(
           'general.login',
           [
-            'notification' => ['type' => 'success', 'message' => 'Đăng nhập không thành công', 'link' => 'http://localhost/libary/?controller=user&action=login']
+            'notification' => ['type' => 'success', 'message' => 'Đăng nhập không thành công', 'link' => 'http://localhost/library/?controller=user&action=login']
           ]
         );
 
       }
     }
     return $this->loadview('general.login', []);
+  }
+
+  public function logout()
+  {
+    session_unset();
+    return $this->loadview('general.login', []);
+  }
+
+  public function profile() {
+    return $this->loadview('user.profile', []);
   }
 }
 

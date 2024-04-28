@@ -7,6 +7,7 @@
   display: flex;
   background: rgba(154, 143, 143, 0.80);
   padding: 30px;
+  border-top: 8px var(--green-color) solid ;
 }
 
 .user-search-sub {
@@ -17,16 +18,14 @@
   font-size: 18px;
   overflow: hidden;
 
+
 }
 .select-search,
 .input-search,
 #btn-search {
     width: 100%;
     padding: 15px 10px;
-
-}
-
-input.input-search {
+    border: none;
     outline: none;
 }
 

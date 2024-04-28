@@ -7,8 +7,8 @@ li{
 header {
     position: fixed;
     top: 0;
-    bottom: 0;
     left: 0;
+    height: 100vh;
     border-right: 2px solid var(--gray-cl);
     background-color: var(--black-gray-cl);
 
@@ -28,7 +28,7 @@ header {
 
         span {
             display: -webkit-box;
-            width: 150px;
+            width: fit-content;
             color: var(--white-cl);
             font-weight: 600;
             overflow: hidden;
@@ -47,7 +47,10 @@ header {
 
         &:last-of-type {
             background-color: var(--red-cl);
-            margin-top: 276px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             opacity: .8;
 
             &:hover {

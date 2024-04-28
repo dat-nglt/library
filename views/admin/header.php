@@ -1,5 +1,5 @@
 <header>
-    <!-- <div >
+    <div>
         <a href="http://localhost/libary"><img src="./upload/logo-admin.png" alt=""><span>Trung tâm học liệu</span></a>
     </div>
     <ul>
@@ -18,8 +18,8 @@
         <a href="http://localhost/qlkh/src/index.php?act=charts">
             <li><i class="fa-solid fa-chart-simple icon"></i>Thống kê</li>
         </a>
-        <a href="http://localhost/qlkh/src/index.php?act=logout">
+        <a href="http://localhost/library?controller=user&action=logout">
             <li><i class="fa-solid fa-right-to-bracket fa-rotate-180 icon"></i>Đăng xuất</li>
         </a>
-    </ul> -->
+    </ul>
 </header>
