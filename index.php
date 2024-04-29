@@ -54,25 +54,30 @@ require './message.php';
 <body>
 
   <div class="container">
-    <?php
-    if (isset($_GET['controller'])) {
-      $controllerName = $_GET['controller'] . 'Controller';
-      // echo $controllerName;
-      if ($_GET['controller'] === 'user') {
-        require_once './views/user/header.php';
-      } else if ($_GET['controller'] === 'admin') {
-        require_once './views/admin/header.php';
-      }
-      $actionName = isset($_REQUEST['action']) ? strtolower($_REQUEST['action']) : 'index';
+      <?php
 
-      require_once "./controllers/" . $controllerName . ".php";
-      $controllerObject = new $controllerName;
-      $controllerObject->$actionName();
-    } else {
-      require_once './views/user/header.php';
-      require_once "./views/user/home.php";
-    }
-    ?>
+      if (isset($_GET['controller'])) {
+        $controllerName = $_GET['controller'] . 'Controller';
+        // echo $controllerName;
+        if ($_GET['controller'] === 'user') {
+          require_once './views/user/header.php';
+        } else if ($_GET['controller'] === 'admin') {
+          require_once './views/admin/header.php';
+        }
+        echo '<div class="background-container">';
+        $actionName = isset($_REQUEST['action']) ? strtolower($_REQUEST['action']) : 'index';
+
+        require_once "./controllers/" . $controllerName . ".php";
+        $controllerObject = new $controllerName;
+        $controllerObject->$actionName();
+      } else {
+        require_once './views/user/header.php';
+        echo '<div class="background-container">';
+        require_once "./views/user/home.php";
+      }
+      require_once './views/user/footer.php';
+      ?>
+    </div>
   </div>
 
 

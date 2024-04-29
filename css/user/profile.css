@@ -1,22 +1,17 @@
-.profile {
-  border-left: 1px solid var(--gray-white-cl);
-  border-right: 1px solid var(--gray-white-cl);
-  border-bottom: 1px solid var(--gray-white-cl);
+.profile-box {
   border-radius: 7px;
   overflow: hidden;
   width: fit-content;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 220px;
+  margin: 0 auto;
+  background-color: #fff;
 }
 
 #profile__title {
-  padding: 7px 7px 7px 10px;
+  padding: 15px 10px;
   font-weight: 700;
-  color: var(--white-cl);
+  color: var(--white-color);
   font-size: 23px;
-  background: var(--green-cl);
+  background: var(--green-color);
   text-transform: capitalize;
 }
 
@@ -28,8 +23,7 @@
   display: flex;
   min-width: 200px;
   flex-direction: column;
-  border-right: 1px solid
-    var(--gray-white-cl);
+  border-right: 1px solid var(--gray-white-cl);
   font-size: 18px;
 }
 
@@ -40,26 +34,19 @@
 }
 
 .profile .content .input-fields {
-  margin-bottom: 13px;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
-
 }
 
-.profile
-  .content
-  .input-fields
-  > label {
+.profile .content .input-fields > label {
   min-width: 180px;
   font-size: 17px;
   font-weight: 600;
   color: var(--gray--cl);
 }
 
-.profile
-  .content
-  .input-fields
-  > input {
+.profile .content .input-fields > input {
   flex: 1;
   /* border: 1px solid var(--gray-white-cl); */
   border: none;
@@ -71,17 +58,26 @@
 
 .profile__menu-option {
   padding: 5px 10px;
-  border-bottom: 1px solid
-    var(--gray-white-cl);
   font-size: 17px;
 }
+
+.profile__menu-option > a {
+  color: var(--black-cl);
+}
+
 .profile__menu-option:hover {
   cursor: pointer;
+  background: var(--orange-cl);
+}
+
+.profile__menu-option:hover > a {
   color: #fff;
-  background: var(--gray-white-cl);
 }
 
 .profile__menu-option--active {
   background: var(--orange-cl);
-  color: var(--white-cl);
+}
+
+.profile__menu-option--active > a {
+  color: #fff;
 }

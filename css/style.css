@@ -1,13 +1,14 @@
 * {
   padding: 0;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
 }
 
 :root {
-  --white-color: #E0DCDC;
-  --orange-color: #D7653B;
-  --green-color: #195F2D;
+  --white-color: #e0dcdc;
+  --orange-color: #d7653b;
+  --green-color: #195f2d;
   --border-radius: 5px;
   --white-cl: white;
   --black-cl: black;
@@ -29,4 +30,43 @@
 a {
   text-decoration: none;
   color: var(--white-color);
+}
+
+body {
+  background-color: var(--white-color);
+}
+
+.background-container {
+  position: relative;
+  top: 150px;
+  width: 100%;
+  height: fit-content;
+  padding: 20px 0px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+#header-for-all {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 10;
 }

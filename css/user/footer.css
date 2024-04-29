@@ -1,0 +1,33 @@
+.footer {
+  width: 80%;
+  height: fit-content;
+  margin: 30px auto 0;
+  background: #9ba3a7;
+  border-radius: 10px;
+  display: flex;
+  padding: 20px;
+  gap: 10px;
+}
+
+.footer .footer-subcontainer {
+  flex: 2;
+}
+
+.footer .footer-subcontainer.img {
+  padding: 10px;
+  flex: 1;
+}
+
+.footer .footer-subcontainer.img > img {
+  width: 80%;
+  aspect-ratio: 1/1;
+}
+
+.footer .footer-subcontainer > strong {
+  font-size: 16px;
+}
+
+.footer .footer-subcontainer > ul li {
+  font-size: 13px;
+  margin: 5px 0px 5px 5px;
+}

@@ -1,4 +1,4 @@
-<head>
+<div id="header-for-all">
   <div class="header top">
     <div class="sub-header-top">
       <div class="header-top-img"><img src="./upload/logo.png" alt=""></div>
@@ -37,4 +37,4 @@
       </div>
     </div>
   </div>
-</head>
+</div>

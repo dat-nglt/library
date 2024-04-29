@@ -44,9 +44,20 @@ class userController extends baseController
     return $this->loadview('general.login', []);
   }
 
-  public function profile() {
+  public function profile()
+  {
+    $_profilePage = isset($_GET['profilePage']) ? $_GET['profilePage'] : 'infoUser';
+
     return $this->loadview('user.profile', []);
-  }
+  } 
+
+  public function upload()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $file_url = $_POST['uploadURL'];
+        }
+        return $this->loadview('user.upload', []);
+    }
 }
 
 ?>

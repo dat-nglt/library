@@ -1,5 +1,6 @@
 .header.top {
-  background-color: var(--green-color);
+  padding: 12px;
+  background-color: var(--white-color);
 }
 
 .header-top-text {
@@ -11,12 +12,12 @@
 }
 
 .header-top-text > p {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
 }
 
 .header-top-text > strong {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 800;
 }
 
@@ -29,11 +30,13 @@
 }
 
 .sub-header-top .header-top-img img {
-  height: 100px;
-  padding: 17.5px 0;
+  height: 70px;
+  aspect-ratio: 1 /1;
 }
 
 .header.bottom {
+  position: sticky;
+  top: -1px;
   background: var(--green-color);
 }
 
@@ -43,8 +46,7 @@
   justify-content: space-between;
   width: 1200px;
   margin: 0 auto;
-  padding: 15px 0;
-  /* gap: 30px; */
+  padding: 10px 0;
 }
 
 .menu {

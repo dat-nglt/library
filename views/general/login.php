@@ -7,7 +7,6 @@ if (isset($data) && $data !== []) {
 }
 ?>
 
-<div class="background"></div>
 <div class="login">
   <form action="?controller=user&action=login" method="POST">
     <div class="input-field">
