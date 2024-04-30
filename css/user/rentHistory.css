@@ -1,0 +1,66 @@
+#rent-table {
+  border-collapse: collapse;
+}
+
+#rent-table th,
+td {
+  border: 1px solid #fff;
+  text-align: center;
+}
+
+#rent-table th {
+  padding: 2px 7px;
+  font-size: 14px;
+  background-color: #4ea25e !important;
+  color: #fff;
+}
+
+#rent-table td {
+  padding: 6px 10px;
+  font-size: 13px;
+  max-height: 10px;
+  max-width: 200px;
+  white-space: nowrap; /* Ngăn không cho chữ xuống dòng */
+  overflow: hidden; /* Ẩn nội dung vượt quá chiều rộng ô */
+  text-overflow: ellipsis; /* Hiển thị dấu ... thay cho nội dung vượt quá */
+}
+
+/* .hehe {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+} */
+
+/* Định dạng cho các hàng chẵn */
+#rent-table tr:nth-child(even) {
+  background-color: #e6e6e6; /* Màu nền cho hàng chẵn */
+  color: #333; /* Màu chữ cho hàng chẵn */
+}
+
+/* Định dạng cho các hàng lẻ */
+#rent-table tr:nth-child(odd) {
+  background-color: #d5d5d5; /* Màu nền cho hàng lẻ */
+  color: #333; /* Màu chữ cho hàng lẻ */
+}
+
+.number-page {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+}
+
+.number-page > a {
+  padding: 2px;
+  width: 20px;
+  height: 1 / 1;
+  border-radius: 3px;
+  text-align: center;
+  font-weight: 600;
+  color: #fff;
+  background: #919190;
+}
+
+.number-page > a:hover {
+  background-color: #1ca26d;
+}

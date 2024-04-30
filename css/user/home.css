@@ -1,14 +1,11 @@
 .user-search {
-  position: relative;
-  margin: 0 0 0 0;
-  top: 150px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 900px;
-  display: flex;
-  background: rgba(154, 143, 143, 0.80);
-  padding: 30px;
-  border-top: 8px var(--green-color) solid ;
+    margin: 0 auto;
+    left: 50%;
+    width: 900px;
+    display: flex;
+    background: rgba(154, 143, 143, 0.80);
+    padding: 30px;
+    border-top: 8px var(--green-color) solid;
 }
 
 .user-search-sub {

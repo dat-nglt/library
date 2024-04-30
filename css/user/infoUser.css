@@ -1,0 +1,68 @@
+#profile-box {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.profile .content .input-fields {
+  margin-bottom: 25px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  position: relative;
+}
+
+.profile
+  .content
+  .input-fields
+  > label {
+  min-width: 220px;
+  font-size: 16px;
+  background: #4ea25e;
+  padding: 5px 10px;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.profile
+  .content
+  .input-fields
+  > input {
+  flex: 1;
+  border: 1px solid var(--gray-white-cl);
+  padding: 5px 33px 5px 10px;
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+}
+
+#eye {
+  position: absolute;
+  right: 10px
+}
+
+.profile__menu-option {
+  padding: 5px 10px;
+  font-size: 17px;
+}
+
+.profile__menu > a {
+  color: var(--black-cl);
+}
+
+.profile__menu-option:hover {
+  cursor: pointer;
+  background: #4ea25e;
+}
+
+.profile__menu a:hover {
+  color: #fff;
+}
+
+.profile__menu-option--active {
+  background: #4ea25e;
+}
+
+.profile__menu-option--active {
+  color: #fff !important; /* Màu chữ xanh lá cây */
+}

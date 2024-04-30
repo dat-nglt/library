@@ -1,3 +1,4 @@
+
 <div id="header-for-all">
   <div class="header top">
     <div class="sub-header-top">
@@ -31,9 +32,13 @@
         </a>
       </div>
       <div class="header-login">
-        <a class="menu-item" href="?controller=user&action=login">
-          Đăng nhập
-        </a>
+        <?php
+        if (isset($_SESSION['user'])) {
+          echo '<a class="menu-item" href="?controller=user&action=profile&profilePage=infoUser">' . $_SESSION['user']['username'] . '</a>';
+        } else {
+          echo '<a class="menu-item" href="?controller=user&action=login">Đăng nhập</a>';
+        }
+        ?>
       </div>
     </div>
   </div>

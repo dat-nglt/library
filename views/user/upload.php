@@ -1,28 +1,51 @@
 <div class="background"></div>
 <div class="container upload">
     <div class="upload-file">
-        <form action="" method="post" enctype="multipart/form-data">
-            <div class="form-upload">
-                <div class="form-upload-sub">
-                    <label for="">Số phiếu</label>
-                    <input type="text" name="fileName" id="fileName">
-                    <label for="">Số thẻ</label>
-                    <input type="text" name="fileName" id="fileName">
-                    <label for="">Họ & tên</label>
-                    <input type="text" name="fileName" id="fileName">
-                </div>
-                <div class="form-upload-sub">
-                    <label for="">Số phiếu</label>
-                    <input type="text" name="fileName" id="fileName">
-                    <label for="">Số thẻ</label>
-                    <input type="text" name="fileName" id="fileName">
-                    <label for="">Tải lên tài liệu</label>
-                    <input type="file" name="fileToUpload" id="fileToUpload">
-                </div>
-            </div>
-            <button type="button" id="upload-file" name="upload" style="padding: 10px 30px; background:red;">
+        <div class="upload-sub-1">
+            <strong>Lưu ý:</strong>
+            <ul>
+                <li>- Tài liệu là 01 file luận văn hoàn chỉnh với định dạng .pdf có đầy đủ các nội dung (từ
+                    trang bìa - trang phụ lục).</li>
+                <li>- Các trường thông tin bắt buộc (*) phải điền đầy đủ.</li>
+                <li>- Tên file luận văn được đặt theo cú pháp: MSSV_Họ tên (VD: 2100143_TruongVanDat).</li>
+            </ul>
+        </div>
 
-        </form>
+        <div class="upload-sub-2">
+            <div id="profile__title">Upload tài liệu số</div>
+            <div class="form-upload">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="form-upload-sub">
+                        <div class="form-infor">
+                            <label for="">Số phiếu <span style="color: red;">*</span></label>
+                            <input type="text" name="fileName" id="fileName">
+                            <label for="">Số thẻ</label>
+                            <input type="text" name="fileName" id="fileName">
+                            <label for="">Tên tài liệu <span style="color: red;">*</span></label>
+                            <input type="text" name="fileName" id="fileName">
+                        </div>
+                        <div class="form-infor">
+                            <label for="">Họ & tên</label>
+                            <input type="text" name="fileName" id="fileName">
+                            <label for="">Email <span style="color: red;">*</span></label>
+                            <input type="text" name="fileName" id="fileName">
+                            <label for="">Điện thoại <span style="color: red;">*</span></label>
+                            <input type="text" name="fileName" id="fileName">
+                        </div>
+                    </div>
+    
+                    <div class="title-upload">
+                        <label for="">Tải lên tài liệu <span style="color: red;">*</span></label>
+                        <input type="file" name="fileToUpload" id="fileToUpload" style="padding: 10px 0">
+                    </div>
+    
+                    <div class="btn-upload">
+                        <button type="button" id="upload-file" name="upload"> <i
+                                class="fa-solid fa-cloud-arrow-up fa-lg"></i> GHI PHIẾU
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

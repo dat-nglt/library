@@ -1,20 +1,79 @@
 .upload-file {
-    position: relative;
-    margin: 0 0 0 0;
+    font-size: 14px;
+    display: flex;
+    margin: 0 auto;
     top: 150px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 50%;  
     width: fit-content;
     padding: 30px;
-    background: chocolate;  
+    background: whitesmoke;
+    gap: 30px;
+    box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.3);
   }
 
-.form-upload{
-    display: flex;
-    gap: 50px
+.form-upload {
+    padding: 25px 20px 10px 20px;
 }
 
-.form-upload-sub {
+.form-upload-sub{
+    display: flex;
+    gap: 50px;
+}
+
+.upload-sub-1 {
+    width: 240px;
+    border: 1px black solid;
+    padding: 10px 15px;
+}
+
+.upload-sub-1 > ul > li {
+    text-align: justify;
+    margin-bottom: 12px;
+}
+
+.upload-sub-2 {
+    border: 1px black solid;
+}
+
+.form-infor {
     display: flex;
     flex-direction: column;
+}
+
+.form-infor > input {
+    width: 300px;
+    padding: 8px 13px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px #dbdbdb solid;
+}
+
+
+.form-infor > label {
+    margin-bottom: 8px;
+}
+
+.title-upload {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-upload {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btn-upload > button{
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    border-radius: 3px;
+    border: 1px #333 solid;
+    font-weight: 600;
+    color: white;
+    padding: 8px 13px;
+    background-color: var(--orange-color);
+    margin: 20px 0;
 }

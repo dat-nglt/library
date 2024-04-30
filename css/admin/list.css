@@ -1,0 +1,301 @@
+.body__container {
+    display: flex;
+    background-color: var(--black-gray-cl);
+    height: 100vh;
+    color: var(--white-cl);
+
+    .list__container {
+        flex: 1;
+        padding: 10px 20px 20px;
+        margin-left: 241.8px;
+
+        div:first-of-type {
+            display: flex;
+            align-items: center;
+            margin: 0 0 5px 0;
+            gap: 10px;
+        }
+
+        span {
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 25px;
+        }
+
+        button {
+            color: white;
+            background-color: var(--blue-cl);
+            padding: 8px 13px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+
+            &:hover {
+                background-color: var(--blue-white-cl);
+            }
+        }
+
+        table {
+            width: -webkit-fill-available;
+            border: 5px solid var(--white-cl);
+            border-bottom: 2px solid var(--gray-cl);
+            border-collapse: collapse;
+
+            th,
+            td {
+                color: var(--black-cl);
+                text-align: center;
+                border: 1px solid var(--black-cl);
+            }
+
+            th {
+                color: var(--white-cl);
+                text-transform: uppercase;
+                font-weight: 600;
+                padding: 20px;
+                background-color: var(--gray-cl);
+            }
+
+            td {
+                padding: 10px;
+                background-color: var(--white-cl);
+            }
+
+            .list__hidden-text {
+                display: -webkit-box;
+                overflow: hidden;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                margin: 0;
+            }
+
+            .list__content td:last-of-type div {
+                display: flex;
+                justify-content: center;
+                gap: 25px;
+                margin: 0;
+                font-size: 15px;
+
+                .list__icon-edit {
+                    color: var(--green-cl);
+                }
+
+                .list__icon-del {
+                    color: var(--red-cl);
+                }
+
+                .list__action-btn{
+                    background-color: transparent !important;
+                    outline: 0;
+                    border: none;
+                }
+
+                i:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        legend {
+            font-weight: 500;
+        }
+
+        fieldset {
+            width: 300px;
+            padding: 1%;
+            background-color: transparent;
+            border-radius: 5px;
+
+            input[type="text"] {
+                padding: 2.9px;
+                width: 80%;
+                font-size: 15px;
+                outline: 0;
+                border-radius: 5px 0 0 5px;
+            }
+
+            button {
+                width: 15%;
+                padding: 1.3%;
+                font-size: 15px;
+                cursor: pointer;
+                background-color: var(--blue-white-cl);
+                color: var(--white-cl);
+                border: 0;
+                border-radius: 5px;
+            }
+
+            select {
+                width: 80%;
+                padding: 1%;
+                font-size: 15px;
+
+                option:checked {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .list__paging {
+            display: flex;
+            gap: 5px;
+            padding: 10px 5px;
+            background-color: var(--white-cl);
+
+            button {
+                border-radius: 4px;
+                color: var(--black-gray-cl);
+                padding: 6px 12px;
+                font-size: 15px;
+                cursor: pointer;
+                background-color: var(--gray-white-cl);
+                transition: all 0.1s linear;
+
+                &:hover {
+                    color: var(--white-cl);
+                    background-color: var(--blue-cl);
+                }
+            }
+            .button-current button{
+                color: var(--white-cl);
+                background-color: var(--blue-cl);
+            }
+         
+        }
+    }
+
+    .list__form-1,
+    .list__form {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+        backdrop-filter: blur(1px);
+
+        .list__form-add-1,
+        .list__form-add {
+            text-align: center;
+            color: var(--black-cl);
+            background-color: rgba(255, 255, 255, 1);
+
+            .list__form-title {
+                color: var(--white-cl);
+                position: relative;
+                padding: 25px 150px;
+                background-color: var(--blue-dark-cl);
+
+                .close-icon {
+                    background-color: var(--red-cl);
+                    padding: 10px 12px;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--red-black-cl);
+                    }
+                }
+
+                h1 {
+                    font-size: 35px;
+                    text-transform: uppercase;
+                }
+            }
+
+            .list__form-content {
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+
+                .list__form-box {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                    margin-bottom: 10px;
+
+                    .list__form-label {
+                        margin-bottom: 5px;
+                        font-size: 25px;
+                        font-weight: 600;
+                    }
+
+                    input,
+                    textarea {
+                        font-size: 16px;
+                        width: 100%;
+                        padding: 10px 5px;
+                        resize: none;
+                        border: 1px solid var(--black-gray-cl);
+                    }
+
+                    select {
+                        background-color: #ffffff;
+                        padding: 8px;
+                        font-size: 14px;
+                        width: 100%;
+                        cursor: pointer;
+
+                        &:focus {
+                            outline: none;
+                            border-color: #0066cc;
+                        }
+
+                        option {
+                            margin-top: 20px;
+                            word-wrap: break-word;
+                            font-size: 15px;
+                            color: var(--black-gray-cl);
+                        }
+                    }
+
+                    small {
+                        font-family: initial;
+                        font-weight: 400;
+                        color: var(--red-cl);
+                        margin: 5px 0;
+                    }
+                }
+            }
+
+            .list__form-btn {
+                display: flex;
+                justify-content: end;
+            }
+
+            button {
+                color: var(--white-cl);
+                background-color: var(--blue-white-cl);
+                padding: 10px 45px;
+                margin-right: 15px;
+                margin-bottom: 15px;
+                outline: none;
+                border: 0;
+                border-radius: 8px;
+                font-size: 18px;
+                cursor: pointer;
+                text-transform: uppercase;
+
+                &:hover {
+                    background-color: var(--blue-cl);
+                }
+
+                &:first-of-type {
+                    background-color: var(--red-black-cl);
+
+                    &:hover {
+                        background-color: var(--red-cl);
+                    }
+                }
+            }
+        }
+    }
+}

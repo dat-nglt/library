@@ -1,3 +1,7 @@
+@import "./infoUser.css";
+@import "./rentHistory.css";
+@import "./changePassword.css";
+
 .profile-box {
   border-radius: 7px;
   overflow: hidden;
@@ -8,11 +12,11 @@
 
 #profile__title {
   padding: 15px 10px;
-  font-weight: 700;
-  color: var(--white-color);
-  font-size: 23px;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 20px;
   background: var(--green-color);
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 .profile__container {
@@ -29,55 +33,7 @@
 
 .profile .content {
   padding: 15px 40px;
-  width: 500px;
+  width: 900px;
   height: fit-content;
 }
 
-.profile .content .input-fields {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-}
-
-.profile .content .input-fields > label {
-  min-width: 180px;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--gray--cl);
-}
-
-.profile .content .input-fields > input {
-  flex: 1;
-  /* border: 1px solid var(--gray-white-cl); */
-  border: none;
-  padding: 5px;
-  border-radius: 5px;
-  outline: none;
-  font-size: 17px;
-}
-
-.profile__menu-option {
-  padding: 5px 10px;
-  font-size: 17px;
-}
-
-.profile__menu-option > a {
-  color: var(--black-cl);
-}
-
-.profile__menu-option:hover {
-  cursor: pointer;
-  background: var(--orange-cl);
-}
-
-.profile__menu-option:hover > a {
-  color: #fff;
-}
-
-.profile__menu-option--active {
-  background: var(--orange-cl);
-}
-
-.profile__menu-option--active > a {
-  color: #fff;
-}

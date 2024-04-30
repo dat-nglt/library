@@ -7,8 +7,7 @@ if (isset($data) && $data !== []) {
 }
 ?>
 
-<div class="container home">
-  <div class="background"></div>
+<div class="home">
   <div class="user-search">
     <div class="user-search-sub">
       <select class="select-search" name="" id="">

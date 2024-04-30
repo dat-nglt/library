@@ -18,23 +18,23 @@ class userController extends baseController
   public function login()
   {
 
-    if (isset($_POST["login"])) {
-      $taiKhoan = $_POST["taiKhoan"];
-      $matKhau = $_POST["matKhau"];
-      $result = mysqli_fetch_assoc($this->userModel->getAccount($taiKhoan));
-      if ($result && password_verify($matKhau, $result['password'])) {
-        $_SESSION[$result['id']] = $result;
-        return $this->loadView('user.home', ['notification' => ['type' => 'success', 'message' => 'Đăng nhập thành công', 'link' => 'http://localhost/library']]);
-      } else {
-        return $this->loadview(
-          'general.login',
-          [
-            'notification' => ['type' => 'success', 'message' => 'Đăng nhập không thành công', 'link' => 'http://localhost/library/?controller=user&action=login']
-          ]
-        );
+      if (isset($_POST["login"])) {
+        $taiKhoan = $_POST["taiKhoan"];
+        $matKhau = $_POST["matKhau"];
+        $result = mysqli_fetch_assoc($this->userModel->getAccount($taiKhoan));
+        if ($result && password_verify($matKhau, $result['password'])) {
+          $_SESSION['user'] = $result;
+          return $this->loadView('user.home', ['notification' => ['type' => 'success', 'message' => 'Đăng nhập thành công', 'link' => 'http://localhost/libary/']]);
+        } else {
+          return $this->loadview(
+            'general.login',
+            [
+              'notification' => ['type' => 'success', 'message' => 'Đăng nhập không thành công', 'link' => 'http://localhost/libary/?controller=user&action=login']
+            ]
+          );
 
+        }
       }
-    }
     return $this->loadview('general.login', []);
   }
 
@@ -46,18 +46,18 @@ class userController extends baseController
 
   public function profile()
   {
-    $_profilePage = isset($_GET['profilePage']) ? $_GET['profilePage'] : 'infoUser';
+    // $_profilePage = isset($_GET['profilePage']) ? $_GET['profilePage'] : 'infoUser';
 
-    return $this->loadview('user.profile', []);
-  } 
+    return $this->loadview('user.profile.profile', []);
+  }
 
   public function upload()
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $file_url = $_POST['uploadURL'];
-        }
-        return $this->loadview('user.upload', []);
+  {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $file_url = $_POST['uploadURL'];
     }
+    return $this->loadview('user.upload', []);
+  }
 }
 
 ?>
