@@ -12,7 +12,7 @@
   }
 
 .form-upload {
-    padding: 25px 20px 10px 20px;
+    padding: 25px 24px 10px 24px;
 }
 
 .form-upload-sub{
@@ -21,9 +21,13 @@
 }
 
 .upload-sub-1 {
-    width: 240px;
+    width: 285px;
     border: 1px black solid;
-    padding: 10px 15px;
+
+}
+
+.upload-sub-1 > ul {
+    padding: 15px 20px;
 }
 
 .upload-sub-1 > ul > li {
@@ -32,6 +36,7 @@
 }
 
 .upload-sub-2 {
+    width: 700px;
     border: 1px black solid;
 }
 
@@ -77,3 +82,31 @@
     background-color: var(--orange-color);
     margin: 20px 0;
 }
+
+
+.table-upload {
+    width: -webkit-fill-available;
+    border-collapse: collapse;
+
+    th,
+    td {
+        color: var(--black-cl);
+        text-align: center;
+        border: 1px solid var(--black-cl);
+    }
+
+    th {
+        color: var(--white-cl);
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 10px;
+        background-color: var(--gray-cl);
+    }
+
+    td {
+        font-size: 13px;
+        padding: 3px;
+        background-color: var(--white-cl);
+    }
+}
+

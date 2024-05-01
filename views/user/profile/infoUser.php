@@ -5,31 +5,36 @@
   <div id="profile-box">
     <div class="input-fields">
       <label for="">Mã độc giả</label>
-      <input type="text" readonly value="2101364">
+      <input type="text" readonly value="<?= $_SESSION['user']['id'] ?>">
     </div>
     <div class="input-fields">
       <label for="">Họ và tên</label>
-      <input type="text" readonly value="Nguyễn Lê Tấn Đạt">
-    </div>
-    <div class="input-fields">
-      <label for="">Ngày sinh</label>
-      <input type="text" readonly value="20 / 04 / 2003">
-    </div>
-    <div class="input-fields">
-      <label for="">Số điện thoại</label>
-      <input type="text" readonly value="0397364664">
-    </div>
-    <div class="input-fields">
-      <label for="">Địa chỉ Gmail</label>
-      <input type="text" readonly value="dat.nglt@gmail.com">
-    </div>
-    <div class="input-fields">
-      <label for="">Số CCCD</label>
-      <input type="text" readonly value="089203002653">
+      <input type="text" readonly value="<?= $_SESSION['user']['fullName'] ?>">
     </div>
     <div class="input-fields">
       <label for="">Chi đoàn</label>
-      <input type="text" readonly value="Kỹ thuật phần mềm">
+      <input type="text" readonly value="<?= $_SESSION['user']['className'] ?>">
+    </div>
+    <div class="input-fields">
+      <label for="">Ngày sinh</label>
+      <input type="text" readonly value="<?= $_SESSION['user']['dateOfBirth'] ?>">
+    </div>
+    <div class="input-fields">
+      <label for="">Số điện thoại</label>
+      <input type="text" readonly value="<?= $_SESSION['user']['phoneNumber'] ?>">
+    </div>
+
+    <div class="input-fields">
+      <label for="">Email</label>
+      <input type="text" readonly value="<?= $_SESSION['user']['email'] ?>">
+    </div>
+    <div class="input-fields">
+      <label for="">Số CCCD</label>
+      <input type="text" readonly value="<?= $_SESSION['user']['identificationNumber'] ?>">
+    </div>
+    <div class="input-fields">
+      <label for="">Địa chỉ</label>
+      <input type="text" readonly value="<?= $_SESSION['user']['address'] ?>">
     </div>
   </div>
 </div>
