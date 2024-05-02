@@ -66,7 +66,14 @@ class userController extends baseController
   public function upload()
   {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-      $file_url = $_POST['uploadURL'];
+      $upload_url = $_POST['uploadURL'];
+      $tacGia = $_POST['creatorUpload'];
+      $nhanDe = $_POST['titleUpload'];
+      $email = $_POST['EmailUpload'];
+      $soDienThoai = $_POST['phoneNumberUpload'];
+      $id = $_SESSION['user']['id'];
+      $this->userModel->uploadFile($upload_url, $tacGia, $nhanDe, $email, $soDienThoai, $id);
+
     }
     return $this->loadview('user.upload', []);
   }

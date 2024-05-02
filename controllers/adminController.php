@@ -14,6 +14,11 @@ class adminController extends baseController
   {
     return $this->loadview('admin.home', []);
   }
+
+  public function account()
+  {
+    return $this->loadview('admin.account', []);
+  }
 }
 
 ?>

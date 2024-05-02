@@ -15,6 +15,13 @@ class userModel extends baseModel
     $query = $this->_query($sql);
     return $query;
   }
+
+  public function uploadFile($upload_url, $fileName, $tacGia, $nhanDe, $email, $soDienThoai, $idUser)
+  {
+      $sql = "INSERT INTO upload(uploadURL, fileName, timeUpload, creatorUpload, titleUpload, EmailUpload, phoneNumberUpload, idUser) VALUES ('$upload_url',  '$fileName', NOW(), '$tacGia', '$nhanDe', '$email', '$soDienThoai', '$idUser')";
+      $query = $this->_query($sql);
+      return $query;
+  }
 }
 ;
 ?>

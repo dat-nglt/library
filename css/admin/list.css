@@ -1,13 +1,13 @@
 .body__container {
   display: flex;
   background-color: var(--black-gray-cl);
-  height: 100vh;
+  min-height: 100vh;
   color: var(--white-cl);
 
   .list__container {
     flex: 1;
     padding: 10px 70px 20px;
-    margin-left: 241.8px;
+    margin-left: 246px;
 
     div:first-of-type {
       display: flex;
