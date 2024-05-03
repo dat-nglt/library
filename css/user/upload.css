@@ -45,7 +45,7 @@
     flex-direction: column;
 }
 
-.form-infor > input {
+.form-infor > input,select{
     width: 300px;
     padding: 8px 13px;
     margin-bottom: 15px;
@@ -87,26 +87,49 @@
 .table-upload {
     width: -webkit-fill-available;
     border-collapse: collapse;
-
+    
     th,
     td {
         color: var(--black-cl);
         text-align: center;
-        border: 1px solid var(--black-cl);
+        border: 1px solid #bebebe;
     }
 
     th {
+        font-size: 15px;
         color: var(--white-cl);
-        text-transform: uppercase;
-        font-weight: 600;
         padding: 10px;
         background-color: var(--gray-cl);
+        font-weight: 600;
     }
 
     td {
-        font-size: 13px;
-        padding: 3px;
+        font-size: 14px;
+        padding: 7px;
         background-color: var(--white-cl);
+    }
+
+    a{
+        color: var(--green-color);
+        font-weight: 700;
+    }
+
+    a:hover {
+        color: var(--orange-color);
+    }
+
+    button {
+        border: none;
+        color: var(--green-color);
+        cursor: pointer;
+    }
+
+    button:hover {
+        color: crimson;
+    }
+
+    i {
+        font-size: 15px;
     }
 }
 

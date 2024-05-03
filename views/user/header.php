@@ -18,7 +18,7 @@
         <a class="menu-item" href="">
           Tra cứu tài liệu
         </a>
-        <a class="menu-item" href="">
+        <a class="menu-item" href="?controller=user&action=upload">
           Upload tài liệu số
         </a>
         <a class="menu-item" href="">

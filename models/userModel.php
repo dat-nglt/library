@@ -9,18 +9,25 @@ class userModel extends baseModel
     return $query;
   }
 
-  public function changePassword($taiKhoan, $newPassword)
-  {
-    $sql = "UPDATE  user SET password = $newPassword WHERE username = '$taiKhoan';";
+  public function changePassword($id, $newPassword)
+  { 
+    $sql = "UPDATE `user` SET `password` = '$newPassword' WHERE `user`.`id` = $id;";
     $query = $this->_query($sql);
     return $query;
   }
 
-  public function uploadFile($upload_url, $fileName, $tacGia, $nhanDe, $email, $soDienThoai, $idUser)
+  public function uploadFile($upload_url, $tacGia, $nhanDe, $email, $loaiTaiLieu, $idUser)
   {
-      $sql = "INSERT INTO upload(uploadURL, fileName, timeUpload, creatorUpload, titleUpload, EmailUpload, phoneNumberUpload, idUser) VALUES ('$upload_url',  '$fileName', NOW(), '$tacGia', '$nhanDe', '$email', '$soDienThoai', '$idUser')";
-      $query = $this->_query($sql);
-      return $query;
+    $sql = "INSERT INTO upload(uploadURL, timeUpload, creatorUpload, titleUpload, EmailUpload, typeUpload, idUser) VALUES ('$upload_url', NOW(), '$tacGia', '$nhanDe', '$email', '$loaiTaiLieu', '$idUser')";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function uploadData($idUser)
+  {
+    $sql = "SELECT * FROM upload WHERE idUser = '$idUser'";
+    $query = $this->_query($sql);
+    return $query;
   }
 }
 ;

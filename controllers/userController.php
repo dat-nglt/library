@@ -46,36 +46,38 @@ class userController extends baseController
 
   public function profile()
   {
-    $profilePage = isset($_GET['profilePage']) ? $_GET['profilePage'] : 'info';
-    switch ($profilePage) {
-      case 'changePassword':
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-          $newPassword = $_POST['newPassword'];
-          echo $newPassword;
-          // $resultChangePassword = $this->userModel->changePassword($_SESSION['user']['newPassword'], $newPassword);
-          // if ($resultChangePassword) {
-          //   return $this->loadview('user.profile.profile', [
-          //     'notification' => ['type' => 'success', 'message' => 'Cập nhật mật khẩu thành công', 'link' => 'http://localhost/library/?controller=user&action=profile&profilePage=changePassword']
-          //   ]);
-          // }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $oldPassword = $_POST['oldPassword'];
+      $newPassword = $_POST['newPassword'];
+      if (password_verify($oldPassword, $_SESSION['user']['password'])) {
+        $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        if ($this->userModel->changePassword($_SESSION['user']['id'], $newHashedPassword)) {
+          http_response_code(200);
+        } else {
+          http_response_code(400);
         }
+      } else {
+        http_response_code(400);
+      }
     }
+
     return $this->loadview('user.profile.profile', []);
   }
+
 
   public function upload()
   {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $upload_url = $_POST['uploadURL'];
-      $tacGia = $_POST['creatorUpload'];
-      $nhanDe = $_POST['titleUpload'];
-      $email = $_POST['EmailUpload'];
-      $soDienThoai = $_POST['phoneNumberUpload'];
-      $id = $_SESSION['user']['id'];
-      $this->userModel->uploadFile($upload_url, $tacGia, $nhanDe, $email, $soDienThoai, $id);
+      $tacGia = $_POST['creator1'];
+      $nhanDe = $_POST['title1'];
+      $email = $_POST['email1'];
+      $loaiTaiLieu = $_POST['type1'];
+      $this->userModel->uploadFile($upload_url, $tacGia, $nhanDe, $email, $loaiTaiLieu, $_SESSION['user']['id']);
 
     }
-    return $this->loadview('user.upload', []);
+    $uploadData = mysqli_fetch_all($this->userModel->uploadData($_SESSION['user']['id']));
+    return $this->loadview('user.upload', $uploadData);
   }
 }
 

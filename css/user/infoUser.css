@@ -36,7 +36,7 @@
   font-size: 16px;
 }
 
-#eye {
+.eye-info {
   position: absolute;
   right: 10px
 }
