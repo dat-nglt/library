@@ -98,41 +98,40 @@
         ?> -->
                 </div>
     </div>
-    <!-- <div class="list__form">
+    <div class="list__form">
         <form action="" method="post" class="list__form-add" onsubmit="return checkEmptyInput()">
             <div class="list__form-title">
-                <h1>Thêm hàng hóa</h1><i class="fa-solid fa-xmark close-icon"
+                <h1>Thêm tài khoản</h1><i class="fa-solid fa-xmark close-icon"
                     onclick="return closeResetFormAdd()"></i>
             </div>
             <div class="list__form-content">
+                <div class="list__form-nav">
+                    <div>Thủ công</div>
+                    <div>File excel</div>
+                </div>
+                <div style="margin-left: 5px">
+                <div class="list__form-container-box">
                 <div class="list__form-box">
-                    <label for="category-name" class="list__form-label">Tên hàng hóa</label>
+                    <label for="category-name" class="list__form-label">MSSV</label>
                     <input type="text" class="list__form-input" name="name-product" id="category-name"
-                        onblur="return checkEmptyInput()" placeholder="Nhập tên hàng hóa">
+                        onblur="return checkEmptyInput()" placeholder="Nhập mã số sinh viên">
                     <small class="list__form-error-input"></small>
                 </div>
                 <div class="list__form-box">
-                    <label for="category-name" class="list__form-label">Danh mục</label>
-                    <select name="id-category" id="">
-                        <?php foreach ($listCategory as $key => $value) {
-                            extract($value);?>
-                            <option value="<?= $idCategory ?>"><?= $nameCategory ?></option>
-                        <?php }
-                        ?>
-                    </select>
+                    <label for="category-name" class="list__form-label">Họ tên sinh viên</label>
+                    <input type="text" class="list__form-input" name="name-product" id="category-name"
+                        onblur="return checkEmptyInput()" placeholder="Nhập họ tên sinh viên">
                     <small class="list__form-error-input"></small>
                 </div>
-                <div class="list__form-box">
-                    <label for="category-note" class="list__form-label">Ghi chú</label>
-                    <textarea name="note-product" class="list__form-textarea"
-                        id="category-note" cols="30" rows="10" placeholder="Nhập ghi chú"></textarea>
-                    <small class="list__form-error-textarea"></small>
+                </div>            
                 </div>
+                
             </div>
             <div class="list__form-btn">
                 <button type="button" class="close-btn" onclick="return closeFormAdd()">Đóng</button>
                 <button type="submit" name="add-product">Thêm</button>
             </div>
         </form>
-    </div> -->
+    </div>
 </div>
+<script src="./js/admin/openAdd.js"></script>

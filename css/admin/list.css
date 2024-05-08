@@ -6,7 +6,7 @@
 
   .list__container {
     flex: 1;
-    padding: 10px 70px 20px;
+    padding: 10px 40px 20px;
     margin-left: 246px;
 
     div:first-of-type {
@@ -22,7 +22,7 @@
     }
 
     button {
-      color: white;
+      color: var(--white-cl);
       background-color: var(--blue-cl);
       padding: 8px 13px;
       border: none;
@@ -154,7 +154,7 @@
         }
 
         option {
-          color: black;
+          color: var(--black-cl);
         }
 
         option:checked {
@@ -191,42 +191,40 @@
     }
   }
 
-  .list__form-1,
   .list__form {
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
     display: none;
     align-items: center;
     justify-content: center;
     z-index: 1;
     backdrop-filter: blur(1px);
 
-    .list__form-add-1,
     .list__form-add {
       text-align: center;
       color: var(--black-cl);
-      background-color: rgba(255, 255, 255, 1);
+      background-color: var(--white-cl);
 
       .list__form-title {
         color: var(--white-cl);
         position: relative;
-        padding: 25px 150px;
-        background-color: var(--blue-dark-cl);
+        padding: 15px 150px;
+        background-color: var(--blue-cl);
 
         .close-icon {
-          background-color: var(--red-cl);
-          padding: 10px 12px;
+          font-size: 25px;
+          padding: 8px 10px;
           position: absolute;
           right: 0;
           top: 0;
           cursor: pointer;
 
           &:hover {
-            background-color: var(--red-black-cl);
+            color: var(--gray-cl);
           }
         }
 
@@ -238,8 +236,28 @@
 
       .list__form-content {
         display: flex;
-        flex-direction: column;
-        padding: 10px;
+
+        .list__form-nav{
+          border-right: 1px solid var(--black-gray-cl);
+
+          > div{
+            text-transform: uppercase;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 10px;
+            cursor: pointer;
+
+            &:hover{
+              color: var(--blue-white-cl);
+            }
+          }
+        }
+        
+        .list__form-container-box{
+          display: grid;
+          grid-template-columns: 48% 48%;
+          grid-gap: 4%;
+        }
 
         .list__form-box {
           position: relative;
@@ -264,7 +282,7 @@
           }
 
           select {
-            background-color: #ffffff;
+            background-color: var(--white-cl);
             padding: 8px;
             font-size: 14px;
             width: 100%;
@@ -272,7 +290,7 @@
 
             &:focus {
               outline: none;
-              border-color: #0066cc;
+              border-color: var(--blue-white-cl);;
             }
 
             option {
