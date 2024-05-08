@@ -45,7 +45,8 @@
     flex-direction: column;
 }
 
-.form-infor > input,select{
+.form-infor > select,
+.form-infor > input{
     width: 300px;
     padding: 8px 13px;
     margin-bottom: 15px;

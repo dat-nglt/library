@@ -6,11 +6,11 @@
                     <span>Danh sách tài khoản</span><button onclick="return openFormAdd()" id="list__add-btn" type="button">Thêm
                     tài khoản</button>
                 </div>
-                <div style="display:flex; gap: 5px; justify-content: center; padding: 0 0 5px;">
+                <div style="display:flex; gap: 5px; justify-content: center; padding: 0 0 5px;align-items: center;">
                     <fieldset >
                         <legend>Tìm kiếm</legend>
                         <form action="" method="post" class="admin__form-search">
-                            <input type="text" placeholder="Mã số sinh viên, họ tên sinh viên">
+                            <input type="text" placeholder="MSSV, họ tên sinh viên">
                             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
                         </fieldset>
@@ -32,27 +32,27 @@
         <table>
             <tr>
                 <th style="width: 5%;">#</th>
-                <th style="width: 5%;">MSSV</th>
-                <th style="width: 35%;">Họ tên</th>
-                <th style="width: 8%;">SĐT</th>
+                <th style="width: 7%;">MSSV</th>
+                <th style="width: 30%;">Họ tên</th>
+                <th style="width: 10%;">SĐT</th>
                 <th style="width: 15%;">Email</th>
-                <th style="width: 25%;">Lớp</th>
+                <th style="width: 23%;">Lớp</th>
                 <th style="width: 10%;"></th>
             </tr>
-        <?php for ($i=1; $i <= 20; $i++) { ?>
+        <?php for ($i=1; $i <= 15; $i++) { ?>
             <tr class="list__content">
                 <td><?= $i ?></td>
                 <td>121111</td>
                 <td>
-                    <div class="list__hidden-text">123</div>
+                    <div class="list__hidden-text">Lê Nguyễn Minh Hòa</div>
                 </td>
                 
-                <td>12341111111</td>
+                <td>0836752979</td>
                 <td>
                     <div class="list__hidden-text">lnmhoa2101251@student.ctuet.edu.vnlnmhoa2101251@student.ctuet.edu.vn lnmhoa2101251@student.ctuet.edu.vn</div>
                 </td>
                 <td>
-                    <div class="list__hidden-text">123456</div>
+                    <div class="list__hidden-text">Kỹ Thuật Phần Mềm 0121</div>
                 </td>
                 <td>
                     <div>
