@@ -34,7 +34,7 @@
       <div class="header-login">
         <?php
         if (isset($_SESSION['user'])) {
-          echo '<a class="menu-item" href="?controller=user&action=profile&profilePage=infoUser">' . $_SESSION['user']['username'] . '</a>';
+          echo '<a class="menu-item" href="?controller=user&action=profile&profilePage=infoUser">' . $_SESSION['user']['studentCode'] . '</a>';
         } else {
           echo '<a class="menu-item" href="?controller=user&action=login">Đăng nhập</a>';
         }

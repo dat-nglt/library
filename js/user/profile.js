@@ -1,3 +1,5 @@
+console.log('hehe')
+
 document.addEventListener("DOMContentLoaded", function () {
   const inputPasswordProfile = document.querySelectorAll(
     ".input-password-profile"
@@ -21,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
         : "password";
       eye.classList.toggle("fa-eye-slash");
       eye.classList.toggle("fa-eye");
+      console.log(eye.classList);
     });
   });
 });

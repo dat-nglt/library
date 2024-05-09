@@ -38,10 +38,10 @@ body {
 
 .background-container {
   position: relative;
-  top: 150px;
+  top: 130px;
   width: 100%;
   height: fit-content;
-  padding: 20px 0px;
+  padding: 40px 0px 20px;
 }
 
 /* width */

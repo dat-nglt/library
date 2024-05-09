@@ -29,7 +29,7 @@ class userController extends baseController
         return $this->loadview(
           'general.login',
           [
-            'notification' => ['type' => 'success', 'message' => 'Đăng nhập không thành công', 'link' => 'http://localhost/library/?controller=user&action=login']
+            'notification' => ['type' => 'error', 'message' => 'Đăng nhập không thành công', 'link' => 'http://localhost/library/?controller=user&action=login']
           ]
         );
 
@@ -46,20 +46,28 @@ class userController extends baseController
 
   public function profile()
   {
+    $_SESSION['c'] = isset($_SESSION['c']) ? $_SESSION['c'] : 9;
+    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $oldPassword = $_POST['oldPassword'];
       $newPassword = $_POST['newPassword'];
+
       if (password_verify($oldPassword, $_SESSION['user']['password'])) {
         $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
         if ($this->userModel->changePassword($_SESSION['user']['id'], $newHashedPassword)) {
+          $_SESSION['c'] = 0;
+          $_SESSION['user']['password'] = $newHashedPassword;
           http_response_code(200);
         } else {
-          http_response_code(400);
+          $_SESSION['c'] = 2;
+          http_response_code(400); // Failure
         }
       } else {
-        http_response_code(400);
+        // $_SESSION['c'] = 1;
+        http_response_code(400); // Invalid old password
       }
     }
+
 
     return $this->loadview('user.profile.profile', []);
   }

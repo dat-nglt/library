@@ -65,7 +65,59 @@ if (isset($data) && $data !== []) {
   </div>
 
   <div class="book-news">
-    <div class="book-hot" style="border-right: 1px solid #333; padding: 5px 25px 0px 10px;">Điểm sách hay</div>
-    <div class="news-hot" style="padding: 5px 0px;">Tin tức - Event</div>
+    <div class="BN-title">
+      <div class="book-hot" style="border-right: 1px solid #333; padding: 5px 25px 0px 10px;">Điểm sách hay</div>
+      <div class="news-hot" style="padding: 5px 0px;">Tin tức - Event</div>
+    </div>
+
+    <!-- <div class="book-content">
+      <div class="gird-content">
+        <a href=""><img src="https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png"
+            alt="">Tớ Học Lập Trình
+          Làm Quen Với Python</a>
+        <a href=""><img src="https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png"
+            alt="">Tớ Học Lập Trình
+          Làm Quen Với Python</a>
+        <a href=""><img src="https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png"
+            alt="">Tớ Học Lập Trình
+          Làm Quen Với Python</a>
+        <a href=""><img src="https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png"
+            alt="">Tớ Học Lập Trình
+          Làm Quen Với Python</a>
+      </div>
+      <div class="gird-content">
+        <a href=""><img src="https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png"
+            alt="">Tớ Học Lập Trình
+          Làm Quen Với Python</a>
+        <a href=""><img src="https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png"
+            alt="">Tớ Học Lập Trình
+          Làm Quen Với Python</a>
+        <a href=""><img src="https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png"
+            alt="">Tớ Học Lập Trình
+          Làm Quen Với Python</a>
+        <a href=""><img src="https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png"
+            alt="">Tớ Học Lập Trình
+          Làm Quen Với Python</a>
+      </div>
+    </div> -->
+
+    <div class="news-content">
+      <div class="news-form">
+        <a href=""><img class="news-img" src="./upload/check-in.png" alt=""></a>
+        <div class="news-data">
+          <a href="" style="font-size: 16px; font-weight: 800;">Hướng Dẫn Check-In Khi Đến Thư Viện</a>
+          <div>
+            <span>Trương Văn Đạt</span>
+            <span>2601</span>
+            <span>26/01/20224</span>
+          </div>
+          <span>Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện</span>
+          <a href="">Xem thêm</a>
+        </div>
+      </div>
+
+    </div>
+
+    <a class="BN-viewAll" href="">Xem tất cả</a>
   </div>
 </div>
