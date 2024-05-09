@@ -29,7 +29,7 @@
 
 a {
   text-decoration: none;
-  color: var(--white-color);
+  /* color: var(--white-color); */
 }
 
 body {

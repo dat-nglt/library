@@ -1,11 +1,11 @@
 .user-search {
-    margin: 0 auto;
-    left: 50%;
-    width: 900px;
-    display: flex;
-    background: rgba(154, 143, 143, 0.80);
-    padding: 30px;
-    border-top: 8px var(--green-color) solid;
+  margin: 50px auto;
+  left: 50%;
+  width: 900px;
+  display: flex;
+  background: rgba(154, 143, 143, 0.8);
+  padding: 30px;
+  border-top: 8px var(--green-color) solid;
 }
 
 .user-search-sub {
@@ -15,14 +15,62 @@
   line-height: 29px;
   font-size: 18px;
   overflow: hidden;
-
-
 }
 .select-search,
 .input-search,
 #btn-search {
-    width: 100%;
-    padding: 15px 10px;
-    border: none;
-    outline: none;
+  width: 100%;
+  padding: 15px 10px;
+  border: none;
+  outline: none;
+}
+
+.book-data {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.book-data-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-data-content > a {
+  color: #32a452;
+  padding: 7px 35px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.book-data-title {
+  margin-bottom: 5px;
+  display: flex;
+  color: var(--green-color);
+  font-size: 18px;
+  font-weight: 700;
+  gap: 8px;
+  text-transform: uppercase;
+  align-items: center;
+}
+
+.view-all {
+  margin: 0 10px;
+}
+
+.book-news {
+  border-radius: 5px;
+  background: #c1bcbc;
+  margin: 0 auto;
+  width: 1200px;
+  display: flex;
+  gap: 25px;
+  padding: 5px 25px;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--green-color);
 }
