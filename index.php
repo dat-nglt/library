@@ -48,7 +48,7 @@ session_start();
       document.getElementsByClassName("pro-data")[0].innerHTML = '';
     }
   </script>
-
+ <link rel="shortcut icon" type="image/png" href="./upload/logo.png"/>
   <title>TRUNG TÂM HỌC LIỆU CTUT</title>
 </head>
 

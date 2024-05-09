@@ -101,31 +101,106 @@
     <div class="list__form">
         <form action="" method="post" class="list__form-add" onsubmit="return checkEmptyInput()">
             <div class="list__form-title">
-                <h1>Thêm tài khoản</h1><i class="fa-solid fa-xmark close-icon"
+                <span>Thêm tài khoản</span><i class="fa-solid fa-xmark close-icon"
                     onclick="return closeResetFormAdd()"></i>
             </div>
             <div class="list__form-content">
                 <div class="list__form-nav">
-                    <div>Thủ công</div>
-                    <div>File excel</div>
+                    <div class="list__nav-add-handmade nav-selected" onclick="changeFormHandmade()">Thủ công</div>
+                    <div class="list__nav-add-excel" onclick="changeFormExcel()">File excel</div>
                 </div>
-                <div style="margin-left: 5px">
+                <div class="list__add-handmade open" style="padding: 5px 5px;flex: 1;">
                 <div class="list__form-container-box">
                 <div class="list__form-box">
                     <label for="category-name" class="list__form-label">MSSV</label>
-                    <input type="text" class="list__form-input" name="name-product" id="category-name"
+                    <input type="number" class="list__form-input" name="name-product" id="category-name"
                         onblur="return checkEmptyInput()" placeholder="Nhập mã số sinh viên">
                     <small class="list__form-error-input"></small>
                 </div>
                 <div class="list__form-box">
-                    <label for="category-name" class="list__form-label">Họ tên sinh viên</label>
+                    <label for="category-name" class="list__form-label">Họ và tên</label>
                     <input type="text" class="list__form-input" name="name-product" id="category-name"
-                        onblur="return checkEmptyInput()" placeholder="Nhập họ tên sinh viên">
+                        onblur="return checkEmptyInput()" placeholder="Nhập họ và tên">
                     <small class="list__form-error-input"></small>
                 </div>
-                </div>            
+                </div>  
+                <div class="list__form-container-box">
+                <div class="list__form-box">
+                    <label for="category-name" class="list__form-label">Ngày sinh</label>
+                    <input type="date" class="list__form-input" name="name-product" id="category-name"
+                        onblur="return checkEmptyInput()" placeholder="Nhập ngày sinh">
+                    <small class="list__form-error-input"></small>
                 </div>
-                
+                <div class="list__form-box">
+                    <label for="category-name" class="list__form-label">Địa chỉ</label>
+                    <input type="text" class="list__form-input" name="name-product" id="category-name"
+                        onblur="return checkEmptyInput()" placeholder="Nhập địa chỉ">
+                    <small class="list__form-error-input"></small>
+                </div>
+                </div>  
+                <div class="list__form-container-box">
+                <div class="list__form-box">
+                    <label for="category-name" class="list__form-label">Số điện thoại</label>
+                    <input type="number" class="list__form-input" name="name-product" id="category-name"
+                        onblur="return checkEmptyInput()" placeholder="Nhập số điện thoại">
+                    <small class="list__form-error-input"></small>
+                </div>
+                <div class="list__form-box">
+                    <label for="category-name" class="list__form-label">Email</label>
+                    <input type="text" class="list__form-input" name="name-product" id="category-name"
+                        onblur="return checkEmptyInput()" placeholder="Nhập email">
+                    <small class="list__form-error-input"></small>
+                </div>
+                </div>  
+                <div class="list__form-container-box">
+                <div class="list__form-box">
+                    <label for="category-name" class="list__form-label">Số CCCD/CNND</label>
+                    <input type="number" class="list__form-input" name="name-product" id="category-name"
+                        onblur="return checkEmptyInput()" placeholder="Nhập số CCCD/CNND">
+                    <small class="list__form-error-input"></small>
+                </div>
+                <div class="list__form-box">
+                    <label for="category-name" class="list__form-label">Mật khẩu</label>
+                    <input type="text" class="list__form-input" name="name-product" id="category-name"
+                        onblur="return checkEmptyInput()" placeholder="Nhập lớp">
+                    <small class="list__form-error-input"></small>
+                </div>
+                </div> 
+                <div class="list__form-container-box" style="grid-template-columns: 25% 71%;">
+                <div class="list__form-box">
+                    <label for="category-name" class="list__form-label">Lớp</label>
+                    <select name="" id="" class="list__select-class" onchange="handleSelectClass()">
+                        <option value="0">Đã có</option>
+                        <option value="1">Thêm mới</option>
+                    </select>
+                </div>
+                <div class="list__form-box">
+                    <select name="" id="" class="list__select-class-select" style="margin-top: 27px; margin-bottom: 0;">
+                        <option value="0">KTPM0121</option>
+                        <option value="1">HTTT0121</option>
+                        <option value="2">KHDL0121</option>
+                        <option value="3">NNA0121</option>
+                    </select>
+                    <input type="text" class="list__select-class-input" style="margin-top: 27px; margin-bottom: 0; display:none" placeholder="Nhập lớp">
+                </div>
+                </div>      
+                </div>
+                <div class="list__add-file-excel close">
+                <div class="list__form-container-box">
+                <div class="list__form-box">
+                    <label for="category-name" class="list__form-label">MSSV</label>
+                    <input type="number" class="list__form-input" name="name-product" id="category-name"
+                        onblur="return checkEmptyInput()" placeholder="Nhập mã số sinh viên">
+                    <small class="list__form-error-input"></small>
+                </div>
+                <div class="list__form-box">
+                    <label for="category-name" class="list__form-label">Họ và tên</label>
+                    <input type="text" class="list__form-input" name="name-product" id="category-name"
+                        onblur="return checkEmptyInput()" placeholder="Nhập họ và tên">
+                    <small class="list__form-error-input"></small>
+                </div>
+                </div> 
+                </div>
             </div>
             <div class="list__form-btn">
                 <button type="button" class="close-btn" onclick="return closeFormAdd()">Đóng</button>
@@ -135,3 +210,4 @@
     </div>
 </div>
 <script src="./js/admin/openAdd.js"></script>
+<script src="./js/admin/changeDisplayAdd.js"></script>

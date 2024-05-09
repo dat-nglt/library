@@ -18,10 +18,10 @@
   --green-cl: rgb(3, 165, 3);
   --green-black-cl: rgb(14, 130, 14);
   --black-gray-cl: #2b2f32;
-  --blue-dark-cl: rgb(0, 61, 111);
+  --blue-dark-cl: rgb(0 63 115);
   --blue-cl: rgb(0, 122, 222);
   --blue-white-cl: rgb(18, 149, 255);
-  --orange-cl: rgb(255, 177, 8);
+  --orange-cl: rgb(255, 174, 0);
   --gray-cl: rgb(172, 172, 172);
   --gray-white-cl: rgb(198, 198, 198);
   --gray-black-cl: #2c3338;
@@ -64,6 +64,13 @@ body {
   background: #555;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    display: none;
+}
+
 #header-for-all {
   position: fixed;
   right: 0;
@@ -71,6 +78,18 @@ body {
   z-index: 10;
 }
 
-.open{
+.open-add-form{
   display: flex !important;
+}
+
+.open{
+  display: block !important;
+}
+
+.close{
+  display: none!important;
+}
+
+.nav-selected{
+  color: var(--orange-cl);
 }
