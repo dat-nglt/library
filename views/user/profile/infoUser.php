@@ -1,40 +1,49 @@
 <div class="content">
+<div id="profile__title">Thông tin cá nhân</div>
+
   <div class="avatar-box">
     </main>
   </div>
   <div id="profile-box">
-    <div class="input-fields">
-      <label for="">Mã độc giả</label>
-      <input type="text" readonly value="<?= $_SESSION['user']['id'] ?>">
+    <div class="sub-profile-box">
+      <div class="info-fields">
+        <label for="">Mã độc giả</label>
+        <input type="text" disabled value="<?= $_SESSION['user']['studentCode'] ?>">
+      </div>
+      <div class="info-fields">
+        <label for="">Họ và tên</label>
+        <input type="text" disabled value="<?= $_SESSION['user']['fullName'] ?>">
+      </div>
     </div>
-    <div class="input-fields">
-      <label for="">Họ và tên</label>
-      <input type="text" readonly value="<?= $_SESSION['user']['fullName'] ?>">
+    <div class="sub-profile-box">
+      <div class="info-fields">
+        <label for="">Chi đoàn</label>
+        <input type="text" disabled value="<?= $_SESSION['user']['className'] ?>">
+      </div>
+      <div class="info-fields">
+        <label for="">Ngày sinh</label>
+        <input type="text" disabled value="<?= $_SESSION['user']['dateOfBirth'] ?>">
+      </div>
     </div>
-    <div class="input-fields">
-      <label for="">Chi đoàn</label>
-      <input type="text" readonly value="<?= $_SESSION['user']['className'] ?>">
+    <div class="sub-profile-box">
+      <div class="info-fields">
+        <label for="">Số điện thoại</label>
+        <input type="text" disabled value="<?= $_SESSION['user']['phoneNumber'] ?>">
+      </div>
+      <div class="info-fields">
+        <label for="">Email</label>
+        <input type="text" disabled value="<?= $_SESSION['user']['email'] ?>">
+      </div>
     </div>
-    <div class="input-fields">
-      <label for="">Ngày sinh</label>
-      <input type="text" readonly value="<?= $_SESSION['user']['dateOfBirth'] ?>">
-    </div>
-    <div class="input-fields">
-      <label for="">Số điện thoại</label>
-      <input type="text" readonly value="<?= $_SESSION['user']['phoneNumber'] ?>">
-    </div>
-
-    <div class="input-fields">
-      <label for="">Email</label>
-      <input type="text" readonly value="<?= $_SESSION['user']['email'] ?>">
-    </div>
-    <div class="input-fields">
-      <label for="">Số CCCD</label>
-      <input type="text" readonly value="<?= $_SESSION['user']['identificationNumber'] ?>">
-    </div>
-    <div class="input-fields">
-      <label for="">Địa chỉ</label>
-      <input type="text" readonly value="<?= $_SESSION['user']['address'] ?>">
+    <div class="sub-profile-box">
+      <div class="info-fields">
+        <label for="">Số CCCD</label>
+        <input type="text" disabled value="<?= $_SESSION['user']['phoneNumber'] ?>">
+      </div>
+      <div class="info-fields">
+        <label for="">Địa chỉ</label>
+        <input type="text" disabled value="<?= $_SESSION['user']['email'] ?>">
+      </div>
     </div>
   </div>
 </div>

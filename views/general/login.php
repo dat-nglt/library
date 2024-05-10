@@ -47,18 +47,24 @@ if (isset($data) && $data !== []) {
     const loginBtn = document.querySelector('#loginBtn');
     const eye = document.querySelector('#eye');
     const passwordInput = document.querySelector('#matKhau');
+    const accountInput = document.querySelector('#taiKhoan');
     const errorInfo = document.querySelectorAll('.error-message');
 
+    
     inputLogin.forEach((input, index) => {
       input.addEventListener('blur', function () {
         errorInfo[index].style.display = input.value === "" ? "block" : "none";
       });
     });
-
+    
     inputLogin.forEach(element => {
       element.addEventListener('input', function () {
         loginBtn.disabled = Array.from(inputLogin).some(input => input.value === '');
       });
+    });
+    
+    accountInput.addEventListener('input', function (e) {
+      e.target.value = e.target.value.replace(/\D/g, '');
     });
 
     var show = false;

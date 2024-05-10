@@ -206,7 +206,7 @@
         .list__form-add {
             color: var(--black-cl);
             background-color: var(--white-cl);
-            min-height: 485px;
+            min-height: 465px;
             max-width: 677.84px;
             position: relative;
 
@@ -239,6 +239,7 @@
 
             .list__form-content {
                 display: flex;
+              
 
                 .list__add-handmade,
                 .list__add-file-excel{
@@ -246,8 +247,13 @@
                     flex: 1;
                 }
 
+                .list__add-handmade{
+                    padding: 10px 40px;
+                }
+
                 .list__form-nav {
-                    min-height: 361px;
+                    padding: 10px;
+                    min-height: 389px;
                     border-right: 1px solid var(--black-gray-cl);
 
                     > div {
@@ -265,8 +271,8 @@
 
                 .list__form-container-box {
                     display: grid;
-                    grid-template-columns: 30% 66%;
-                    grid-gap: 4%;
+                    grid-template-columns: 45% 45%;
+                    grid-gap: 10%;
 
                     .list__select-file {
                         display: none;
@@ -304,7 +310,6 @@
                     .list__form-label {
                         margin-bottom: 5px;
                         font-size: 15px;
-                        font-weight: 600;
                     }
 
                     .list__file-selected{
@@ -320,15 +325,23 @@
 
                     input,
                     textarea {
-                        font-size: 16px;
+                        font-size: 14px;
                         width: 100%;
                         padding: 6px;
                         resize: none;
                         border: 1px solid var(--black-gray-cl);
+                        outline: none;
+                        border-radius: 3px;
+
+                       
+                    } ::placeholder{
+                        font-size: 12px;
+                        font-style: italic;
                     }
 
                     input[type="date"] {
                         padding: 5px;
+                        border-radius: 3px;
                     }
 
                     select {

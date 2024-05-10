@@ -34,10 +34,10 @@
             <tr>
                 <th style="width: 5%;">#</th>
                 <th style="width: 7%;">MSSV</th>
-                <th style="width: 30%;">Họ tên</th>
+                <th style="width: 35%;">Họ tên</th>
                 <th style="width: 10%;">SĐT</th>
-                <th style="width: 15%;">Email</th>
-                <th style="width: 23%;">Lớp</th>
+                <th style="width: 25%;">Email</th>
+                <th style="width: 8%;">Lớp</th>
                 <th style="width: 10%;"></th>
             </tr>
             <?php for ($i = 1; $i <= 15; $i++) { ?>
@@ -50,11 +50,10 @@
 
                     <td>0836752979</td>
                     <td>
-                        <div class="list__hidden-text">lnmhoa2101251@student.ctuet.edu.vnlnmhoa2101251@student.ctuet.edu.vn
-                            lnmhoa2101251@student.ctuet.edu.vn</div>
+                        <div class="list__hidden-text">lnmhoa2101251@student.ctuet.edu.vn</div>
                     </td>
                     <td>
-                        <div class="list__hidden-text">Kỹ Thuật Phần Mềm 0121</div>
+                        <div class="list__hidden-text">KTPM0121</div>
                     </td>
                     <td>
                         <div>
@@ -154,16 +153,17 @@
                     <div class="list__form-container-box">
                         <div class="list__form-box">
                             <label for="category-name" class="list__form-label">Số CCCD/CNND</label>
-                            <input type="number" class="list__form-input" name="name-product" id="category-name"
-                                onblur="return checkEmptyInput()" placeholder="Nhập số CCCD/CNND">
+                            <input type="text" class="list__form-input" name="name-product" id="category-name"
+                                pattern="[0-9]+" oninvalid="setCustomValidity('Vui lòng chỉ nhập số')"
+                                oninput="setCustomValidity('')" placeholder="Nhập số CCCD/CNND">
                         </div>
                         <div class="list__form-box">
                             <label for="category-name" class="list__form-label">Mật khẩu</label>
-                            <input type="text" class="list__form-input" name="name-product" id="category-name"
-                                onblur="return checkEmptyInput()" placeholder="Nhập lớp">
+                            <input type="password" class="list__form-input" name="name-product" id="category-name"
+                                onblur="return checkEmptyInput()" placeholder="Nhập mật khẩu">
                         </div>
                     </div>
-                    <div class="list__form-container-box" style="grid-template-columns: 25% 71%;">
+                    <div class="list__form-container-box">
                         <div class="list__form-box">
                             <label for="category-name" class="list__form-label">Lớp</label>
                             <select name="" id="" class="list__select-class" onchange="handleSelectClass()">
@@ -187,12 +187,17 @@
                 <div class="list__add-file-excel close">
                     <div class="list__form-container-box" style="display: block; ">
                         <div class="list__form-box">
-                        <div class="list__select-file" style="display: block">
-                            <input type="file" class="list__form-input" name="img">
-                            <button class="button_change">Chọn tệp excel</button>
-                           
-                        </div>
-                        <div class="list__file-selected">File đã chọn: <span class="list__name-file-selected">ile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọn</span></div>
+                            <div class="list__select-file" style="display: block">
+                                <input type="file" class="list__form-input" name="img">
+                                <button class="button_change">Chọn tệp excel</button>
+                            </div>
+                            <div class="list__file-selected">File đã chọn: <span class="list__name-file-selected">ile đã
+                                    chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile
+                                    đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã
+                                    chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile
+                                    đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã
+                                    chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile đã chọnile
+                                    đã chọnile đã chọnile đã chọnile đã chọn</span></div>
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,8 @@
 <div class="profile">
   <div class="profile-box">
-    <div id="profile__title"> Thông tin bạn đọc</div>
     <div class="profile__container">
       <div class="profile__menu">
+        <div id="profile__title"> Hồ sơ bạn đọc</div>
         <a href="?controller=user&action=profile&profilePage=infoUser" class="profile__menu-option <?php if ((isset($_GET['profilePage']) && $_GET['profilePage'] == 'infoUser')) {
           echo 'profile__menu-option--active';
         } ?>">

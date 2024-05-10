@@ -106,10 +106,52 @@ if (isset($data) && $data !== []) {
         <a href=""><img class="news-img" src="./upload/check-in.png" alt=""></a>
         <div class="news-data">
           <a href="" style="font-size: 16px; font-weight: 800;">Hướng Dẫn Check-In Khi Đến Thư Viện</a>
-          <div>
-            <span>Trương Văn Đạt</span>
-            <span>2601</span>
-            <span>26/01/20224</span>
+          <div style="display: flex; gap: 40px">
+            <span> <i class="fa-solid fa-user"></i> Trương Văn Đạt</span>
+            <span> <i class="fa-solid fa-eye"></i> 2601</span>
+            <span> <i class="fa-solid fa-calendar-days"></i> 26/01/20224</span>
+          </div>
+          <span>Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện</span>
+          <a href="">Xem thêm</a>
+        </div>
+      </div>
+
+      <div class="news-form">
+        <a href=""><img class="news-img" src="./upload/check-in.png" alt=""></a>
+        <div class="news-data">
+          <a href="" style="font-size: 16px; font-weight: 800;">Hướng Dẫn Check-In Khi Đến Thư Viện</a>
+          <div style="display: flex; gap: 40px">
+            <span> <i class="fa-solid fa-user"></i> Trương Văn Đạt</span>
+            <span> <i class="fa-solid fa-eye"></i> 2601</span>
+            <span> <i class="fa-solid fa-calendar-days"></i> 26/01/20224</span>
+          </div>
+          <span>Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện</span>
+          <a href="">Xem thêm</a>
+        </div>
+      </div>
+
+      <div class="news-form">
+        <a href=""><img class="news-img" src="./upload/check-in.png" alt=""></a>
+        <div class="news-data">
+          <a href="" style="font-size: 16px; font-weight: 800;">Hướng Dẫn Check-In Khi Đến Thư Viện</a>
+          <div style="display: flex; gap: 40px">
+            <span> <i class="fa-solid fa-user"></i> Trương Văn Đạt</span>
+            <span> <i class="fa-solid fa-eye"></i> 2601</span>
+            <span> <i class="fa-solid fa-calendar-days"></i> 26/01/20224</span>
+          </div>
+          <span>Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện</span>
+          <a href="">Xem thêm</a>
+        </div>
+      </div>
+
+      <div class="news-form">
+        <a href=""><img class="news-img" src="./upload/check-in.png" alt=""></a>
+        <div class="news-data">
+          <a href="" style="font-size: 16px; font-weight: 800;">Hướng Dẫn Check-In Khi Đến Thư Viện</a>
+          <div style="display: flex; gap: 40px">
+            <span> <i class="fa-solid fa-user"></i> Trương Văn Đạt</span>
+            <span> <i class="fa-solid fa-eye"></i> 2601</span>
+            <span> <i class="fa-solid fa-calendar-days"></i> 26/01/20224</span>
           </div>
           <span>Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện</span>
           <a href="">Xem thêm</a>

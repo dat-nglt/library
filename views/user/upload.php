@@ -24,7 +24,7 @@
                     <div class="form-upload-sub">
                         <div class="form-infor">
                             <label for="">Số thẻ</label>
-                            <input type="text" readonly value="<?= $_SESSION['user']['studentCode'] ?>">
+                            <input type="text" disabled value="<?= $_SESSION['user']['studentCode'] ?>">
                             <label for="">Tác giả <span style="color: red;">*</span></label>
                             <input type="text" id="creator">
                             <label for="">Nhan đề <span style="color: red;">*</span></label>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-infor">
                             <label for="">Họ & tên</label>
-                            <input type="text" readonly value="<?= $_SESSION['user']['fullName'] ?>">
+                            <input type="text" disabled value="<?= $_SESSION['user']['fullName'] ?>">
                             <label for="">Email <span style="color: red;">*</span></label>
                             <input type="text" id="email">
                             <label for="">Loại tài liệu<span style="color: red;">*</span></label>

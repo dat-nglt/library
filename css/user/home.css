@@ -1,10 +1,9 @@
 .user-search {
-  margin: 50px auto;
+  margin: 30px auto;
   left: 50%;
-  width: 900px;
+  width: 1200px;
   display: flex;
   background: rgba(154, 143, 143, 0.8);
-  padding: 30px;
   border-top: 8px var(--green-color) solid;
 }
 
@@ -128,7 +127,7 @@
   margin: 0 auto;
   display: flex;
   gap: 30px;
-  padding: 25px;
+  padding: 25px 25px 0 25px;
 }
 
 .news-data {
