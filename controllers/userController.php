@@ -41,54 +41,33 @@ class userController extends baseController
   public function logout()
   {
     session_unset();
-    return $this->loadview('general.login', []);
+    echo "<script>window.location.href = '?controller=user&action=login';</script>";
   }
 
   public function profile()
   {
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $oldPassword = $_POST['oldPassword'];
-      $newPassword = $_POST['newPassword'];
-
-      if (password_verify($oldPassword, $_SESSION['user']['password'])) {
-        $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-        if ($this->userModel->changePassword($_SESSION['user']['id'], $newHashedPassword)) {
-          $_SESSION['user']['password'] = $newHashedPassword;
-          http_response_code(200);
-        } else {
-          http_response_code(400); // Failure
-        }
-      } else {
-        http_response_code(400); // Invalid old password
-      }
-    }
-
-    // Kiểm tra xem người dùng đã đăng nhập chưa
     if (isset($_SESSION['user'])) {
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $newPassword = $_POST['newPassword'];
-
         $oldPassword = $_POST['oldPassword'];
+        $newPassword = $_POST['newPassword'];
 
         if (password_verify($oldPassword, $_SESSION['user']['password'])) {
           $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
           if ($this->userModel->changePassword($_SESSION['user']['id'], $newHashedPassword)) {
             $_SESSION['user']['password'] = $newHashedPassword;
             http_response_code(200);
+          } else {
+            http_response_code(400);
           }
+        } else {
+          http_response_code(400);
         }
-      } else {
-        http_response_code(400);
       }
+
+      return $this->loadview('user.profile.profile', []);
     } else {
-      http_response_code(403);
+      echo "<script>window.location.href = '?controller=user&action=login';</script>";
     }
-
-
-
-    return $this->loadview('user.profile.profile', []);
   }
 
 
