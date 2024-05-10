@@ -1,7 +1,3 @@
-<?php
-echo ($_SESSION['c']);
-?>
-
 <div class="content">
   <div id="profile-box">
     <form action="">
@@ -87,41 +83,38 @@ echo ($_SESSION['c']);
         }).then(location.reload);
         return;
       }
-
-      $.ajax({
-        url: "?controller=user&action=profile",
-        type: "POST",
-        data: {
-          oldPassword: oldPassword,
-          newPassword: newPassword,
-          newPasswordConfirm: newPasswordConfirm,
+      fetch('?controller=user&action=profile&profilePage=changePassword', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
         },
-        success: function (result) {
-          Swal.fire({
-            title: "Thông báo",
-            text: "Cập nhật mật khẩu thành công!",
-            icon: "success",
-            showConfirmButton: true,
-          }).then(location.reload);
-        },
-        error: function (xhr) {
-          if (xhr.responseJSON && xhr.responseJSON.message) {
+        body: JSON.stringify({ oldPassword, newPassword })
+      })
+        .then(response => {
+          if (response.status === 200) {
             Swal.fire({
               title: "Thông báo",
-              text: xhr.responseJSON.message,
-              icon: "error",
+              text: "Cập nhật mật khẩu thành công",
+              icon: "success",
               showConfirmButton: true,
             }).then(location.reload);
           } else {
             Swal.fire({
               title: "Thông báo",
-              text: "Cập nhật mật khẩu không thành công",
-              icon: "error",
+              text: "Cập nhật mật khẩu không thành công!",
+              icon: "warning",
               showConfirmButton: true,
             }).then(location.reload);
           }
-        },
-      });
+        })
+        .catch(error => {
+          Swal.fire({
+            title: "Thông báo",
+            text: "Đã có lỗi xảy ra, vui lòng kiểm tra lại!",
+            icon: "info",
+            showConfirmButton: true,
+          }).then(location.reload);
+        });
     });
   });
 </script>

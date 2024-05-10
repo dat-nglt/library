@@ -46,8 +46,7 @@ class userController extends baseController
 
   public function profile()
   {
-    $_SESSION['c'] = isset($_SESSION['c']) ? $_SESSION['c'] : 9;
-    
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $oldPassword = $_POST['oldPassword'];
       $newPassword = $_POST['newPassword'];
@@ -55,18 +54,38 @@ class userController extends baseController
       if (password_verify($oldPassword, $_SESSION['user']['password'])) {
         $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
         if ($this->userModel->changePassword($_SESSION['user']['id'], $newHashedPassword)) {
-          $_SESSION['c'] = 0;
           $_SESSION['user']['password'] = $newHashedPassword;
           http_response_code(200);
         } else {
-          $_SESSION['c'] = 2;
           http_response_code(400); // Failure
         }
       } else {
-        // $_SESSION['c'] = 1;
         http_response_code(400); // Invalid old password
       }
     }
+
+    // Kiểm tra xem người dùng đã đăng nhập chưa
+    if (isset($_SESSION['user'])) {
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $newPassword = $_POST['newPassword'];
+
+        $oldPassword = $_POST['oldPassword'];
+
+        if (password_verify($oldPassword, $_SESSION['user']['password'])) {
+          $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+          if ($this->userModel->changePassword($_SESSION['user']['id'], $newHashedPassword)) {
+            $_SESSION['user']['password'] = $newHashedPassword;
+            http_response_code(200);
+          }
+        }
+      } else {
+        http_response_code(400);
+      }
+    } else {
+      http_response_code(403);
+    }
+
 
 
     return $this->loadview('user.profile.profile', []);
