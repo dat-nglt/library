@@ -33,89 +33,80 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const inputPasswordProfile = document.querySelectorAll(
-      ".input-password-profile"
-    );
+    const inputPasswordProfile = document.querySelectorAll(".input-password-profile");
     const updateBtn = document.querySelector("#updateBtn");
     const eyes = document.querySelectorAll(".eye-info");
     const errorInfo = document.querySelectorAll(".error-message-profile");
 
+    initErrorHandler();
+    initEyeClickHandler();
+    initUpdatePasswordHandler();
+  });
+
+  function initErrorHandler() {
     inputPasswordProfile.forEach((input, index) => {
       input.addEventListener("blur", function () {
         errorInfo[index].style.display = input.value === "" ? "block" : "none";
       });
     });
+  }
 
-    var showStatus = [false, false, false];
+  function initEyeClickHandler() {
+    const showStatus = new Array(eyes.length).fill(false);
     eyes.forEach((eye, index) => {
-      eye.addEventListener("click", function () {
+      eye.addEventListener("click", function (e) {
         showStatus[index] = !showStatus[index];
-        inputPasswordProfile[index].type = showStatus[index]
-          ? "text"
-          : "password";
-        eye.classList.toggle("fa-eye-slash");
-        eye.classList.toggle("fa-eye");
+        inputPasswordProfile[index].type = showStatus[index] ? "text" : "password";
+        e.target.classList.toggle("fa-eye-slash");
+        e.target.classList.toggle("fa-eye");
       });
     });
-  });
+  }
 
-  $(document).ready(function () {
+  function initUpdatePasswordHandler() {
     $("#updatePasswordBtn").on("click", function () {
       const oldPassword = $("#oldPassword").val();
       const newPassword = $("#newPassword").val();
       const newPasswordConfirm = $("#newPasswordConfirm").val();
 
       if (!oldPassword || !newPassword || !newPasswordConfirm) {
-        Swal.fire({
-          title: "Cảnh báo",
-          text: "Vui lòng điền đầy đủ thông tin!",
-          icon: "warning",
-          showConfirmButton: true,
-        }).then(location.reload);
+        showAlert("Vui lòng điền đầy đủ thông tin!", "warning");
         return;
       }
 
       if (newPassword !== newPasswordConfirm) {
-        Swal.fire({
-          title: "Cảnh báo",
-          text: "Nhập lại mật khẩu không trùng khớp!",
-          icon: "warning",
-          showConfirmButton: true,
-        }).then(location.reload);
+        showAlert("Nhập lại mật khẩu không trùng khớp!", "warning");
         return;
       }
-      fetch('?controller=user&action=profile&profilePage=changePassword', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ oldPassword, newPassword })
-      })
-        .then(response => {
-          if (response.status === 200) {
-            Swal.fire({
-              title: "Thông báo",
-              text: "Cập nhật mật khẩu thành công",
-              icon: "success",
-              showConfirmButton: true,
-            }).then(location.reload);
-          } else {
-            Swal.fire({
-              title: "Thông báo",
-              text: "Cập nhật mật khẩu không thành công!",
-              icon: "warning",
-              showConfirmButton: true,
-            }).then(location.reload);
-          }
-        })
-        .catch(error => {
-          Swal.fire({
-            title: "Thông báo",
-            text: "Đã có lỗi xảy ra, vui lòng kiểm tra lại!",
-            icon: "info",
-            showConfirmButton: true,
-          }).then(location.reload);
-        });
+      updatePassword(oldPassword, newPassword);
     });
-  });
+  }
+
+  function updatePassword(oldPassword, newPassword) {
+    fetch('?controller=user&action=profile&profilePage=changePassword', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ oldPassword, newPassword })
+    })
+      .then(response => {
+        const message = response.status === 200 ? "Cập nhật mật khẩu thành công" : "Cập nhật mật khẩu không thành công!";
+        const icon = response.status === 200 ? "success" : "warning";
+        showAlert(message, icon);
+      })
+      .catch(error => {
+        showAlert("Đã có lỗi xảy ra, vui lòng kiểm tra lại!", "info");
+      });
+  }
+
+  function showAlert(message, icon) {
+    Swal.fire({
+      title: "Thông báo",
+      text: message,
+      icon,
+      showConfirmButton: true,
+    }).then(location.reload);
+  }
+
 </script>

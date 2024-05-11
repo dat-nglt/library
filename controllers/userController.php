@@ -12,8 +12,59 @@ class userController extends baseController
   }
   public function index()
   {
-    return $this->loadview('user.home', []);
+    return $this->loadview('user.home', [
+      'data_1' => [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ]
+    ]);
   }
+
+  public function bookHot()
+  {
+    $books = [
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ]
+    ];
+
+    return $this->loadview('user.home', $books);
+  }
+
+  public function newshot()
+  {
+
+  }
+
 
   public function login()
   {

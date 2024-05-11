@@ -12,7 +12,7 @@
   <div class="header bottom">
     <div class="sub-header-bottom">
       <div class="menu">
-        <a class="menu-item" href="">
+        <a class="menu-item" href="/library">
           <i class="fa-solid fa-house-chimney" style="font-size: 20px"></i>
         </a>
         <a class="menu-item" href="">

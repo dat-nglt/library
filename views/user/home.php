@@ -1,10 +1,11 @@
 <?php
-if (isset($data) && $data !== []) {
+if (isset($data['notification']) && $data !== []) {
   $notificationType = $data['notification']['type'];
   $notificationMessage = $data['notification']['message'];
   $notificationLink = $data['notification']['link'];
   $notificationType($notificationMessage, $notificationLink);
 }
+
 ?>
 <div class="home">
   <div class="user-search">
@@ -66,11 +67,15 @@ if (isset($data) && $data !== []) {
 
   <div class="book-news">
     <div class="BN-title">
-      <div class="book-hot" style="border-right: 1px solid #333; padding: 5px 25px 0px 10px;">Điểm sách hay</div>
-      <div class="news-hot" style="padding: 5px 0px;">Tin tức - Event</div>
+      <a href="?controller=user&action=bookHot" class="BN-item" id="book-hot">Điểm sách hay</a>
+      <a href="?controller=user&action=newsHot" class="BN-item" id="news-hot">Tin tức - Event</a>
     </div>
 
-    <!-- <div class="book-content">
+    <div id="content">
+
+    </div>
+
+    <div class="book-content">
       <div class="gird-content">
         <a href=""><img src="https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png"
             alt="">Tớ Học Lập Trình
@@ -99,7 +104,7 @@ if (isset($data) && $data !== []) {
             alt="">Tớ Học Lập Trình
           Làm Quen Với Python</a>
       </div>
-    </div> -->
+    </div>
 
     <div class="news-content">
       <div class="news-form">
@@ -163,3 +168,22 @@ if (isset($data) && $data !== []) {
     <a class="BN-viewAll" href="">Xem tất cả</a>
   </div>
 </div>
+
+<script>
+
+  // const bookHotBtn = document.querySelector('#book-hot');
+  // const newsHotBtn = document.querySelector('#news-hot');
+  // const content = document.querySelector('#meme');
+
+  // function loadComponent1() {
+  //   fetch('?controller=user&action=bookhot')
+  //     .then(response => response.text())
+  //     .then(data => {
+  //       content.innerHTML = 'hehe';
+  //     })
+  //     .catch(error => console.log(error));
+  // }
+
+
+
+</script>

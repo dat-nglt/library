@@ -59,7 +59,6 @@ session_start();
 
     if (isset($_GET['controller'])) {
       $controllerName = $_GET['controller'] . 'Controller';
-      // echo $controllerName;
       if ($_GET['controller'] === 'user') {
         require_once './views/user/header.php';
         echo '<div class="background-container">';

@@ -4,7 +4,8 @@
   width: 1200px;
   display: flex;
   background: rgba(154, 143, 143, 0.8);
-  border-top: 8px var(--green-color) solid;
+  border-top: 8px var(--green-color)
+    solid;
 }
 
 .user-search-sub {
@@ -61,17 +62,29 @@
 }
 
 .BN-title {
-  border-radius: 5px;
-  background: #c1bcbc;
   margin: 0 auto;
   width: 1200px;
   display: flex;
-  gap: 25px;
   padding: 5px 25px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--green-color);
+  background: var(--green-color);
+  color: var(--white-color);
+}
+
+.BN-item {
+  padding: 5px 15px;
+  &:hover {
+    cursor: pointer;
+    color: var(--orange-color);
+    transition: color 0.2s ease;
+  }
+}
+
+.BN-item:first-child {
+  border-right: 2px solid
+    var(--green-color);
 }
 
 .gird-content > a {
@@ -144,3 +157,5 @@
   color: #333;
 }
 
+.BN-title {
+}
