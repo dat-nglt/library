@@ -70,11 +70,11 @@
   font-weight: 700;
   text-transform: uppercase;
   background: var(--green-color);
-  color: var(--white-color);
 }
 
 .BN-item {
   padding: 5px 15px;
+  color: var(--white-color);
   &:hover {
     cursor: pointer;
     color: var(--orange-color);
@@ -84,7 +84,11 @@
 
 .BN-item:first-child {
   border-right: 2px solid
-    var(--green-color);
+  var(--green-color);
+}
+
+.active-home-hot {
+  color: var(--orange-color);
 }
 
 .gird-content > a {
@@ -108,7 +112,6 @@
 .book-content {
   margin: 10px 0;
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
   justify-items: center;
   align-items: center;
 }

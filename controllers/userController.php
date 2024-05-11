@@ -55,14 +55,51 @@ class userController extends baseController
         'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
         'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
       ]
+
     ];
 
-    return $this->loadview('user.home', $books);
+    $componentName = 'homeHotBook';
+    return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
   }
 
   public function newshot()
   {
-
+    $news = [
+      [
+        'image' => './upload/check-in.png',
+        'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
+        'author' => 'Trương Văn Đạt',
+        'views' => 2601,
+        'date' => '26/01/2024',
+        'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
+      ],
+      [
+        'image' => './upload/check-in.png',
+        'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
+        'author' => 'Trương Văn Đạt',
+        'views' => 2601,
+        'date' => '26/01/2024',
+        'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
+      ],
+      [
+        'image' => './upload/check-in.png',
+        'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
+        'author' => 'Trương Văn Đạt',
+        'views' => 2601,
+        'date' => '26/01/2024',
+        'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
+      ],
+      [
+        'image' => './upload/check-in.png',
+        'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
+        'author' => 'Trương Văn Đạt',
+        'views' => 2601,
+        'date' => '26/01/2024',
+        'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
+      ],
+    ];
+    $componentName = 'homeHotNews';
+    return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $news]);
   }
 
 
