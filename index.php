@@ -71,9 +71,19 @@ session_start();
       $controllerObject = new $controllerName;
       $controllerObject->$actionName();
     } else {
-      require_once './views/user/header.php';
-      echo '<div class="background-container">';
-      require_once "./views/user/home.php";
+      // require_once './views/user/header.php';
+      // echo '<div class="background-container">';
+      // require_once "./views/user/home.php";
+      $controllerName = 'userController';
+      if ($controllerName === 'userController') {
+        require_once './views/user/header.php';
+        echo '<div class="background-container">';
+      }
+      $actionName = isset($_REQUEST['action']) ? strtolower($_REQUEST['action']) : 'index';
+
+      require_once "./controllers/" . $controllerName . ".php";
+      $controllerObject = new $controllerName;
+      $controllerObject->$actionName();
     }
     if ((isset($_GET['controller']) && $_GET['controller'] === 'user') || !isset($_GET['controller'])) {
       require_once './views/user/footer.php';

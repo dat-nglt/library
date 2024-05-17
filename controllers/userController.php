@@ -12,12 +12,46 @@ class userController extends baseController
   }
   public function index()
   {
-    return $this->loadview('user.home', [
-      'data_1' => [
+    $books = [
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
+        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
+        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
+      ],
+      [
         'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
         'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
       ]
-    ]);
+
+    ];
+
+    $componentName = 'homeHotBook';
+    return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
+
+
   }
 
   public function bookHot()
@@ -172,6 +206,13 @@ class userController extends baseController
     }
     $uploadData = mysqli_fetch_all($this->userModel->uploadData($_SESSION['user']['id']));
     return $this->loadview('user.upload', $uploadData);
+  }
+
+  public function book_detail()
+  {
+    $uploadData = mysqli_fetch_all($this->userModel->getOneBook($_SESSION['user']['id']));
+    $this->loadview('user.book-detail');
+
   }
 }
 

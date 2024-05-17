@@ -1,4 +1,4 @@
-<div class="background"></div>
+
 <div class="container upload">
     <div class="upload-file">
         <div class="upload-sub-1">
@@ -120,7 +120,7 @@
                         type: 'POST',
                         url: '?controller=user&action=upload',
                         data: postData,
-                        success: function (data) {
+                        success: function (data) {  
                             Swal.fire({
                                 title: "Thông báo",
                                 text: "Upload tài liệu thành công",
