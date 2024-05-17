@@ -30,6 +30,13 @@ class userModel extends baseModel
     return $query;
   }
 
+  public function getAllBook()
+  {
+    $sql = "SELECT * FROM book";
+    $query = $this->_query($sql);
+    return $query;
+  }           
+
   public function getOneBook($id)
   {
     $sql = "SELECT * FROM book LEFT JOIN upload ON book.idBook = upload.idBook WHERE book.idBook = '$id'";
@@ -37,5 +44,5 @@ class userModel extends baseModel
     return $query;
   }
 }
-;
+
 ?>

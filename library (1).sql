@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 17, 2024 lúc 03:15 AM
+-- Thời gian đã tạo: Th5 17, 2024 lúc 03:04 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -29,30 +29,35 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `book` (
   `idBook` int(10) NOT NULL,
+  `nameBook` varchar(100) NOT NULL,
+  `imgBook` varchar(255) NOT NULL,
   `typeBook` varchar(50) NOT NULL,
   `typeDocument` varchar(50) NOT NULL,
   `creatorBook` varchar(50) NOT NULL,
   `dateBook` year(4) NOT NULL,
-  `desBook` varchar(500) NOT NULL,
-  `nameBook` varchar(255) DEFAULT NULL
+  `desBook` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `book`
 --
 
-INSERT INTO `book` (`idBook`, `typeBook`, `typeDocument`, `creatorBook`, `dateBook`, `desBook`, `nameBook`) VALUES
-(1, 'Sách in, sách điện tử', 'Bài giảng', 'Lê Nguyễn Minh Hoà', '2020', '250 tr.', NULL),
-(2, 'Sách in, sách điện tử', 'Sách học', 'Eric Matthes', '2019', '560 tr.', NULL),
-(3, 'Sách in, sách điện tử', 'Sách học', 'Robert C. Martin', '2008', '432 tr.', NULL),
-(4, 'Sách in, sách điện tử', 'Sách học', 'Andrew Hunt, David Thomas', '1999', '352 tr.', NULL),
-(5, 'Sách in, sách điện tử', 'Sách giáo trình', 'Thomas H. Cormen, Charles E. Leiserson, Ronald L. ', '2009', '1312 tr.', NULL),
-(6, 'Sách in, sách điện tử', 'Sách học', 'Erich Gamma, Richard Helm, Ralph Johnson, John Vli', '1994', '395 tr.', NULL),
-(7, 'Sách in, sách điện tử', 'Sách kinh doanh', 'Eric Ries', '2011', '336 tr.', NULL),
-(8, 'Sách in, sách điện tử', 'Sách học', 'Gayle Laakmann McDowell', '2015', '687 tr.', NULL),
-(9, 'Sách in, sách điện tử', 'Sách học', 'Ian Goodfellow, Yoshua Bengio, Aaron Courville', '2016', '800 tr.', NULL),
-(10, 'Sách in, sách điện tử', 'Sách giáo trình', 'Brian W. Kernighan, Dennis M. Ritchie', '1988', '288 tr.', NULL),
-(11, 'Sách in, sách điện tử', 'Sách học', 'Eric Freeman, Elisabeth Robson, Bert Bates, Kathy ', '2004', '676 tr.', NULL);
+INSERT INTO `book` (`idBook`, `nameBook`, `imgBook`, `typeBook`, `typeDocument`, `creatorBook`, `dateBook`, `desBook`) VALUES
+(12, 'Introduction to Python Programming', '', 'Sách in, sách điện tử', 'Sách học', 'John Doe', '2022', '500 tr.'),
+(13, 'The Art of War', '', 'Sách in, sách điện tử', 'Sách chiến lược', 'Sun Tzu', '0000', '256 tr.'),
+(14, 'The Great Gatsby', '', 'Sách in, sách điện tử', 'Tiểu thuyết', 'F. Scott Fitzgerald', '1925', '180 tr.'),
+(15, '1984', '', 'Sách in, sách điện tử', 'Tiểu thuyết', 'George Orwell', '1949', '328 tr.'),
+(16, 'To Kill a Mockingbird', '', 'Sách in, sách điện tử', 'Tiểu thuyết', 'Harper Lee', '1960', '281 tr.'),
+(17, 'Pride and Prejudice', '', 'Sách in, sách điện tử', 'Tiểu thuyết', 'Jane Austen', '0000', '432 tr.'),
+(18, 'The Catcher in the Rye', '', 'Sách in, sách điện tử', 'Tiểu thuyết', 'J.D. Salinger', '1951', '224 tr.'),
+(19, 'Harry Potter and the Sorcerer\'s Stone', '', 'Sách in, sách điện tử', 'Tiểu thuyết', 'J.K. Rowling', '1997', '309 tr.'),
+(20, 'The Hobbit', '', 'Sách in, sách điện tử', 'Tiểu thuyết', 'J.R.R. Tolkien', '1937', '310 tr.'),
+(21, 'The Lord of the Rings', '', 'Sách in, sách điện tử', 'Tiểu thuyết', 'J.R.R. Tolkien', '1954', '1178 tr.'),
+(22, 'The Alchemist', '', 'Sách in, sách điện tử', 'Tiểu thuyết', 'Paulo Coelho', '1988', '208 tr.'),
+(23, 'Crime and Punishment', '', 'Sách in, sách điện tử', 'Tiểu thuyết', 'Fyodor Dostoevsky', '0000', '671 tr.'),
+(24, 'The Odyssey', '', 'Sách in, sách điện tử', 'Sách thi ca', 'Homer', '2008', '541 tr.'),
+(25, 'The Little Prince', '', 'Sách in, sách điện tử', 'Tiểu thuyết', 'Antoine de Saint-Exupéry', '1943', '96 tr.'),
+(26, 'The Chronicles of Narnia', '', 'Sách in, sách điện tử', 'Tiểu thuyết', 'C.S. Lewis', '1950', '769 tr.');
 
 -- --------------------------------------------------------
 
@@ -135,7 +140,7 @@ INSERT INTO `user` (`id`, `studentCode`, `password`, `fullName`, `dateOfBirth`, 
 --
 ALTER TABLE `book`
   ADD PRIMARY KEY (`idBook`),
-  ADD UNIQUE KEY `nameBook` (`nameBook`);
+  ADD UNIQUE KEY `tenSach` (`nameBook`);
 
 --
 -- Chỉ mục cho bảng `google_account`
@@ -165,7 +170,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `book`
 --
 ALTER TABLE `book`
-  MODIFY `idBook` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idBook` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT cho bảng `google_account`
@@ -193,8 +198,7 @@ ALTER TABLE `user`
 -- Các ràng buộc cho bảng `upload`
 --
 ALTER TABLE `upload`
-  ADD CONSTRAINT `upload_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `upload_ibfk_2` FOREIGN KEY (`idBook`) REFERENCES `book` (`idBook`);
+  ADD CONSTRAINT `upload_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

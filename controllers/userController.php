@@ -12,85 +12,19 @@ class userController extends baseController
   }
   public function index()
   {
-    $books = [
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ]
 
-    ];
+    $books = mysqli_fetch_all($this->userModel->getAllBook());
 
     $componentName = 'homeHotBook';
-    return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
+    $componentDatas = ['books' => $books]; // Đặt dữ liệu vào một mảng với khóa 'books'
+    return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $componentDatas]);
 
 
   }
 
   public function bookHot()
   {
-    $books = [
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ],
-      [
-        'image' => 'https://res.cloudinary.com/ctuetdig/image/upload/v1599548496/To_hoc_lap_trinh_d5t64o.png',
-        'title' => 'Tớ Học Lập Trình Làm Quen Với Python'
-      ]
-
-    ];
+    $books = mysqli_fetch_all($this->userModel->getAllBook());
 
     $componentName = 'homeHotBook';
     return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
