@@ -68,9 +68,8 @@ if (isset($data['notification']) && $data !== []) {
   <div class="book-news">
     <div class="BN-title">
       <?php
-      $currentUrl = $_SERVER['REQUEST_URI'];
-      echo '<a href="?controller=user&action=bookHot" class="BN-item' . ($currentUrl == '/library/?controller=user&action=bookHot' ? 'active-home-hot' : '') . '" id="book-hot">Điểm sách hay</a>';
-      echo '<a href="?controller=user&action=newsHot" class="BN-item' . ($currentUrl == '/library/?controller=user&action=newsHot' ? 'active-home-hot' : '') . '" id="news-hot">Tin tức - Event</a>';
+      echo '<a href="?controller=user&action=bookHot" class="BN-item" id="book-hot">Điểm sách hay</a>';
+      echo '<a href="?controller=user&action=newsHot" class="BN-item" id="news-hot">Tin tức - Event</a>';
       ?>
     </div>
 
@@ -85,4 +84,18 @@ if (isset($data['notification']) && $data !== []) {
 </div>
 
 <script>
+  const currentURL = window.location.href;
+  const BNitem = document.querySelectorAll('.BN-item');
+
+  console.log(currentURL);
+
+  for (const [key, item] of Object.entries(BNitem)) {
+    if (currentURL.includes(item.href)) {
+      item.classList.toggle('active-home-hot');
+    }
+    else if (currentURL == 'http://localhost/library/') {
+      BNitem[0].classList.add('active-home-hot');
+    }
+  }
+
 </script>
