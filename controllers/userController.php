@@ -13,21 +13,20 @@ class userController extends baseController
   public function index()
   {
 
-    $books = mysqli_fetch_all($this->userModel->getAllBook());
+    $books = $this->userModel->getAllBook();
 
     $componentName = 'homeHotBook';
-    $componentDatas = ['books' => $books]; // Đặt dữ liệu vào một mảng với khóa 'books'
-    return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $componentDatas]);
+    return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
 
 
   }
 
   public function bookHot()
   {
-    $books = mysqli_fetch_all($this->userModel->getAllBook());
+    $books = $this->userModel->getAllBook();
 
     $componentName = 'homeHotBook';
-    return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
+     $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
   }
 
   public function newshot()
@@ -131,22 +130,26 @@ class userController extends baseController
   {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $upload_url = $_POST['uploadURL'];
-      $tacGia = $_POST['creator1'];
       $nhanDe = $_POST['title1'];
-      $email = $_POST['email1'];
       $loaiTaiLieu = $_POST['type1'];
-      $this->userModel->uploadFile($upload_url, $tacGia, $nhanDe, $email, $loaiTaiLieu, $_SESSION['user']['id']);
+      $this->userModel->uploadFile($upload_url, $nhanDe, $loaiTaiLieu, $_SESSION['user']['id']);
 
     }
-    $uploadData = mysqli_fetch_all($this->userModel->uploadData($_SESSION['user']['id']));
-    return $this->loadview('user.upload', $uploadData);
+    $uploadData = $this->userModel->uploadData($_SESSION['user']['id']);
+    $typeData = $this->userModel->getDataType();
+    return $this->loadview('user.upload', ['uploadData' => $uploadData, 'typeData' => $typeData]);
   }
 
   public function book_detail()
   {
-    $uploadData = mysqli_fetch_all($this->userModel->getOneBook($_SESSION['user']['id']));
-    $this->loadview('user.book-detail');
+    $id = $_GET['id'];
+    $getOneBook = $this->userModel->getOneBook($id);
 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $this->userModel->requestBook($_SESSION['user']['id'], $id);
+    }
+    
+    return $this->loadview('user.book-detail', ['bookData' => $getOneBook]);
   }
 }
 

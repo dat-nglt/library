@@ -107,6 +107,7 @@
     td {
         font-size: 14px;
         padding: 7px;
+        font-weight: 500;
         background-color: var(--white-cl);
     }
 

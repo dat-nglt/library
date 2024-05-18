@@ -75,7 +75,7 @@ if (isset($data['notification']) && $data !== []) {
 
     <div id="content">
       <?php
-      // $data['componentName'] = isset($data['componentName']) ? $data['componentName'] : 'homeHotBook';
+      $data['componentName'] = isset($data['componentName']) ? $data['componentName'] : 'home';
       require_once './views/user/' . $data['componentName'] . '.php'
         ?>
     </div>

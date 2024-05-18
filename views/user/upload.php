@@ -1,4 +1,3 @@
-
 <div class="container upload">
     <div class="upload-file">
         <div class="upload-sub-1">
@@ -25,31 +24,26 @@
                         <div class="form-infor">
                             <label for="">Số thẻ</label>
                             <input type="text" disabled value="<?= $_SESSION['user']['studentCode'] ?>">
-                            <label for="">Tác giả <span style="color: red;">*</span></label>
-                            <input type="text" id="creator">
                             <label for="">Nhan đề <span style="color: red;">*</span></label>
                             <input type="text" id="title">
                         </div>
                         <div class="form-infor">
                             <label for="">Họ & tên</label>
                             <input type="text" disabled value="<?= $_SESSION['user']['fullName'] ?>">
-                            <label for="">Email <span style="color: red;">*</span></label>
-                            <input type="text" id="email">
                             <label for="">Loại tài liệu<span style="color: red;">*</span></label>
                             <select id="type">
-                                <option value="1">Bài giảng</option>
-                                <option value="2">Giáo trình</option>
-                                <option value="3">Đề tài NCKH</option>
-                                <option value="4">Luận văn</option>
-                                <option value="5">Luận án</option>
-                                <option value="6">Tiểu luận/ĐATN</option>
+                                <?php foreach ($data['typeData'] as $type) {
+                                    ?>
+                                    <option value="<?= $type['idCategory'] ?>"><?= $type['nameCategory'] ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>
 
                     <div class="title-upload">
                         <label for="">Tải lên tài liệu <span style="color: red;">*</span></label>
-                        <input type="file" name="fileName" id="fileName" accept="application/pdf" style="padding: 10px 0">
+                        <input type="file" name="fileName" id="fileName" accept="application/pdf"
+                            style="padding: 10px 0">
                     </div>
 
                     <div class="btn-upload">
@@ -63,18 +57,21 @@
                 <table class="table-upload">
                     <tr>
                         <th style="width: 5%">#</th>
-                        <th style="width: 50%">File dữ liệu số</th>
-                        <th style="width: 40%">Tác giả</th>
+                        <th style="width: 60%">File tài liệu số</th>
+                        <th style="width: 30%">Loại tài liệu</th>
                         <th style="width: 5%"></th>
                     </tr>
-                    <?php foreach ($data as $key => $upload) {
+
+                    <?php foreach ($data['uploadData'] as $key => $upload) {
                         ?>
                         <tr>
                             <td><?= $key + 1 ?></td>
-                            <td><a href="<?= $upload[1] ?>"><?= $upload[2] ?>.pdf</a></td>
-                            <td><?= $upload[3] ?></td>
+                            <td><a href="<?= $upload['uploadURL'] ?>" target="_blank"><?= $upload['titleUpload'] ?>.pdf</a>
+                            </td>
+                            <td><?= $upload['nameCategory'] ?></td>
                             <td>
-                                <button name="delete" id="<?= $upload[0] ?>"><i class="fa-regular fa-trash-can"></i></button>
+                                <button type="button" name="delete" class="delete-btn" data-id="<?= $upload['idUpload'] ?>"><i
+                                        class="fa-regular fa-trash-can"></i></button>
                             </td>
                         </tr>
                     <?php } ?>
@@ -85,75 +82,6 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $.cloudinary.config({
-            cloud_name: 'dfjcxmlot',
-            api_key: '228961218815535',
-            api_secret: 'gpjAXY5kGhg40Hd5adbcMUIeV84'
-        });
-        $('#upload-file').click(function () {
-            var file = $('#fileName')[0].files[0];
-            var email = $('#email').val();
-            var creator = $('#creator').val();
-            var title = $('#title').val();
-            var type = $('#type').val();
-            var formData = new FormData();
-            formData.append('file', file);
-            formData.append('upload_preset', "library_CTUT");
+<script src="./js/user/upload.js"></script>
 
-            $.ajax({
-                url: 'https://api.cloudinary.com/v1_1/dfjcxmlot/auto/upload',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    var postData = {
-                        uploadURL: response.secure_url,
-                        type1: type,
-                        email1: email,
-                        title1: title,
-                        creator1: creator,
-                    }
-                    $.ajax({
-                        type: 'POST',
-                        url: '?controller=user&action=upload',
-                        data: postData,
-                        success: function (data) {  
-                            Swal.fire({
-                                title: "Thông báo",
-                                text: "Upload tài liệu thành công",
-                                icon: "success",
-                                showConfirmButton: true,
-                            }).then(function () {
-                                window.location.assign("http://localhost/library/?controller=user&action=upload");
-                            });
-                        }, error: function (xhr, status, error) {
-                            Swal.fire({
-                                title: "Thông báo",
-                                text: "Upload tài liệu thất bại",
-                                icon: "error",
-                                showConfirmButton: true,
-                            }).then(function () {
-                                window.location.assign("http://localhost/library/?controller=user&action=upload");
-                            });
-                        }
-                    });
-                },
-                error: function (xhr, status, error) {
-                    console.log('tb');
-                    Swal.fire({
-                        title: "Thông báo",
-                        text: "Upload tài liệu thất bại",
-                        icon: "error",
-                        showConfirmButton: true,
-                    }).then(function () {
-                        window.location.assign("http://localhost/library/?controller=user&action=upload");
-                    });
-                }
-            });
-        });
-    })
-
-</script>
+<script src="./js/user/deleteUpload.js"></script>

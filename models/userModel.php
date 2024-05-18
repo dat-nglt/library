@@ -16,33 +16,57 @@ class userModel extends baseModel
     return $query;
   }
 
-  public function uploadFile($upload_url, $tacGia, $nhanDe, $email, $loaiTaiLieu, $idUser)
+  public function uploadFile($upload_url, $nhanDe, $loaiTaiLieu, $idUser)
   {
-    $sql = "INSERT INTO upload(uploadURL, timeUpload, creatorUpload, titleUpload, EmailUpload, typeUpload, idUser, idBook) VALUES ('$upload_url', NOW(), '$tacGia', '$nhanDe', '$email', '$loaiTaiLieu', '$idUser', Null)";
+    $sql = "INSERT INTO upload(uploadURL, timeUpload, titleUpload, id_User, id_Book, id_Category) VALUES ('$upload_url', NOW(), '$nhanDe', '$idUser', Null, '$loaiTaiLieu')";
     $query = $this->_query($sql);
     return $query;
   }
 
   public function uploadData($idUser)
   {
-    $sql = "SELECT * FROM upload WHERE idUser = '$idUser'";
+    $sql = "SELECT * FROM upload LEFT JOIN category ON upload.id_Category = category.idCategory WHERE id_User = '$idUser'";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function delUpload($idUpload)
+  {
+    $sql = "DELETE FROM upload WHERE idUpload = '$idUpload'";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function getDataType()
+  {
+    $sql = "SELECT * FROM category";
     $query = $this->_query($sql);
     return $query;
   }
 
   public function getAllBook()
   {
-    $sql = "SELECT * FROM book";
+    $sql = "SELECT * FROM book LEFT JOIN upload ON book.idBook = upload.id_Book";
     $query = $this->_query($sql);
     return $query;
-  }           
+  }
 
   public function getOneBook($id)
   {
-    $sql = "SELECT * FROM book LEFT JOIN upload ON book.idBook = upload.idBook WHERE book.idBook = '$id'";
+    $sql = "SELECT book.*, upload.*, category.*
+    FROM book
+    LEFT JOIN upload ON book.idBook = upload.id_Book
+    LEFT JOIN category ON book.id_Category = category.idCategory
+    WHERE book.idBook = '$id';";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function requestBook($idUser, $idBook)
+  {
+    $sql = "INSERT INTO request(dateRequest, id_User, id_Book) VALUES (NOW(), '$idUser', '$idBook')";
     $query = $this->_query($sql);
     return $query;
   }
 }
-
 ?>
