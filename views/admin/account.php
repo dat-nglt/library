@@ -49,18 +49,23 @@
                 <?php
                                 $stt = (($current_page - 1) * $limit) + 1;
                                 foreach ($listAccount as $key => $value) {
+                                    echo $stt;
                                     ?>
                 <tr class="list__content">
                     <td><?= $stt ?></td>
                     <td>
                         <div class="list__hidden-text"><?= $value[1] ?></div>
-                    </td> <td>
+                    </td>
+                    <td>
                         <div class="list__hidden-text"><?= $value[3] ?></div>
-                    </td> <td>
+                    </td>
+                    <td>
                         <div class="list__hidden-text"><?= $value[5] ?></div>
-                    </td> <td>
+                    </td>
+                    <td>
                         <div class="list__hidden-text"><?= date("d-m-Y", strtotime($value[4])) ?></div>
-                    </td> <td>
+                    </td>
+                    <td>
                         <div class="list__hidden-text"><?= $value[6] ?></div>
                     </td>
                     <td>
@@ -124,5 +129,3 @@
 <script src="./js/admin/showPassword.js"></script>
 <script src="./js/admin/account/openFormEdit.js"></script>
 <script src="./js/admin/account/deleteItem.js"></script>
-
-

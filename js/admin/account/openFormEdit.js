@@ -70,8 +70,8 @@ $(document).on("click", ".list__action-open-edit", function () {
                             placeholder="Nhập lớp">
                     </div>
                     <div class="list__form-box" id="password-admin">
-                        <label for="input-password" class="list__form-label">Mật khẩu mới<span>*</span></label>
-                        <input type="password" class="list__form-input" name="password_user" required id="input-password" 
+                        <label for="input-password" class="list__form-label">Mật khẩu mới</label>
+                        <input type="password" class="list__form-input" name="password_user" id="input-password" 
                             placeholder="Nhập mật khẩu">
                         <span onclick="showPassword()"><i id="eye-admin" class="fa-solid fa-eye"></i></span>
                     </div>

@@ -69,14 +69,30 @@ class userModel extends baseModel
     return $query;
   }
 
-  public function listRentBook($idUser)
+  public function listAllRentBook($idUser, $sortListRentBook, $searchListRentBook)
   {
     $sql = "SELECT idRequest, id_User, id_Book, dateRequest, dateRental, dateReturn, book.nameBook, book.publisherBook, statusRequest FROM request,
     book, user WHERE request.id_User = user.id AND request.id_Book = book.idBook AND user.id = $idUser";
+
+    $sql .= $searchListRentBook
+      ? " AND book.nameBook like '%$searchListRentBook%' ORDER BY book.nameBook $sortListRentBook"
+      : " ORDER BY book.nameBook $sortListRentBook";
+
     $query = $this->_query($sql);
     return $query;
   }
 
+  public function listRentBook($idUser, $sortListRentBook, $searchListRentBook, $start, $limit)
+  {
+    $sql = "SELECT idRequest, id_User, id_Book, dateRequest, dateRental, dateReturn, book.nameBook, book.publisherBook, statusRequest FROM request,
+    book, user WHERE request.id_User = user.id AND request.id_Book = book.idBook AND user.id = $idUser";
 
+    $sql .= $searchListRentBook
+      ? " AND book.nameBook like '%$searchListRentBook%' ORDER BY book.nameBook $sortListRentBook LIMIT $start, $limit"
+      : " ORDER BY book.nameBook $sortListRentBook LIMIT $start, $limit";
+
+    $query = $this->_query($sql);
+    return $query;
+  }
 }
 ?>

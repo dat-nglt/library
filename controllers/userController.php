@@ -103,29 +103,15 @@ class userController extends baseController
   {
     if (isset($_SESSION['user'])) {
       $pageOption = $_GET['profilePage'];
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $oldPassword = $_POST['oldPassword'];
-        $newPassword = $_POST['newPassword'];
-
-        if (password_verify($oldPassword, $_SESSION['user']['password'])) {
-          $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-          if ($this->userModel->changePassword($_SESSION['user']['id'], $newHashedPassword)) {
-            $_SESSION['user']['password'] = $newHashedPassword;
-            http_response_code(200);
-          } else {
-            http_response_code(400);
-          }
-        } else {
-          http_response_code(400);
-        }
-      }
-
       switch ($pageOption) {
         case 'rentHistory':
+          $searchListRentBook = isset($_POST['search_list_rent_book']) ? $_POST['search_list_rent_book'] : '';
+          $_SESSION['sort_list_rent_book'] = isset($_SESSION['sort_list_rent_book']) ? $_SESSION['sort_list_rent_book'] : 'desc';
+          $_SESSION['sort_list_rent_book'] = isset($_POST['sort_list_rent_book']) ? $_POST['sort_list_rent_book'] : $_SESSION['sort_list_rent_book'];
           $limit = 10;
-          $listRentBook = $this->userModel->listRentBook($_SESSION['user']['id']);
+          $listAllRentBook = $this->userModel->listAllRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook);
           $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
-          $totalPage = ceil(mysqli_num_rows($listRentBook));
+          $totalPage = ceil(mysqli_num_rows($listAllRentBook) / $limit);
           if ($currentPage > $totalPage) {
             $currentPage = $totalPage;
           }
@@ -134,10 +120,28 @@ class userController extends baseController
           }
           $start = ($currentPage - 1) * $limit;
 
-          return $this->loadview('user.profile.profile', ['listRentBook' => mysqli_fetch_all($listRentBook)]);
+          $listRentBook = mysqli_fetch_all($this->userModel->listRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook, $start, $limit));
+
+          return $this->loadview('user.profile.profile', ['listRentBook' => $listRentBook, 'currentPage' => $currentPage, 'limit' => $limit, 'totalPage' => $totalPage, 'searchListRentBook' => $searchListRentBook]);
         case 'infoUser':
           return $this->loadview('user.profile.profile', []);
         case 'changePassword':
+          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $oldPassword = $_POST['oldPassword'];
+            $newPassword = $_POST['newPassword'];
+
+            if (password_verify($oldPassword, $_SESSION['user']['password'])) {
+              $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+              if ($this->userModel->changePassword($_SESSION['user']['id'], $newHashedPassword)) {
+                $_SESSION['user']['password'] = $newHashedPassword;
+                http_response_code(200);
+              } else {
+                http_response_code(400);
+              }
+            } else {
+              http_response_code(400);
+            }
+          }
           return $this->loadview('user.profile.profile', []);
         default:
           return $this->loadview('user.profile.profile', []);

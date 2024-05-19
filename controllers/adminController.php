@@ -79,9 +79,10 @@ class adminController extends baseController
       $class = $_POST['class_user'];
       $password = password_hash($_POST['password_user'], PASSWORD_DEFAULT);
       $infoUserPrev = mysqli_fetch_assoc($this->adminModel->checkUserWithId($id));
-      if ((mysqli_num_rows($this->adminModel->checkUserWithStudentCode($studentCode))) < 1 && ($infoUserPrev['studentCode'] != $studentCode)) {
-        if ((mysqli_num_rows($this->adminModel->checkUserWithIdentificationNumber($identificationNumber)) < 1) && ($infoUserPrev['identificationNumber'] != $studentCode)) {
-          $add = $this->adminModel->addUser($studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class);
+      if ((mysqli_num_rows($this->adminModel->checkUserWithStudentCode($studentCode))) > 0 && ($infoUserPrev['studentCode'] != $studentCode)) {
+        if ((mysqli_num_rows($this->adminModel->checkUserWithIdentificationNumber($identificationNumber)) > 0) && ($infoUserPrev['identificationNumber'] != $studentCode)) {
+          // $add = $this->adminModel->addUser($studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class);
+          $add = true;
           if ($add) {
             $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
             success('Thêm tài khoản thành công!', '?controller=admin&action=account&page=' . $current_page);
