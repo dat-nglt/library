@@ -7,7 +7,7 @@
     .list__container {
         flex: 1;
         padding: 10px 40px 20px;
-        margin-left: 246px;
+        margin-left: 230px;
 
         div:first-of-type {
             display: flex;
@@ -22,8 +22,9 @@
         }
 
         button {
+            font-size: 15px;
             color: var(--white-cl);
-            background-color: var(--blue-cl);
+            background-color: var(--blue-white-cl);
             padding: 8px 13px;
             border: none;
             border-radius: 5px;
@@ -53,13 +54,13 @@
                 color: var(--white-cl);
                 text-transform: uppercase;
                 font-weight: 600;
-                padding: 10px;
+                padding: 12px;
                 background-color: var(--gray-cl);
             }
 
             td {
                 font-size: 13px;
-                padding: 8px;
+                padding: 7.5px 5px;
                 background-color: var(--white-cl);
             }
 
@@ -87,6 +88,7 @@
                     color: var(--red-cl);
                 }
 
+                .list__action-open-edit,
                 .list__action-btn {
                     padding: 0;
                     background-color: transparent !important;
@@ -166,7 +168,30 @@
         .list__paging {
             background-color: var(--white-cl);
             display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 10px 0;
+
+            div:first-of-type {
+                align-items: normal;
+                gap: 0;
+            }
+
+            > span {
+                font-weight: 600;
+                text-transform: none;
+                font-size: 13px;
+                color: var(--black-cl);
+                margin-right: 10px;
+                max-width: 700px;
+                overflow: hidden;
+
+                > span {
+                    text-transform: none;
+                    font-size: 13px;
+                    font-weight: 500;
+                }
+            }
 
             button {
                 border-radius: 4px;
@@ -180,12 +205,12 @@
 
                 &:hover {
                     color: var(--white-cl);
-                    background-color: var(--blue-cl);
+                    background-color: var(--blue-white-cl);
                 }
             }
             .button-current button {
                 color: var(--white-cl);
-                background-color: var(--blue-cl);
+                background-color: var(--blue-white-cl);
             }
         }
     }
@@ -197,24 +222,24 @@
         left: 0;
         bottom: 0;
         background-color: rgba(0, 0, 0, 0.7);
-        display: none;
+        display: flex;
         align-items: center;
         justify-content: center;
         z-index: 1;
         backdrop-filter: blur(1px);
 
         .list__form-add {
+            text-align: center;
             color: var(--black-cl);
             background-color: var(--white-cl);
-            min-height: 465px;
-            max-width: 677.84px;
+            width: 660px;
             position: relative;
 
             .list__form-title {
                 color: var(--white-cl);
                 position: relative;
-                padding: 20px 200px;
-                background-color: var(--blue-dark-cl);
+                padding: 20px 120px;
+                background-color: var(--blue-cl);
 
                 > span {
                     font-size: 30px;
@@ -239,21 +264,8 @@
 
             .list__form-content {
                 display: flex;
-              
-
-                .list__add-handmade,
-                .list__add-file-excel{
-                    padding: 5px 5px;
-                    flex: 1;
-                }
-
-                .list__add-handmade{
-                    padding: 10px 40px;
-                }
 
                 .list__form-nav {
-                    padding: 10px;
-                    min-height: 389px;
                     border-right: 1px solid var(--black-gray-cl);
 
                     > div {
@@ -269,35 +281,52 @@
                     }
                 }
 
-                .list__form-container-box {
-                    display: grid;
-                    grid-template-columns: 45% 45%;
-                    grid-gap: 10%;
+                .list__select-file {
+                    display: none;
+                    position: relative;
+                    overflow: hidden;
 
-                    .list__select-file {
-                        display: none;
-                        position: relative;
-                        overflow: hidden;
-    
-                        input[type='file'] {
-                            position: absolute;
-                            left: 0;
-                            top: 0;
-                            opacity: 0;
-                            width: 100%;
-                            height: 100%;
-                            cursor: pointer;
-                        }
-
-                    .button_change {
-                        border: none;
-                        background-color: var(--blue-white-cl);
-                        color: var(--white-cl);
-                        padding: 3% 5%;
-                        border-radius: 5px;
+                    input[type="file"] {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        opacity: 0;
                         width: 100%;
-                    }}
-                
+                        height: 100%;
+                        cursor: pointer;
+                    }
+
+                    button {
+                        background-color: var(--green-cl);
+                        margin: 0;
+                    }
+                }
+
+                .list__file-selected {
+                    margin-top: 10px;
+                }
+
+                .list__add-handmade{
+                    flex: 1;
+                    display: grid;
+                    grid-template-columns: 48% 48%;
+                    grid-gap: 4%;
+                    padding: 10px 15px;
+                }
+
+                #password-admin{
+                    position: relative;
+
+                    input[type="password"]{
+                        padding: 6px 25px 6px 6px;
+                    }
+
+                    >span{
+                        color: black;
+                        position: absolute;
+                        right: 5px;
+                        top: 35px;
+                    }
                 }
 
                 .list__form-box {
@@ -305,43 +334,39 @@
                     display: flex;
                     flex-direction: column;
                     align-items: start;
-                    margin-bottom: 10px;
+                    gap: 5px;
 
                     .list__form-label {
-                        margin-bottom: 5px;
-                        font-size: 15px;
+                        font-size: 18px;
+                        font-weight: 500;
                     }
 
-                    .list__file-selected{
-                        font-size: 15px;
-                        font-weight: 500;
-                        color: var(--blue-cl);
-
-                        > span{
-                            font-weight: 400;
-                            color: var(--black-cl);
-                        }
+                    span{
+                        color: var(--red-cl);
                     }
 
                     input,
                     textarea {
-                        font-size: 14px;
+                        font-size: 16px;
                         width: 100%;
                         padding: 6px;
                         resize: none;
                         border: 1px solid var(--black-gray-cl);
                         outline: none;
-                        border-radius: 3px;
+                        border-radius: 5px;
 
-                       
-                    } ::placeholder{
-                        font-size: 12px;
-                        font-style: italic;
+                        &::placeholder {
+                            font-size: 15px;
+                            font-style: italic;
+                        }
                     }
 
                     input[type="date"] {
                         padding: 5px;
-                        border-radius: 3px;
+                    }
+
+                    textarea {
+                        min-height: 150px;
                     }
 
                     select {
@@ -350,6 +375,7 @@
                         font-size: 14px;
                         width: 100%;
                         cursor: pointer;
+                        border-radius: 5px;
 
                         &:focus {
                             outline: none;
@@ -367,29 +393,19 @@
                             }
                         }
                     }
-
-                    small {
-                        font-family: initial;
-                        font-weight: 400;
-                        color: var(--red-cl);
-                        margin: 5px 0;
-                    }
                 }
             }
 
             .list__form-btn {
-                display: flex;
-                justify-content: end;
                 position: absolute;
-                bottom: 0;
                 right: 0;
-                left: 0;
+                bottom: 0;
             }
 
             button {
                 color: var(--white-cl);
-                background-color: var(--blue-white-cl);
-                padding: 5px 25px;
+                background-color: var(--green-black-cl);
+                padding: 8px 25px;
                 margin-right: 15px;
                 margin-bottom: 15px;
                 outline: none;
@@ -401,7 +417,7 @@
                 text-transform: uppercase;
 
                 &:hover {
-                    background-color: var(--blue-cl);
+                    background-color: var(--green-cl);
                 }
 
                 &:first-of-type {
