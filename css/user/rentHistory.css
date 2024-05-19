@@ -1,4 +1,3 @@
-
 .table-box {
   padding: 15px;
 }
@@ -25,16 +24,15 @@ td {
   font-size: 13px;
   max-height: 10px;
   max-width: 200px;
-  white-space: nowrap; /* Ngăn không cho chữ xuống dòng */
-  overflow: hidden; /* Ẩn nội dung vượt quá chiều rộng ô */
-  text-overflow: ellipsis; /* Hiển thị dấu ... thay cho nội dung vượt quá */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* .hehe {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-} */
+#rent-table tr:hover {
+  cursor: pointer;
+  background-color: #14eb96;
+}
 
 /* Định dạng cho các hàng chẵn */
 #rent-table tr:nth-child(even) {
@@ -69,4 +67,3 @@ td {
 .number-page > a:hover {
   background-color: #1ca26d;
 }
-

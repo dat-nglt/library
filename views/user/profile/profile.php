@@ -11,7 +11,7 @@
         <a href="?controller=user&action=profile&profilePage=rentHistory" class="profile__menu-option <?php if ((isset($_GET['profilePage']) && $_GET['profilePage'] == 'rentHistory')) {
           echo 'profile__menu-option--active';
         } ?>">
-          Lịch sử mượn
+          Danh sách mượn
         </a>
         <a href="?controller=user&action=profile&profilePage=changePassword" class="profile__menu-option <?php if ((isset($_GET['profilePage']) && $_GET['profilePage'] == 'changePassword')) {
           echo 'profile__menu-option--active';

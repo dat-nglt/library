@@ -1,29 +1,51 @@
+<?php
+$listRentBook = $listRentBook ? $listRentBook : [];
+?>
+
 <div class="content">
-  <div id="profile__title"> Lịch sử mượn</div>
+  <div id="profile__title"> Danh sách mượn</div>
   <div class="table-box">
     <table id="rent-table">
       <thead>
         <tr>
           <th style="width: 5%;">STT</th>
-          <th style="width: 14%;">Mã phiếu mượn</th>
-          <th style="width: 20%">Tên sách</th>
-          <th style="width: 20%">Tác Giả</th>
+          <th style="width: 10%;">Mã phiếu</th>
+          <th style="width: 24%; min-width: 225.81px;">Tên sách</th>
+          <th style="width: 15%; min-width: 225.81px">Tác Giả</th>
           <th style="width: 13%;">Ngày mượn</th>
           <th style="width: 13%;">Ngày trả</th>
-          <th style="width: 15%;">Trạng thái</th>
+          <th style="width: 20%;">Trạng thái</th>
         </tr>
       </thead>
       <tbody>
         <?php
-        for ($i = 1; $i <= 10; $i++) {
+        $index = 0;
+        foreach ($listRentBook as $item) {
+          switch ($item[8]) {
+            case 0:
+              $statusRequest = "Chờ xác nhận";
+              break;
+            case 1:
+              $statusRequest = "Đang mượn";
+              break;
+            case 2:
+              $statusRequest = "Đã trả";
+              break;
+            case 3:
+              $statusRequest = "Từ chối mượn";
+              break;
+            default:
+              return "Chờ xác nhận";
+          }
+          $index++;
           echo '<tr>';
-          echo '<td>' . $i . '</td>';
-          echo '<td>1</td>';
-          echo '<td>Hội Kín</td>';
-          echo '<td>Nguyễn Trương Đạt con ông Trương Văn Đạt</td>';
-          echo '<td>20/04/2024</td>';
-          echo '<td>22/04/2024</td>';
-          echo '<td>Đã trả</td>';
+          echo '<td>' . $index . '</td>';
+          echo '<td>' . $item[0] . '</td>';
+          echo '<td>' . $item[6] . '</td>';
+          echo '<td>' . $item[7] . '</td>';
+          echo '<td>' . $item[4] . '</td>';
+          echo '<td>' . $item[5] . '</td>';
+          echo '<td>' . $statusRequest . '</td>';
           echo '</tr>';
         }
         ?>

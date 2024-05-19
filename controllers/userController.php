@@ -26,7 +26,7 @@ class userController extends baseController
     $books = $this->userModel->getAllBook();
 
     $componentName = 'homeHotBook';
-     $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
+    $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
   }
 
   public function newshot()
@@ -102,6 +102,7 @@ class userController extends baseController
   public function profile()
   {
     if (isset($_SESSION['user'])) {
+      $pageOption = $_GET['profilePage'];
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $oldPassword = $_POST['oldPassword'];
         $newPassword = $_POST['newPassword'];
@@ -119,7 +120,30 @@ class userController extends baseController
         }
       }
 
-      return $this->loadview('user.profile.profile', []);
+      switch ($pageOption) {
+        case 'rentHistory':
+          $limit = 10;
+          $listRentBook = $this->userModel->listRentBook($_SESSION['user']['id']);
+          $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+          $totalPage = ceil(mysqli_num_rows($listRentBook));
+          if ($currentPage > $totalPage) {
+            $currentPage = $totalPage;
+          }
+          if ($currentPage < 1) {
+            $currentPage = 1;
+          }
+          $start = ($currentPage - 1) * $limit;
+
+          return $this->loadview('user.profile.profile', ['listRentBook' => mysqli_fetch_all($listRentBook)]);
+        case 'infoUser':
+          return $this->loadview('user.profile.profile', []);
+        case 'changePassword':
+          return $this->loadview('user.profile.profile', []);
+        default:
+          return $this->loadview('user.profile.profile', []);
+
+      }
+
     } else {
       echo "<script>window.location.href = '?controller=user&action=login';</script>";
     }
@@ -148,7 +172,7 @@ class userController extends baseController
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $this->userModel->requestBook($_SESSION['user']['id'], $id);
     }
-    
+
     return $this->loadview('user.book-detail', ['bookData' => $getOneBook]);
   }
 }

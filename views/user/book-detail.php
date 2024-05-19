@@ -30,7 +30,9 @@
                 <span style="color: var(--orange-color); font-weight: 700;">Đang cập nhật!</span>
               <?php endif; ?>
             </td>
-            <td><button type="button" id="request-Book">Đăng ký mượn</button></td>
+            <td>
+              <button type="button" id="request-Book">Đăng ký mượn</button>
+            </td>
           </tr>
         </table>
       </div>

@@ -38,7 +38,7 @@
     <div class="sub-profile-box">
       <div class="info-fields">
         <label for="">Số CCCD</label>
-        <input type="text" disabled value="<?= $_SESSION['user']['phoneNumber'] ?>">
+        <input type="text" disabled value="<?= $_SESSION['user']['identificationNumber'] ?>">
       </div>
       <div class="info-fields">
         <label for="">Địa chỉ</label>

@@ -1,15 +1,16 @@
-@import "./infoUser.css";
-@import "./rentHistory.css";
-@import "./changePassword.css";
+@import './infoUser.css';
+@import './rentHistory.css';
+@import './changePassword.css';
 
 .profile-box {
-  max-width: 1200px;
+  max-width: 1400px;
   padding: 20px;
   overflow: hidden;
   width: fit-content;
   margin: 0 auto;
   background-color: #fff;
-  box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 20px 10px
+    rgba(0, 0, 0, 0.3);
 }
 
 #profile__title {
@@ -38,6 +39,7 @@
   border: 1px solid var(--gray-white-cl);
   width: 1000px;
   height: fit-content;
+  min-height: 385px;
 }
 
 .profile__menu-option {
