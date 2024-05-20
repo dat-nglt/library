@@ -153,6 +153,33 @@ class userController extends baseController
     }
   }
 
+  public function searchBook()
+  {
+    // success('thành công', '?controller=user&action=searchBook')
+    $options = array(
+      "nameBook" => "sách",
+      "creatorBook" => "tác giả",
+      "topicBook" => "chủ đề",
+      "publisherBook" => "nhà xuất bản",
+      "dateBook" => "năm xuất bản"
+    );
+
+    $contentSearch = $_GET['contentSearch'];
+    $optionSearch = $_GET['optionSearch'];
+
+    if (array_key_exists($optionSearch, $options)) {
+      $optionText = $options[$optionSearch];
+    } else {
+      $optionText = null;
+    }
+
+    $books = $this->userModel->searchBooks($contentSearch, $optionSearch);
+    $this->loadview('user.searchBook', [
+      'componentDatas' => $books,
+      'contentSearch' => $contentSearch,
+      'optionText' => $optionText
+    ]);
+  }
 
   public function upload()
   {

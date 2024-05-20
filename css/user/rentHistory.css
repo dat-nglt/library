@@ -23,7 +23,9 @@
   }
 }
 
-fieldset {
+.filterRentBook
+  > div
+  > fieldset {
   display: inline-block;
   margin-right: 20px;
   width: fit-content;

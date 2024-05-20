@@ -10,20 +10,19 @@ if (isset($data['notification']) && $data !== []) {
 <div class="home">
   <div class="user-search">
     <div class="user-search-sub">
-      <select class="select-search" name="" id="">
-        <option value="">Tất cả</option>
-        <option value="">Nhan đề</option>
-        <option value="">Tác giả</option>
-        <option value="">Chủ đề</option>
-        <option value="">Năm xuất bản</option>
-        <option value="">Chỉ số phân loại</option>
+      <select class="select-search" name="option-search" id="option-search">
+        <option value="nameBook">Tên sách</option>
+        <option value="creatorBook">Tác giả</option>
+        <option value="topicBook">Chủ đề</option>
+        <option value="publisherBook">Nhà xuất bản</option>
+        <option value="dateBook">Năm xuất bản</option>
       </select>
-      <input class="input-search" type="text" placeholder="Nhập tên sách hoặc từ khoá cần tìm ...">
+      <input name="content-search" id="content-search" class="input-search" type="text"
+        placeholder="Nhập tên sách hoặc từ khoá cần tìm ...">
 
-      <button id="btn-search">Tìm kiếm</button>
+      <button id="search-btn" type="button">Tìm kiếm</button>
     </div>
   </div>
-
   <div class="book-data">
     <div class="book-data-sub">
       <div class="book-data-title">
@@ -86,6 +85,7 @@ if (isset($data['notification']) && $data !== []) {
 <script>
   const currentURL = window.location.href;
   const BNitem = document.querySelectorAll('.BN-item');
+  const searchBtn = document.querySelector('#search-btn')
 
   console.log(currentURL);
 
@@ -96,6 +96,27 @@ if (isset($data['notification']) && $data !== []) {
     else if (currentURL == 'http://localhost/library/') {
       BNitem[0].classList.add('active-home-hot');
     }
+  }
+
+  $("#search-btn").on('click', function () {
+    const contentSearch = $("#content-search").val();
+    const optionSearch = $("#option-search").val();
+
+    if (!contentSearch) {
+      showAlert("Vui lòng từ khóa cần tìm kiếm!", "warning");
+      return;
+    }
+
+    window.location.href = '?controller=user&action=searchBook&contentSearch=' + encodeURIComponent(contentSearch) + '&optionSearch=' + encodeURIComponent(optionSearch);
+  })
+
+  function showAlert(message, icon) {
+    Swal.fire({
+      title: "Thông báo",
+      text: message,
+      icon,
+      showConfirmButton: true,
+    }).then(location.reload);
   }
 
 </script>

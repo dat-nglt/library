@@ -84,7 +84,7 @@
 
 .BN-item:first-child {
   border-right: 2px solid
-  var(--green-color);
+    var(--green-color);
 }
 
 .active-home-hot {
@@ -103,10 +103,18 @@
   font-size: 14px;
 }
 
-.gird-content > a >img {
+.gird-content > a > img {
   width: 280px;
   height: 380px;
   padding: 10px 20px;
+}
+
+.gird-content > a > strong {
+  max-width: 230px;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .book-content {

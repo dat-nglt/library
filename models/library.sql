@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 19, 2024 at 02:11 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th5 20, 2024 lúc 01:45 AM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `library`
+-- Cơ sở dữ liệu: `library`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `book`
+-- Cấu trúc bảng cho bảng `book`
 --
 
 CREATE TABLE `book` (
@@ -40,27 +40,27 @@ CREATE TABLE `book` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `book`
+-- Đang đổ dữ liệu cho bảng `book`
 --
 
 INSERT INTO `book` (`idBook`, `nameBook`, `quantityBook`, `imgBook`, `creatorBook`, `publisherBook`, `dateBook`, `desBook`, `id_Category`) VALUES
-(1, 'Harry Potter', 10, '', 'J.K. Rowling', 'Trương Văn Đạt', 2005, 'A fantasy novel series', 8),
-(2, 'To Kill a Mockingbird', 5, '', 'Harper Lee', 'Trương Văn Đạt', 1960, 'A classic American novel', 9),
-(3, 'The Great Gatsby', 3, '', 'F. Scott Fitzgerald', 'Trương Văn Đạt', 1925, 'A novel set in the Jazz Age', 10),
-(4, 'Pride and Prejudice', 7, '', 'Jane Austen', 'Trương Văn Đạt', 0000, 'A classic romance novel', 11),
-(5, '1984', 8, '', 'George Orwell', 'Trương Văn Đạt', 1949, 'A dystopian novel', 12),
-(6, 'The Catcher in the Rye', 4, '', 'J.D. Salinger', 'Trương Văn Đạt', 1951, 'A coming-of-age novel', 13),
-(7, 'To Kill a Kingdom', 6, '', 'Alexandra Christo', 'Trương Văn Đạt', 2018, 'A fantasy novel about sirens and pirates', 14),
-(8, 'The Alchemist', 2, '', 'Paulo Coelho', 'Trương Văn Đạt', 1988, 'A philosophical novel', 12),
-(9, 'The Da Vinci Code', 9, '', 'Dan Brown', 'Trương Văn Đạt', 2003, 'A mystery thriller', 11),
-(10, 'The Lord of the Rings', 3, '', 'J.R.R. Tolkien', 'Trương Văn Đạt', 1954, 'An epic high fantasy novel', 12),
-(11, 'The Hobbit', 5, '', 'J.R.R. Tolkien', 'Trương Văn Đạt', 1937, 'A fantasy adventure novel', 10),
-(12, 'The Chronicles of Narnia', 7, '', 'C.S. Lewis', 'Trương Văn Đạt', 1950, 'A series of fantasy novels', 9);
+(1, 'Harry Potter', 10, '', 'J.K. Rowling', 'Trương Văn Đạt', '2005', 'A fantasy novel series', 8),
+(2, 'To Kill a Mockingbird', 5, '', 'Harper Lee', 'Trương Văn Đạt', '1960', 'A classic American novel', 9),
+(3, 'The Great Gatsby', 3, '', 'F. Scott Fitzgerald', 'Trương Văn Đạt', '1925', 'A novel set in the Jazz Age', 10),
+(4, 'Pride and Prejudice', 7, '', 'Jane Austen', 'Trương Văn Đạt', '0000', 'A classic romance novel', 11),
+(5, '1984', 8, '', 'George Orwell', 'Trương Văn Đạt', '1949', 'A dystopian novel', 12),
+(6, 'The Catcher in the Rye', 4, '', 'J.D. Salinger', 'Trương Văn Đạt', '1951', 'A coming-of-age novel', 13),
+(7, 'To Kill a Kingdom', 6, '', 'Alexandra Christo', 'Trương Văn Đạt', '2018', 'A fantasy novel about sirens and pirates', 14),
+(8, 'The Alchemist', 2, '', 'Paulo Coelho', 'Trương Văn Đạt', '1988', 'A philosophical novel', 12),
+(9, 'The Da Vinci Code', 9, '', 'Dan Brown', 'Trương Văn Đạt', '2003', 'A mystery thriller', 11),
+(10, 'The Lord of the Rings', 3, '', 'J.R.R. Tolkien', 'Trương Văn Đạt', '1954', 'An epic high fantasy novel', 12),
+(11, 'The Hobbit', 5, '', 'J.R.R. Tolkien', 'Trương Văn Đạt', '1937', 'A fantasy adventure novel', 10),
+(12, 'The Chronicles of Narnia', 7, '', 'C.S. Lewis', 'Trương Văn Đạt', '1950', 'A series of fantasy novels', 9);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Cấu trúc bảng cho bảng `category`
 --
 
 CREATE TABLE `category` (
@@ -69,7 +69,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `category`
+-- Đang đổ dữ liệu cho bảng `category`
 --
 
 INSERT INTO `category` (`idCategory`, `nameCategory`) VALUES
@@ -84,7 +84,7 @@ INSERT INTO `category` (`idCategory`, `nameCategory`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `google_account`
+-- Cấu trúc bảng cho bảng `google_account`
 --
 
 CREATE TABLE `google_account` (
@@ -102,7 +102,7 @@ CREATE TABLE `google_account` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `request`
+-- Cấu trúc bảng cho bảng `request`
 --
 
 CREATE TABLE `request` (
@@ -110,28 +110,36 @@ CREATE TABLE `request` (
   `id_User` int(11) NOT NULL,
   `id_Book` int(11) NOT NULL,
   `dateRequest` datetime NOT NULL,
-  `statusRequest` tinyint(1) NOT NULL DEFAULT 0
+  `statusRequest` tinyint(1) NOT NULL DEFAULT 0,
+  `dateRental` date DEFAULT NULL,
+  `dateReturn` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `request`
+-- Đang đổ dữ liệu cho bảng `request`
 --
 
-INSERT INTO `request` (`idRequest`, `id_User`, `id_Book`, `dateRequest`, `statusRequest`) VALUES
-(2, 1, 1, '0000-00-00 00:00:00', 0),
-(5, 1, 2, '2024-05-19 03:21:26', 0),
-(10, 1, 1, '2024-05-19 03:27:34', 0),
-(11, 1, 1, '2024-05-19 03:30:15', 0),
-(12, 1, 4, '2024-05-19 03:30:26', 0),
-(13, 1, 2, '2024-05-19 03:34:58', 0),
-(14, 1, 8, '2024-05-19 03:43:56', 0),
-(15, 1, 5, '2024-05-19 03:44:28', 0),
-(18, 1, 6, '2024-05-19 04:46:56', 0);
+INSERT INTO `request` (`idRequest`, `id_User`, `id_Book`, `dateRequest`, `statusRequest`, `dateRental`, `dateReturn`) VALUES
+(30, 3, 6, '2024-05-19 21:00:43', 0, NULL, NULL),
+(31, 3, 5, '2024-05-19 21:00:45', 0, NULL, NULL),
+(32, 3, 4, '2024-05-19 21:00:47', 0, NULL, NULL),
+(33, 3, 8, '2024-05-19 21:00:50', 0, NULL, NULL),
+(34, 3, 2, '2024-05-19 21:00:53', 0, NULL, NULL),
+(35, 3, 3, '2024-05-19 21:00:54', 0, NULL, NULL),
+(36, 3, 1, '2024-05-19 21:00:56', 0, NULL, NULL),
+(37, 3, 7, '2024-05-19 21:00:58', 0, NULL, NULL),
+(38, 3, 7, '2024-05-19 22:46:52', 0, NULL, NULL),
+(39, 3, 7, '2024-05-19 22:46:54', 0, NULL, NULL),
+(40, 3, 7, '2024-05-19 22:46:56', 0, NULL, NULL),
+(41, 3, 7, '2024-05-19 22:46:59', 0, NULL, NULL),
+(42, 3, 7, '2024-05-19 22:47:01', 0, NULL, NULL),
+(43, 3, 7, '2024-05-19 22:47:02', 0, NULL, NULL),
+(44, 3, 7, '2024-05-19 22:47:03', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `upload`
+-- Cấu trúc bảng cho bảng `upload`
 --
 
 CREATE TABLE `upload` (
@@ -145,7 +153,7 @@ CREATE TABLE `upload` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `upload`
+-- Đang đổ dữ liệu cho bảng `upload`
 --
 
 INSERT INTO `upload` (`idUpload`, `uploadURL`, `titleUpload`, `timeUpload`, `id_User`, `id_Book`, `id_Category`) VALUES
@@ -158,7 +166,7 @@ INSERT INTO `upload` (`idUpload`, `uploadURL`, `titleUpload`, `timeUpload`, `id_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Cấu trúc bảng cho bảng `user`
 --
 
 CREATE TABLE `user` (
@@ -176,20 +184,20 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `user`
+-- Đang đổ dữ liệu cho bảng `user`
 --
 
 INSERT INTO `user` (`id`, `studentCode`, `password`, `fullName`, `dateOfBirth`, `address`, `phoneNumber`, `email`, `identificationNumber`, `roleAccess`, `className`) VALUES
 (1, '2100143', '$2y$10$DUH/AuLaz3vhP0/YWeVQZOps9NfGwLYD3K8XtuFiCLRRhBHHZPUla', 'Trương Văn Đạt', '2003-01-26', 'Sóc Trăng', '0352039701', 'tvdat2100143@student.ctuet.edu.vn', '2147483647', 1, 'KPTM0121'),
-(3, '2101364', '$2y$10$dEkVu/L7CY3j..LVnzq1M.w.oBS.CqznACZbFuZWyQB0hOY91KQ.C', 'Nguyễn Lê Tấn Đạt', '2003-04-20', 'Óc Eo, Thoại Sơn, An Giang', '0397364664', 'dat.nglt@gmail.com', '2147483647', 1, 'KTPM0121'),
+(3, '2101364', '$2y$10$WTRw3q5MqVqDYyMiWv2b5.HIiXyvsvDdOPI/oU2w7Mnlwuj65ySKK', 'Nguyễn Lê Tấn Đạt', '2003-04-20', 'Óc Eo, Thoại Sơn, An Giang', '0397364664', 'dat.nglt@gmail.com', '2147483647', 1, 'KTPM0121'),
 (5, '2101251', '$2y$10$ipFP9KWYD9ul.WZf2ZQvyue1nrlwsUizilh6QgxpiF0siPzMbjgKS', 'Lê Nguyễn Minh Hòa', '2003-09-27', 'Cần Thơ', '0836752978', 'lnmhoa@gmail.com', '243535760465', 0, 'KTPM0121');
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `book`
+-- Chỉ mục cho bảng `book`
 --
 ALTER TABLE `book`
   ADD PRIMARY KEY (`idBook`),
@@ -197,19 +205,19 @@ ALTER TABLE `book`
   ADD KEY `id_Category` (`id_Category`);
 
 --
--- Indexes for table `category`
+-- Chỉ mục cho bảng `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`idCategory`);
 
 --
--- Indexes for table `google_account`
+-- Chỉ mục cho bảng `google_account`
 --
 ALTER TABLE `google_account`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `request`
+-- Chỉ mục cho bảng `request`
 --
 ALTER TABLE `request`
   ADD PRIMARY KEY (`idRequest`),
@@ -217,7 +225,7 @@ ALTER TABLE `request`
   ADD KEY `id_User` (`id_User`);
 
 --
--- Indexes for table `upload`
+-- Chỉ mục cho bảng `upload`
 --
 ALTER TABLE `upload`
   ADD PRIMARY KEY (`idUpload`),
@@ -226,70 +234,70 @@ ALTER TABLE `upload`
   ADD KEY `id_Category` (`id_Category`);
 
 --
--- Indexes for table `user`
+-- Chỉ mục cho bảng `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `book`
+-- AUTO_INCREMENT cho bảng `book`
 --
 ALTER TABLE `book`
   MODIFY `idBook` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
   MODIFY `idCategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `google_account`
+-- AUTO_INCREMENT cho bảng `google_account`
 --
 ALTER TABLE `google_account`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `request`
+-- AUTO_INCREMENT cho bảng `request`
 --
 ALTER TABLE `request`
-  MODIFY `idRequest` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idRequest` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
--- AUTO_INCREMENT for table `upload`
+-- AUTO_INCREMENT cho bảng `upload`
 --
 ALTER TABLE `upload`
   MODIFY `idUpload` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `book`
+-- Các ràng buộc cho bảng `book`
 --
 ALTER TABLE `book`
   ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`id_Category`) REFERENCES `category` (`idCategory`);
 
 --
--- Constraints for table `request`
+-- Các ràng buộc cho bảng `request`
 --
 ALTER TABLE `request`
   ADD CONSTRAINT `request_ibfk_1` FOREIGN KEY (`id_Book`) REFERENCES `book` (`idBook`),
   ADD CONSTRAINT `request_ibfk_2` FOREIGN KEY (`id_User`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `upload`
+-- Các ràng buộc cho bảng `upload`
 --
 ALTER TABLE `upload`
   ADD CONSTRAINT `upload_ibfk_1` FOREIGN KEY (`id_User`) REFERENCES `user` (`id`),

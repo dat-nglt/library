@@ -51,6 +51,13 @@ class userModel extends baseModel
     return $query;
   }
 
+  public function searchBooks($contentSearch, $optionSearch)
+  {
+    $sql = "SELECT * FROM book WHERE $optionSearch LIKE '%$contentSearch%'";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
   public function getOneBook($id)
   {
     $sql = "SELECT book.*, upload.*, category.*
