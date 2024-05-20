@@ -24,7 +24,7 @@ $(document).on("click", ".list__action-open-edit", function () {
     addFormEdit.innerHTML = `
         <form action="?controller=admin&action=account" method="post" style="height: 500px" class="list__form-add">
             <div class="list__form-title">
-                <span>Chỉnh sửa tài khoản</span><i class="fa-solid fa-xmark close-icon"
+                <span><i class="fa-solid fa-user"></i> Chỉnh sửa tài khoản</span><i class="fa-solid fa-xmark close-icon"
                 onclick="closeFormAdd()"></i>
             </div>
             <div class="list__form-content">

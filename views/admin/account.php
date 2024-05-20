@@ -49,7 +49,6 @@
                 <?php
                                 $stt = (($current_page - 1) * $limit) + 1;
                                 foreach ($listAccount as $key => $value) {
-                                    echo $stt;
                                     ?>
                 <tr class="list__content">
                     <td><?= $stt ?></td>

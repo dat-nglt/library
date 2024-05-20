@@ -78,31 +78,255 @@ class adminController extends baseController
       $identificationNumber = $_POST['identification-number_user'];
       $class = $_POST['class_user'];
       $password = password_hash($_POST['password_user'], PASSWORD_DEFAULT);
-      $infoUserPrev = mysqli_fetch_assoc($this->adminModel->checkUserWithId($id));
-      if ((mysqli_num_rows($this->adminModel->checkUserWithStudentCode($studentCode))) > 0 && ($infoUserPrev['studentCode'] != $studentCode)) {
-        if ((mysqli_num_rows($this->adminModel->checkUserWithIdentificationNumber($identificationNumber)) > 0) && ($infoUserPrev['identificationNumber'] != $studentCode)) {
-          // $add = $this->adminModel->addUser($studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class);
-          $add = true;
-          if ($add) {
-            $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-            success('Thêm tài khoản thành công!', '?controller=admin&action=account&page=' . $current_page);
+      ;
+      if ($infoUserPrev = mysqli_fetch_assoc($this->adminModel->checkUserWithId($id))) {
+        if($infoUserPrev['studentCode'] === $studentCode){
+          if (($infoUserPrev['identificationNumber'] === $identificationNumber)) {
+            $update = $this->adminModel->updateUser($id, $studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class);
+            if ($update) {
+              $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+              success('Cập nhật tài khoản thành công!', '?controller=admin&action=account&page=' . $current_page);
+            } else {
+              $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+              error('Cập nhật tài khoản thất bại!', '?controller=admin&action=account&page=' . $current_page);
+            }
           } else {
-            $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-            error('Thêm tài khoản thất bại!', '?controller=admin&action=account&page=' . $current_page);
+            if(mysqli_num_rows($this->adminModel->checkUserWithIdentificationNumber($identificationNumber)) > 0){
+              $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+              warning('Số căn cước công dân đã tồn tại!', '?controller=admin&action=account&page=' . $current_page);
+          }else{
+            $update = $this->adminModel->updateUser($id, $studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class);
+            if ($update) {
+              $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+              success('Cập nhật tài khoản thành công!', '?controller=admin&action=account&page=' . $current_page);
+            } else {
+              $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+              error('Cập nhật tài khoản thất bại!', '?controller=admin&action=account&page=' . $current_page);
+            }
           }
-        } else {
-          $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-          warning('Số căn cước công dân đã tồn tại!', '?controller=admin&action=account&page=' . $current_page);
+          }
+        }else {
+          if(mysqli_num_rows($this->adminModel->checkUserWithStudentCode($studentCode)) > 0){
+            $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+            warning('Mã số sinh viên đã tồn tại!', '?controller=admin&action=account&page=' . $current_page);
+          }else{
+            if (($infoUserPrev['identificationNumber'] === $identificationNumber)) {
+              $update = $this->adminModel->updateUser($id, $studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class);
+              if ($update) {
+                $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+                success('Cập nhật tài khoản thành công!', '?controller=admin&action=account&page=' . $current_page);
+              } else {
+                $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+                error('Cập nhật tài khoản thất bại!', '?controller=admin&action=account&page=' . $current_page);
+              }
+            }else{
+              if(mysqli_num_rows($this->adminModel->checkUserWithIdentificationNumber($identificationNumber)) > 0){
+                $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+                warning('Số căn cước công dân đã tồn tại!', '?controller=admin&action=account&page=' . $current_page);
+              }else{
+                $update = $this->adminModel->updateUser($id, $studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class);
+                if ($update) {
+                  $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+                  success('Cập nhật tài khoản thành công!', '?controller=admin&action=account&page=' . $current_page);
+                } else {
+                  $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+                  error('Cập nhật tài khoản thất bại!', '?controller=admin&action=account&page=' . $current_page);
+                }
+              }
+            }
+          }
         }
-      } else {
+      }else {
         $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-        warning('Mã số sinh viên đã tồn tại!', '?controller=admin&action=account&page=' . $current_page);
-      }
+        error('Không thể cập nhật người dùng!', '?controller=admin&action=account&page=' . $current_page);
+      } 
       exit();
     }
     return $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
   }
 
+  public function category()
+  {
+    $limit = 15;
+    $_SESSION['sort-category'] = isset($_SESSION['sort-category']) ? $_SESSION['sort-category'] : 'desc';
+    $_SESSION['search-category'] = isset($_SESSION['search-category']) ? $_SESSION['search-category'] : '';
+    if (isset($_POST['sort-category'])) {
+      $_SESSION['sort-category'] = $_POST['sort-category'];
+    }
+    if (isset($_POST['search-category'])) {
+      $_SESSION['search-category'] = $_POST['search-category'];
+    }
+    $total = $this->adminModel->getAllCategory($_SESSION['search-category']);
+    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $total_page = ceil(mysqli_num_rows($total) / $limit);
+    if ($current_page > $total_page) {
+      $current_page = $total_page;
+    }
+    if ($current_page < 1) {
+      $current_page = 1;
+    }
+    $start = ($current_page - 1) * $limit;
+    $listCategory = mysqli_fetch_all($this->adminModel->getListCategory($start, $limit, $_SESSION['sort-category'], $_SESSION['search-category']));
+    if (isset($_POST['add_category-handmade'])) {
+      $categoryName = $_POST['category_name'];
+      $firstWord = explode(' ', $categoryName);
+      $idCategoryCreate = '';
+      foreach ($firstWord as $word) {
+        $idCategoryCreate .= mb_substr(mb_strtoupper($word), 0, 1);
+      }
+      $acronymCategory = $idCategoryCreate;
+      if (mysqli_num_rows($this->adminModel->checkCategoryWithName($categoryName)) < 1) {
+          $add = $this->adminModel->addCategory($categoryName,$acronymCategory);
+          if ($add) {
+            $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+            success('Thêm thể loại thành công!', '?controller=admin&action=category&page=' . $current_page);
+          } else {
+            $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+            error('Thêm thể loại thất bại!', '?controller=admin&action=category&page=' . $current_page);
+          }
+      } else {
+        $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+        warning('Tên thể loại đã tồn tại!', '?controller=admin&action=category&page=' . $current_page);
+      }
+      exit();
+    }
+    if (isset($_POST['edit_category-handmade'])) {
+      $id = $_POST['category_id'];
+      $name = $_POST['category_name'];
+      $firstWord = explode(' ', $name);
+      $idCategoryCreate = '';
+      foreach ($firstWord as $word) {
+        $idCategoryCreate .= mb_substr(mb_strtoupper($word), 0, 1);
+      }
+      $acronymCategory = $idCategoryCreate;
+     if ($checkName = mysqli_fetch_assoc($this->adminModel->checkCategoryWithId($id))) {
+      if ($checkName['nameCategory'] === $name) {
+        $edit = $this->adminModel->updateCategory($id, $name, $acronymCategory);
+        if ($edit) {
+          $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+          success('Chỉnh sửa thể loại thành công!', '?controller=admin&action=category&page=' . $current_page);
+        } else {
+          $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+          error('Chỉnh sửa thể loại thất bại!', '?controller=admin&action=category&page=' . $current_page);
+        }
+      } else {
+        if (mysqli_num_rows($this->adminModel->checkCategoryWithName($name)) > 0) {
+          $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+          warning('Tên thể loại đã tồn tại!', '?controller=admin&action=category&page=' . $current_page);
+        } else {
+          $edit = $this->adminModel->updateCategory($id, $name, $acronymCategory);
+          if ($edit) {
+            $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+            success('Chỉnh sửa thể loại thành công!', '?controller=admin&action=category&page=' . $current_page);
+          } else {
+            $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+            error('Chỉnh sửa thể loại thất bại!', '?controller=admin&action=category&page=' . $current_page);
+          }
+        }
+      }
+    }
+      exit();
+    }
+    return $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+  }
+
+  public function book()
+  {
+    $limit = 15;
+    $_SESSION['sort-book'] = isset($_SESSION['sort-book']) ? $_SESSION['sort-book'] : 'desc';
+    $_SESSION['search-book'] = isset($_SESSION['search-book']) ? $_SESSION['search-book'] : '';
+    $_SESSION['category-book'] = isset($_SESSION['category-book']) ? $_SESSION['category-book'] : 'all';
+    if (isset($_POST['sort-book'])) {
+      $_SESSION['sort-book'] = $_POST['sort-book'];
+    }
+    if (isset($_POST['search-book'])) {
+      $_SESSION['search-book'] = $_POST['search-book'];
+      $_SESSION['category-book'] = $_POST['category-book'];
+    }
+    $total = $this->adminModel->getAllBook($_SESSION['search-book'], $_SESSION['category-book']);
+    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $total_page = ceil(mysqli_num_rows($total) / $limit);
+    if ($current_page > $total_page) {
+      $current_page = $total_page;
+    }
+    if ($current_page < 1) {
+      $current_page = 1;
+    }
+    $start = ($current_page - 1) * $limit;
+    $listBook = mysqli_fetch_all($this->adminModel->getListBook($start, $limit, $_SESSION['sort-book'], $_SESSION['search-book'], $_SESSION['category-book']));
+    $listCategory = $this->adminModel->getAllCategory('');
+    // if (isset($_POST['add-product'])) {
+    //   $name = $_POST['name_product'];
+    //   $firstWord = explode(' ', $name);
+    //   $idProduct = '';
+    //   foreach ($firstWord as $word) {
+    //     $idProduct .= mb_substr(mb_strtoupper($word), 0, 1);
+    //   }
+    //   $id = $idProduct;
+    //   $note = $_POST['note_product'];
+    //   if (isset($_POST['category-product'])) {
+    //     $idCategory = $_POST['category-product'];
+    //     if (mysqli_num_rows($this->adminModel->checkProduct($name)) < 1) {
+    //       $add = $this->adminModel->addProduct($id, $name, $note, $idCategory);
+    //       if ($add) {
+    //         $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //         success('Thêm hàng hóa thành công!', '?controller=admin&action=product');
+    //       } else {
+    //         $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //         error('Thêm hàng hóa thất bại!', '?controller=admin&action=product');
+    //       }
+    //     } else {
+    //       $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //       warning('Tên hàng hóa đã tồn tại!', '?controller=admin&action=product');
+    //     }
+    //   } else {
+    //     $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //     warning('Vui lòng thêm danh mục!', '?controller=admin&action=product');
+    //   }
+
+    //   exit();
+    // }
+    // if (isset($_POST['edit-product'])) {
+    //   $id = $_POST['id_product'];
+    //   $name = $_POST['name_product'];
+    //   $firstWord = explode(' ', $name);
+    //   $idProductCreate = '';
+    //   foreach ($firstWord as $word) {
+    //     $idProductCreate .= mb_substr(mb_strtoupper($word), 0, 1);
+    //   }
+    //   $idProduct = $idProductCreate;
+    //   $note = $_POST['note_product'];
+    //   $idCategory = $_POST['category-product'];
+    //   if ($checkName = mysqli_fetch_assoc($this->adminModel->checkCategoryWithID($id))) {
+    //     if ($checkName['nameProduct'] === $name) {
+    //       $edit = $this->adminModel->updateProduct($id, $idProduct, $name, $note, $idCategory);
+    //       if ($edit) {
+    //         $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //         success('Chỉnh sửa hàng hóa thành công!', '?controller=admin&action=product&page=' . $current_page);
+    //       } else {
+    //         $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //         error('Chỉnh sửa hàng hóa thất bại!', '?controller=admin&action=product&page=' . $current_page);
+    //       }
+    //     } else {
+    //       if (mysqli_num_rows($this->adminModel->checkProduct($name)) > 0) {
+    //         $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //         error('Tên hàng hóa đã tồn tại!', '?controller=admin&action=product&page=' . $current_page);
+    //       } else {
+    //         $edit = $this->adminModel->updateProduct($id, $idProduct, $name, $note, $idCategory);
+    //         if ($edit) {
+    //           $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //           success('Chỉnh sửa hàng hóa thành công!', '?controller=admin&action=product&page=' . $current_page);
+    //         } else {
+    //           $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //           error('Chỉnh sửa hàng hóa thất bại!', '?controller=admin&action=product&page=' . $current_page);
+    //         }
+    //       }
+    //     }
+    //   }
+    //   exit();
+    // }
+    return $this->loadview('admin.book', ['listBook' => $listBook, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+  }
+
 }
 
-?>

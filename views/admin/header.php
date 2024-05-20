@@ -1,4 +1,4 @@
-<header>
+<header class="header__nav">
     <div>
         <a href="?controller=admin"><img src="./upload/logo-admin.png" alt=""><span>Trung tâm học liệu</span></a>
     </div>
@@ -9,7 +9,7 @@
         <a href="?controller=admin&action=account">
             <li><i class="fa-solid fa-user-group icon"></i>Tài khoản</li>
         </a>
-        <a href="?controller=admin&action=category_book">
+        <a href="?controller=admin&action=category">
             <li><i class="fa-solid fa-list icon"></i>Thể loại</li>
         </a>
         <a href="?controller=admin&action=book">
@@ -26,3 +26,5 @@
         </a>
     </ul>
 </header>
+
+<script src="./js/admin/checkCurrentPage.js"></script>
