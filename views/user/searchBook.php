@@ -4,7 +4,7 @@
       <select class="select-search" name="option-search" id="option-search">
         <option value="nameBook">Tên sách</option>
         <option value="creatorBook">Tác giả</option>
-        <option value="topicBook">Chủ đề</option>
+        <option value="nameCategory">Chủ đề</option>
         <option value="publisherBook">Nhà xuất bản</option>
         <option value="dateBook">Năm xuất bản</option>
       </select>

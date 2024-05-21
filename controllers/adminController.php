@@ -243,47 +243,83 @@ class adminController extends baseController
     $start = ($current_page - 1) * $limit;
     $listBook = mysqli_fetch_all($this->adminModel->getListBook($start, $limit, $_SESSION['sort-book'], $_SESSION['search-book'], $_SESSION['category-book']));
     $listCategory = $this->adminModel->getAllCategory('');
+    return $this->loadview('admin.book', ['listBook' => $listBook, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+  }
 
-    // if (isset($_POST['edit-product'])) {
-    //   $id = $_POST['id_product'];
-    //   $name = $_POST['name_product'];
-    //   $firstWord = explode(' ', $name);
-    //   $idProductCreate = '';
-    //   foreach ($firstWord as $word) {
-    //     $idProductCreate .= mb_substr(mb_strtoupper($word), 0, 1);
-    //   }
-    //   $idProduct = $idProductCreate;
-    //   $note = $_POST['note_product'];
-    //   $idCategory = $_POST['category-product'];
-    //   if ($checkName = mysqli_fetch_assoc($this->adminModel->checkCategoryWithID($id))) {
-    //     if ($checkName['nameProduct'] === $name) {
-    //       $edit = $this->adminModel->updateProduct($id, $idProduct, $name, $note, $idCategory);
-    //       if ($edit) {
-    //         $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //         success('Chỉnh sửa hàng hóa thành công!', '?controller=admin&action=product&page=' . $current_page);
+  public function borrow()
+  {
+    $limit = 15;
+    $_SESSION['sort-borrow'] = isset($_SESSION['sort-borrow']) ? $_SESSION['sort-borrow'] : 'desc';
+    $_SESSION['search-borrow'] = isset($_SESSION['search-borrow']) ? $_SESSION['search-borrow'] : '';
+    $_SESSION['status-borrow'] = isset($_SESSION['status-borrow']) ? $_SESSION['status-borrow'] : 'all';
+    if (isset($_POST['sort-borrow'])) {
+      $_SESSION['sort-borrow'] = $_POST['sort-borrow'];
+    }
+    if (isset($_POST['search-borrow'])) {
+      $_SESSION['status-borrow'] = $_POST['status-borrow'];
+      $_SESSION['search-borrow'] = $_POST['search-borrow'];
+    }
+    $total = $this->adminModel->getAllBorrow($_SESSION['search-borrow'],$_SESSION['status-borrow']);
+    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $total_page = ceil(mysqli_num_rows($total) / $limit);
+    if ($current_page > $total_page) {
+      $current_page = $total_page;
+    }
+    if ($current_page < 1) {
+      $current_page = 1;
+    }
+    $start = ($current_page - 1) * $limit;
+    $listBorrow = mysqli_fetch_all($this->adminModel->getListBorrow($start, $limit, $_SESSION['sort-borrow'], $_SESSION['search-borrow'],$_SESSION['status-borrow']));
+    $listBook = $this->adminModel->getAllBook('', 'all');
+    // if (isset($_POST['add_Borrow-handmade'])) {
+    //   $BorrowName = $_POST['Borrow_name'];
+    //   if (mysqli_num_rows($this->adminModel->checkBorrowWithName($BorrowName)) < 1) {
+    //       $add = $this->adminModel->addBorrow($BorrowName);
+    //       if ($add) {
+    //         $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //         success('Thêm thể loại thành công!', '?controller=admin&action=Borrow&page=' . $current_page);
     //       } else {
-    //         $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //         error('Chỉnh sửa hàng hóa thất bại!', '?controller=admin&action=product&page=' . $current_page);
+    //         $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //         error('Thêm thể loại thất bại!', '?controller=admin&action=Borrow&page=' . $current_page);
     //       }
-    //     } else {
-    //       if (mysqli_num_rows($this->adminModel->checkProduct($name)) > 0) {
-    //         $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //         error('Tên hàng hóa đã tồn tại!', '?controller=admin&action=product&page=' . $current_page);
-    //       } else {
-    //         $edit = $this->adminModel->updateProduct($id, $idProduct, $name, $note, $idCategory);
-    //         if ($edit) {
-    //           $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //           success('Chỉnh sửa hàng hóa thành công!', '?controller=admin&action=product&page=' . $current_page);
-    //         } else {
-    //           $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //           error('Chỉnh sửa hàng hóa thất bại!', '?controller=admin&action=product&page=' . $current_page);
-    //         }
-    //       }
-    //     }
+    //   } else {
+    //     $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //     warning('Tên thể loại đã tồn tại!', '?controller=admin&action=Borrow&page=' . $current_page);
     //   }
     //   exit();
     // }
-    return $this->loadview('admin.book', ['listBook' => $listBook, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    // if (isset($_POST['edit_Borrow-handmade'])) {
+    //   $id = $_POST['Borrow_id'];
+    //   $name = $_POST['Borrow_name'];
+    //  if ($checkName = mysqli_fetch_assoc($this->adminModel->checkBorrowWithId($id))) {
+    //   if ($checkName['nameBorrow'] === $name) {
+    //     $edit = $this->adminModel->updateBorrow($id, $name);
+    //     if ($edit) {
+    //       $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //       success('Chỉnh sửa thể loại thành công!', '?controller=admin&action=Borrow&page=' . $current_page);
+    //     } else {
+    //       $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //       error('Chỉnh sửa thể loại thất bại!', '?controller=admin&action=Borrow&page=' . $current_page);
+    //     }
+    //   } else {
+    //     if (mysqli_num_rows($this->adminModel->checkBorrowWithName($name)) > 0) {
+    //       $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //       warning('Tên thể loại đã tồn tại!', '?controller=admin&action=Borrow&page=' . $current_page);
+    //     } else {
+    //       $edit = $this->adminModel->updateBorrow($id, $name);
+    //       if ($edit) {
+    //         $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //         success('Chỉnh sửa thể loại thành công!', '?controller=admin&action=Borrow&page=' . $current_page);
+    //       } else {
+    //         $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    //         error('Chỉnh sửa thể loại thất bại!', '?controller=admin&action=Borrow&page=' . $current_page);
+    //       }
+    //     }
+    //   }
+    // }
+    //   exit();
+    // }
+    return $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
   }
 
 }

@@ -12,7 +12,7 @@ class userController extends baseController
   }
   public function index()
   {
-
+    
     $books = $this->userModel->getAllBook();
 
     $componentName = 'homeHotBook';

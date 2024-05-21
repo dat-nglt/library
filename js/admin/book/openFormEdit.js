@@ -36,7 +36,7 @@ $(document).on("click", ".list__action-open-edit", function () {
     addFormEdit.innerHTML = `
     <form action="" method="post" id="form-add-book" class="list__form-add" style="height: ${heghtForm};">
     <div class="list__form-title">
-        <span><i class="fa-solid fa-book icon"></i> Thêm sách</span><i class="fa-solid fa-xmark close-icon"
+        <span><i class="fa-solid fa-book icon"></i> Chỉnh sửa sách</span><i class="fa-solid fa-xmark close-icon"
         onclick="closeFormAdd()"></i>
     </div>
     <div class="list__form-content"style="display: block">
@@ -46,7 +46,6 @@ $(document).on("click", ".list__action-open-edit", function () {
                 <div style="display: flex; flex-direction: column;">
                     <div style="display: flex;justify-content: center; margin-bottom: 5px;" id="imgContainer"></div>
                     <div style="display: flex;justify-content: center; margin-bottom: 5px;"><img ${styleImg} id="oldimg" src="${image}" alt=""></div>
-                    
                     <div class="select_avatar" style="display: block">
                         <input type="file" id="newImg" accept="image/*" onchange="changeImg(event)">
                         <button class="button_change" type="button">Chọn ảnh</button>
@@ -102,7 +101,7 @@ $(document).on("click", ".list__action-open-edit", function () {
     </div>
     <div class="list__form-btn">
         <button type="button" class="close-btn" onclick="closeFormAdd()">Đóng</button>
-        <button type="button" onclick="submitBookEdit()" name="add-book" >Thêm</button>
+        <button type="button" onclick="submitBookEdit()" name="add-book" >Chỉnh sửa</button>
     </div>
 </form>`;
 });

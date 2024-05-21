@@ -13,7 +13,7 @@ if (isset($data['notification']) && $data !== []) {
       <select class="select-search" name="option-search" id="option-search">
         <option value="nameBook">Tên sách</option>
         <option value="creatorBook">Tác giả</option>
-        <option value="topicBook">Chủ đề</option>
+        <option value="nameCategory">Chủ đề</option>
         <option value="publisherBook">Nhà xuất bản</option>
         <option value="dateBook">Năm xuất bản</option>
       </select>
@@ -29,37 +29,33 @@ if (isset($data['notification']) && $data !== []) {
         <i class="fa-solid fa-tags"></i>Tài liệu chuyên ngành
       </div>
       <div class="book-data-content">
-        <a href="">- Toán cao cấp</a>
-        <a href="">- Pháp luật đại cương</a>
-        <a href="">- Tin học văn phòng</a>
-        <a href="">- Đại số tuyến tính</a>
-        <a href="" class="view-all">Xem tất cả</a>
+        <a href="?controller=user&action=searchBook&contentSearch=NCKH&optionSearch=nameCategory">- Đề tài NCKH</a>
+        <a href="?controller=user&action=searchBook&contentSearch=Đồ%20Án&optionSearch=nameCategory">- Đồ án</a>
+        <a href="?controller=user&action=searchBook&contentSearch=Tiểu%20luận&optionSearch=nameCategory">- Tiểu luận</a>
       </div>
     </div>
 
     <div class="book-data-sub">
       <div class="book-data-title">
-        <i class="fa-solid fa-tags"></i>Tài liệu điện tử
+        <i class="fa-solid fa-tags"></i>Tài liệu học tập
       </div>
       <div class="book-data-content">
-        <a href="">- Toán cao cấp</a>
-        <a href="">- Pháp luật đại cương</a>
-        <a href="">- Tin học văn phòng</a>
-        <a href="">- Đại số tuyến tính</a>
-        <a href="" class="view-all">Xem tất cả</a>
+        <a href="?controller=user&action=searchBook&contentSearch=Bài%20giảng&optionSearch=nameCategory">- Bài giảng</a>
+        <a href="?controller=user&action=searchBook&contentSearch=Giáo%20trình&optionSearch=nameCategory">- Giáo
+          trình</a>
+        <a href="?controller=user&action=searchBook&contentSearch=Đề%20cương&optionSearch=nameCategory">- Đề cương</a>
       </div>
     </div>
 
     <div class="book-data-sub">
       <div class="book-data-title">
-        <i class="fa-solid fa-tags"></i>Tài liệu mới cập nhật
+        <i class="fa-solid fa-tags"></i>Tài liệu khác
       </div>
       <div class="book-data-content">
-        <a href="">- Toán cao cấp</a>
-        <a href="">- Pháp luật đại cương</a>
-        <a href="">- Tin học văn phòng</a>
-        <a href="">- Đại số tuyến tính</a>
-        <a href="" class="view-all">Xem tất cả</a>
+        <a href="?controller=user&action=searchBook&contentSearch=Tiểu%20thuyết&optionSearch=nameCategory">- Tiểu
+          thuyết</a>
+        <a href="?controller=user&action=searchBook&contentSearch=Truyện&optionSearch=nameCategory">- Truyện</a>
+        <a href="?controller=user&action=searchBook&contentSearch=Tạp%20chí&optionSearch=nameCategory">- Tạp chí</a>
       </div>
     </div>
   </div>

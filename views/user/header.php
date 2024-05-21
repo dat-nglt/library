@@ -1,4 +1,3 @@
-
 <div id="header-for-all">
   <div class="header top">
     <div class="sub-header-top">
@@ -21,7 +20,7 @@
         <a class="menu-item" href="?controller=user&action=upload">
           Upload tài liệu số
         </a>
-        <a class="menu-item" href="">
+        <a class="menu-item" href="?controller=user&action=profile&profilePage=rentHistory">
           Yêu cầu tài liệu
         </a>
         <a class="menu-item" href="">

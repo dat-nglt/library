@@ -124,16 +124,15 @@ td {
   background-color: #14eb96;
 }
 
-/* Định dạng cho các hàng chẵn */
+
 #rent-table tr:nth-child(even) {
-  background-color: #e6e6e6; /* Màu nền cho hàng chẵn */
-  color: #333; /* Màu chữ cho hàng chẵn */
+  background-color: #e6e6e6;
+  color: #333;
 }
 
-/* Định dạng cho các hàng lẻ */
 #rent-table tr:nth-child(odd) {
-  background-color: #d5d5d5; /* Màu nền cho hàng lẻ */
-  color: #333; /* Màu chữ cho hàng lẻ */
+  background-color: #d5d5d5;
+  color: #333;
 }
 
 .number-page {

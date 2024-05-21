@@ -95,7 +95,6 @@
     </div>
 </div>
 <script src="./js/admin/category/openFormAdd.js"></script>
-<script src="./js/admin/category/openFormAdd.js"></script>
 <script src="./js/admin/closeFormAdd.js"></script>
 <script src="./js/admin/category/openFormEdit.js"></script>
 <script src="./js/admin/category/deleteItem.js"></script>

@@ -141,7 +141,6 @@
     </div>
 </div>
 <script src="./js/admin/book/openFormAdd.js"></script>
-<script src="./js/admin/book/openFormAdd.js"></script>
 <script src="./js/admin/closeFormAdd.js"></script>
 <script src="./js/admin/book/openFormEdit.js"></script>
 <script src="./js/admin/book/deleteItem.js"></script>

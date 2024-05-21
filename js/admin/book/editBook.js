@@ -42,6 +42,7 @@ function submitBookEdit() {
 
     var file = $("#newImg")[0].files[0];
     if (file === undefined) {
+        var image = $('#oldimg').attr('src');;
         var data = {
             name,
             creator,
@@ -51,6 +52,7 @@ function submitBookEdit() {
             des,
             category,
             id,
+            image
         };
         $.ajax({
             type: "POST",
@@ -70,8 +72,8 @@ function submitBookEdit() {
             error: function () {
                 Swal.fire({
                     title: "Thông báo",
-                    text: "Thêm sách không thành công",
-                    icon: "success",
+                    text: "Chỉnh sửa không thành công",
+                    icon: "error",
                     showConfirmButton: true,
                 }).then(function () {
                     window.location.assign("?controller=admin&action=book");
@@ -120,7 +122,7 @@ function submitBookEdit() {
                         console.log(xhr);
                         Swal.fire({
                             title: "Thông báo",
-                            text: "Thêm sách không thành công",
+                            text: "Chỉnh sửa không thành công",
                             icon: "error",
                             showConfirmButton: true,
                         }).then(function () {
@@ -134,7 +136,7 @@ function submitBookEdit() {
             error: function () {
                 Swal.fire({
                     title: "Thông báo",
-                    text: "Thêm ảnh sách thất bại",
+                    text: "Thay đổi ảnh sách thất bại",
                     icon: "error",
                     showConfirmButton: true,
                 }).then(function () {

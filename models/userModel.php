@@ -53,7 +53,18 @@ class userModel extends baseModel
 
   public function searchBooks($contentSearch, $optionSearch)
   {
-    $sql = "SELECT * FROM book WHERE $optionSearch LIKE '%$contentSearch%'";
+    if ($optionSearch == 'all') {
+      $sql = "SELECT *, category.idCategory, category.nameCategory FROM book, category WHERE book.id_Category = category.idCategory AND 
+      category.nameCategory LIKE 'harry' OR
+      book.nameBook LIKE 'harry' OR
+      book.creatorBook LIKE 'harry' OR
+      book.publisherBook LIKE 'harry' OR
+      book.dateBook LIKE 'harry'
+      ";
+
+    } else {
+      $sql = "SELECT *, category.idCategory, category.nameCategory FROM book, category WHERE book.id_Category = category.idCategory AND $optionSearch LIKE '%$contentSearch%'";
+    }
     $query = $this->_query($sql);
     return $query;
   }
@@ -95,8 +106,8 @@ class userModel extends baseModel
     book, user WHERE request.id_User = user.id AND request.id_Book = book.idBook AND user.id = $idUser";
 
     $sql .= $searchListRentBook
-      ? " AND book.nameBook like '%$searchListRentBook%' ORDER BY book.nameBook $sortListRentBook LIMIT $start, $limit"
-      : " ORDER BY book.nameBook $sortListRentBook LIMIT $start, $limit";
+      ? " AND book.nameBook like '%$searchListRentBook%' ORDER BY request.dateRequest $sortListRentBook LIMIT $start, $limit"
+      : " ORDER BY request.dateRequest $sortListRentBook LIMIT $start, $limit";
 
     $query = $this->_query($sql);
     return $query;

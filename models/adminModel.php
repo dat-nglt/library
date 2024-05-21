@@ -130,4 +130,39 @@ class adminModel extends baseModel
     return $query;
   }
 
+  //borrow
+
+  public function getAllBorrow($search, $status)
+  {
+    if ($status === 'all') {
+      $sql = "SELECT r.*, u.studentCode, u.identificationNumber, b.nameBook FROM request AS r 
+        JOIN book AS b ON r.id_book = b.idBook JOIN user AS u ON r.id_User = u.id
+        WHERE b.nameBook LIKE '%$search%' OR u.studentCode = '$search' OR u.identificationNumber = '$search'";
+    }else{
+      $sql = "SELECT r.*, u.studentCode, u.identificationNumber, b.nameBook FROM request AS r 
+      JOIN book AS b ON r.id_book = b.idBook JOIN user AS u ON r.id_User = u.id
+      WHERE (b.nameBook LIKE '%$search%' OR u.studentCode = '$search' OR u.identificationNumber = '$search') 
+      AND r.statusRequest = '$status'";
+    }
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function getListBorrow($start, $limit, $sort, $search, $status)
+  {
+    if ($status === 'all') {
+      $sql = "SELECT r.*, u.studentCode, u.identificationNumber, b.nameBook FROM request AS r 
+      JOIN book AS b ON r.id_book = b.idBook JOIN user AS u ON r.id_User = u.id
+      WHERE b.nameBook LIKE '%$search%' OR u.studentCode = '$search' OR u.identificationNumber = '$search'
+      ORDER BY r.idRequest $sort LIMIT $start, $limit;";
+    } else {
+      $sql = "SELECT r.*, u.studentCode, u.identificationNumber, b.nameBook FROM request AS r 
+      JOIN book AS b ON r.id_book = b.idBook JOIN user AS u ON r.id_User = u.id
+      WHERE (b.nameBook LIKE '%$search%' OR u.studentCode = '$search' OR u.identificationNumber = '$search') 
+      AND r.statusRequest = '$status' ORDER BY r.idRequest $sort LIMIT $start, $limit;";
+    }
+    $query = $this->_query($sql);
+    return $query;
+  }
+
 }
