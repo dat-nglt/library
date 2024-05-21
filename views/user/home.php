@@ -11,6 +11,7 @@ if (isset($data['notification']) && $data !== []) {
   <div class="user-search">
     <div class="user-search-sub">
       <select class="select-search" name="option-search" id="option-search">
+        <option value="all">Tất cá</option>
         <option value="nameBook">Tên sách</option>
         <option value="creatorBook">Tác giả</option>
         <option value="nameCategory">Chủ đề</option>

@@ -1,6 +1,7 @@
 <header class="header__nav">
     <div>
-        <a href="?controller=admin"><img src="./upload/logo-admin.png" alt=""><span>Trung tâm học liệu</span></a>
+        <a href="http://localhost/library/"><img src="./upload/logo-admin.png" alt=""><span>Trung tâm học
+                liệu</span></a>
     </div>
     <ul>
         <a href="?controller=admin&action=dashboard">

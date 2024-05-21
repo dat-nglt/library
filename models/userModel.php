@@ -54,14 +54,16 @@ class userModel extends baseModel
   public function searchBooks($contentSearch, $optionSearch)
   {
     if ($optionSearch == 'all') {
-      $sql = "SELECT *, category.idCategory, category.nameCategory FROM book, category WHERE book.id_Category = category.idCategory AND 
-      category.nameCategory LIKE 'harry' OR
-      book.nameBook LIKE 'harry' OR
-      book.creatorBook LIKE 'harry' OR
-      book.publisherBook LIKE 'harry' OR
-      book.dateBook LIKE 'harry'
+      $sql = "SELECT book.*, category.idCategory, category.nameCategory
+      FROM book
+      INNER JOIN category ON book.id_Category = category.idCategory
+      WHERE 
+          category.nameCategory LIKE '%$contentSearch%' 
+          OR book.nameBook LIKE '%$contentSearch%'
+          OR book.creatorBook LIKE '%$contentSearch%'
+          OR book.publisherBook LIKE '%$contentSearch%'
+          OR book.dateBook LIKE '%$contentSearch%'
       ";
-
     } else {
       $sql = "SELECT *, category.idCategory, category.nameCategory FROM book, category WHERE book.id_Category = category.idCategory AND $optionSearch LIKE '%$contentSearch%'";
     }

@@ -3,14 +3,16 @@
         <div>
             <div style="flex: 1;display:flex;justify-content: space-between">
                 <div>
-                    <span>Danh sách mượn|trả </span><button onclick="openFormAdd()" id="list__add-btn" type="button">Thêm
+                    <span>Danh sách mượn|trả </span><button onclick="openFormAdd()" id="list__add-btn"
+                        type="button">Thêm
                         phiếu mượn</button>
                 </div>
                 <div style="display:flex; gap: 5px; justify-content: center; padding: 0 0 5px;align-items: center;">
                     <fieldset>
                         <legend>Tìm kiếm</legend>
                         <form action="" method="post" class="admin__form-search">
-                            <input type="text" name="search-borrow" placeholder="Tên, tác giả, năm xuất bản" autocomplete="off">
+                            <input type="text" name="search-borrow" placeholder="Tên, tác giả, năm xuất bản"
+                                autocomplete="off">
                             <select name="status-borrow" id="status-borrow">
                                 <option value="all" <?php if ($_SESSION['status-borrow'] === 'all')
                                     echo 'selected' ?>>
@@ -18,7 +20,7 @@
                                     </option>
                                     <option value="0" <?php if ($_SESSION['status-borrow'] === '0')
                                     echo 'selected' ?>>
-                                       Yêu cầu
+                                        Yêu cầu
                                     </option>
                                     <option value="1" <?php if ($_SESSION['status-borrow'] === '1')
                                     echo 'selected' ?>>
@@ -28,15 +30,15 @@
                                     echo 'selected' ?>>
                                         Trả
                                     </option>
-                            </select>
-                            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </form>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Sắp xếp</legend>
-                        <form action="" method="post" class="admin__form-search">
-                            <select name="sort-borrow" id="">
-                                <option value="desc" <?php if ($_SESSION['sort-borrow'] === 'desc')
+                                </select>
+                                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </form>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Sắp xếp</legend>
+                            <form action="" method="post" class="admin__form-search">
+                                <select name="sort-borrow" id="">
+                                    <option value="desc" <?php if ($_SESSION['sort-borrow'] === 'desc')
                                     echo 'selected' ?>>
                                         Mới nhất
                                     </option>
@@ -58,26 +60,36 @@
                     <th style="width: 7%;">CCCD</th>
                     <th style="width: 26%;">Tên sách</th>
                     <th style="width: 10%;">Trạng thái</th>
-                    <th style="width: 11%;">Day Request</th>
-                    <th style="width: 10%;">Day Rental</th>
-                    <th style="width: 10%;">Day Return</th>
-                    <th style="width: 8%;"></th>
+                    <th style="width: 11%;">T.gian Y.cầu</th>
+                    <th style="width: 10%;">Ngày mượn</th>
+                    <th style="width: 10%;">Ngày trả</th>
+                    <th style="width: 8%;">H.động</th>
                 </tr>
                 <?php
                                 $stt = (($current_page - 1) * $limit) + 1;
                                 foreach ($listBorrow as $key => $value) {
-                                    if($value[4] === '0'){
-                                        $status = 'Đang chờ xét duyệt';
-                                    }else if($value[4] === '1'){
-                                        $status = 'Quá hạn xác nhận';
-                                    }else if($value[4] === '2'){
-                                        $status = 'Đang mượn';
-                                    }else if($value[4] === '3'){
-                                        $status = 'Đã trả';
-                                    }else if($value[4] === '4'){
-                                        $status = 'Quá hạn trả';
+                                    switch ($value[4]) {
+                                        case '0':
+                                            $status = 'Đang chờ xét duyệt';
+                                            break;
+                                        case '1':
+                                            $status = 'Quá hạn xác nhận';
+                                            break;
+                                        case '2':
+                                            $status = 'Đang mượn';
+                                            break;
+                                        case '3':
+                                            $status = 'Đã trả';
+                                            break;
+                                        case '4':
+                                            $status = 'Quá hạn trả';
+                                            break;
+                                        default:
+                                            $status = '';
+                                            break;
                                     }
-                                ?>
+
+                                    ?>
                 <tr class="list__content">
                     <td><?= $stt ?></td>
                     <td>
@@ -144,13 +156,13 @@
             <?php if ($_SESSION['search-borrow'] != '') { ?>
                 <span>Từ khóa đã tìm kiếm: <span><?= $_SESSION['search-borrow'] ?></span></span>
             <?php } ?>
+        </div>
     </div>
-</div>
-<?php var_dump(json_encode(mysqli_fetch_assoc($listBook))) ?>
-<script>
-    var listBook = <?php echo json_encode($listBook) ?>;
-</script>
-<script src="./js/admin/borrow/openFormAdd.js"></script>
-<script src="./js/admin/closeFormAdd.js"></script>
-<script src="./js/admin/borrow/openFormEdit.js"></script>
-<script src="./js/admin/borrow/deleteItem.js"></script>
+    
+    <script>
+        var listBook = <?php echo json_encode($listBook) ?>;
+    </script>
+    <script src="./js/admin/borrow/openFormAdd.js"></script>
+    <script src="./js/admin/closeFormAdd.js"></script>
+    <script src="./js/admin/borrow/openFormEdit.js"></script>
+    <script src="./js/admin/borrow/deleteItem.js"></script>

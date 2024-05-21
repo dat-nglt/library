@@ -5,7 +5,7 @@ $listRentBook = $listRentBook ? $listRentBook : [];
 <div class="content">
   <div id="profile__title"> Danh sách mượn</div>
   <div class="filterRentBook">
-    <div>
+    <div class="sub-filter">
       <fieldset>
         <legend>Tìm kiếm</legend>
         <form action="?controller=user&action=profile&profilePage=rentHistory" method="post" class="admin__form-search">

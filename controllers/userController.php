@@ -12,7 +12,7 @@ class userController extends baseController
   }
   public function index()
   {
-    
+
     $books = $this->userModel->getAllBook();
 
     $componentName = 'homeHotBook';
@@ -105,24 +105,39 @@ class userController extends baseController
       $pageOption = $_GET['profilePage'];
       switch ($pageOption) {
         case 'rentHistory':
-          $searchListRentBook = isset($_POST['search_list_rent_book']) ? $_POST['search_list_rent_book'] : '';
-          $_SESSION['sort_list_rent_book'] = isset($_SESSION['sort_list_rent_book']) ? $_SESSION['sort_list_rent_book'] : 'desc';
-          $_SESSION['sort_list_rent_book'] = isset($_POST['sort_list_rent_book']) ? $_POST['sort_list_rent_book'] : $_SESSION['sort_list_rent_book'];
+          // Lấy giá trị tìm kiếm
+          $searchListRentBook = $_POST['search_list_rent_book'] ?? '';
+
+          // Lấy giá trị sắp xếp
+          $sortListRentBook = $_SESSION['sort_list_rent_book'] ?? 'desc';
+          $sortListRentBook = $_POST['sort_list_rent_book'] ?? $sortListRentBook;
+
+          // Thiết lập số lượng bản ghi trên mỗi trang
           $limit = 10;
-          $listAllRentBook = $this->userModel->listAllRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook);
-          $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+
+          // Lấy danh sách các bản ghi cho thuê
+          $listAllRentBook = $this->userModel->listAllRentBook($_SESSION['user']['id'], $sortListRentBook, $searchListRentBook);
+
+          // Tính số trang
+          $currentPage = $_GET['page'] ?? 1;
           $totalPage = ceil(mysqli_num_rows($listAllRentBook) / $limit);
-          if ($currentPage > $totalPage) {
-            $currentPage = $totalPage;
-          }
-          if ($currentPage < 1) {
-            $currentPage = 1;
-          }
+          $currentPage = max(1, min($currentPage, $totalPage));
+
+          // Tính vị trí bắt đầu của bản ghi
           $start = ($currentPage - 1) * $limit;
 
-          $listRentBook = mysqli_fetch_all($this->userModel->listRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook, $start, $limit));
+          // Lấy danh sách các bản ghi cho thuê
+          $listRentBook = mysqli_fetch_all($this->userModel->listRentBook($_SESSION['user']['id'], $sortListRentBook, $searchListRentBook, $start, $limit));
 
-          return $this->loadview('user.profile.profile', ['listRentBook' => $listRentBook, 'currentPage' => $currentPage, 'limit' => $limit, 'totalPage' => $totalPage, 'searchListRentBook' => $searchListRentBook]);
+          // Trả về view
+          return $this->loadview('user.profile.profile', [
+            'listRentBook' => $listRentBook,
+            'currentPage' => $currentPage,
+            'limit' => $limit,
+            'totalPage' => $totalPage,
+            'searchListRentBook' => $searchListRentBook
+          ]);
+
         case 'infoUser':
           return $this->loadview('user.profile.profile', []);
         case 'changePassword':
