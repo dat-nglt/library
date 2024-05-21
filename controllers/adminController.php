@@ -169,14 +169,8 @@ class adminController extends baseController
     $listCategory = mysqli_fetch_all($this->adminModel->getListCategory($start, $limit, $_SESSION['sort-category'], $_SESSION['search-category']));
     if (isset($_POST['add_category-handmade'])) {
       $categoryName = $_POST['category_name'];
-      $firstWord = explode(' ', $categoryName);
-      $idCategoryCreate = '';
-      foreach ($firstWord as $word) {
-        $idCategoryCreate .= mb_substr(mb_strtoupper($word), 0, 1);
-      }
-      $acronymCategory = $idCategoryCreate;
       if (mysqli_num_rows($this->adminModel->checkCategoryWithName($categoryName)) < 1) {
-          $add = $this->adminModel->addCategory($categoryName,$acronymCategory);
+          $add = $this->adminModel->addCategory($categoryName);
           if ($add) {
             $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
             success('Thêm thể loại thành công!', '?controller=admin&action=category&page=' . $current_page);
@@ -193,15 +187,9 @@ class adminController extends baseController
     if (isset($_POST['edit_category-handmade'])) {
       $id = $_POST['category_id'];
       $name = $_POST['category_name'];
-      $firstWord = explode(' ', $name);
-      $idCategoryCreate = '';
-      foreach ($firstWord as $word) {
-        $idCategoryCreate .= mb_substr(mb_strtoupper($word), 0, 1);
-      }
-      $acronymCategory = $idCategoryCreate;
      if ($checkName = mysqli_fetch_assoc($this->adminModel->checkCategoryWithId($id))) {
       if ($checkName['nameCategory'] === $name) {
-        $edit = $this->adminModel->updateCategory($id, $name, $acronymCategory);
+        $edit = $this->adminModel->updateCategory($id, $name);
         if ($edit) {
           $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
           success('Chỉnh sửa thể loại thành công!', '?controller=admin&action=category&page=' . $current_page);
@@ -214,7 +202,7 @@ class adminController extends baseController
           $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
           warning('Tên thể loại đã tồn tại!', '?controller=admin&action=category&page=' . $current_page);
         } else {
-          $edit = $this->adminModel->updateCategory($id, $name, $acronymCategory);
+          $edit = $this->adminModel->updateCategory($id, $name);
           if ($edit) {
             $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
             success('Chỉnh sửa thể loại thành công!', '?controller=admin&action=category&page=' . $current_page);
@@ -255,37 +243,7 @@ class adminController extends baseController
     $start = ($current_page - 1) * $limit;
     $listBook = mysqli_fetch_all($this->adminModel->getListBook($start, $limit, $_SESSION['sort-book'], $_SESSION['search-book'], $_SESSION['category-book']));
     $listCategory = $this->adminModel->getAllCategory('');
-    // if (isset($_POST['add-product'])) {
-    //   $name = $_POST['name_product'];
-    //   $firstWord = explode(' ', $name);
-    //   $idProduct = '';
-    //   foreach ($firstWord as $word) {
-    //     $idProduct .= mb_substr(mb_strtoupper($word), 0, 1);
-    //   }
-    //   $id = $idProduct;
-    //   $note = $_POST['note_product'];
-    //   if (isset($_POST['category-product'])) {
-    //     $idCategory = $_POST['category-product'];
-    //     if (mysqli_num_rows($this->adminModel->checkProduct($name)) < 1) {
-    //       $add = $this->adminModel->addProduct($id, $name, $note, $idCategory);
-    //       if ($add) {
-    //         $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //         success('Thêm hàng hóa thành công!', '?controller=admin&action=product');
-    //       } else {
-    //         $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //         error('Thêm hàng hóa thất bại!', '?controller=admin&action=product');
-    //       }
-    //     } else {
-    //       $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //       warning('Tên hàng hóa đã tồn tại!', '?controller=admin&action=product');
-    //     }
-    //   } else {
-    //     $this->loadview('product', ['listProduct' => $listProduct, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //     warning('Vui lòng thêm danh mục!', '?controller=admin&action=product');
-    //   }
 
-    //   exit();
-    // }
     // if (isset($_POST['edit-product'])) {
     //   $id = $_POST['id_product'];
     //   $name = $_POST['name_product'];

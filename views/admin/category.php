@@ -36,9 +36,8 @@
             <table>
                 <tr>
                     <th style="width: 10%;">#</th>
-                    <th style="width: 15%;">Tên viết tắt</th>
-                    <th style="width: 60%;">Tên thể loại</th>
-                    <th style="width: 15%;"></th>
+                    <th style="width: 70%;">Tên thể loại</th>
+                    <th style="width: 20%;"></th>
                 </tr>
                 <?php
                                 $stt = (($current_page - 1) * $limit) + 1;
@@ -46,9 +45,6 @@
                                     ?>
                 <tr class="list__content">
                     <td><?= $stt ?></td>
-                    <td>
-                        <div class="list__hidden-text"><?= $value[2] ?></div>
-                    </td>
                     <td>
                         <div class="list__hidden-text"><?= $value[1] ?></div>
                     </td>

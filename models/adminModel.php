@@ -84,9 +84,9 @@ class adminModel extends baseModel
     return $query;
   }
 
-  public function addCategory($name, $acronym)
+  public function addCategory($name)
   {
-    $sql = "INSERT INTO category VALUES ('','$name','$acronym')";
+    $sql = "INSERT INTO category VALUES ('','$name')";
     $query = $this->_query($sql);
     return $query;
   }
@@ -98,9 +98,9 @@ class adminModel extends baseModel
     return $query;
   }
 
-  public function updateCategory($id, $name, $acronym)
+  public function updateCategory($id, $name)
   {
-    $sql = "UPDATE category SET nameCategory = '$name', acronymCategory = '$acronym' WHERE idCategory = $id";
+    $sql = "UPDATE category SET nameCategory = '$name' WHERE idCategory = $id";
     $query = $this->_query($sql);
     return $query;
   }

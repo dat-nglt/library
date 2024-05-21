@@ -19,7 +19,7 @@
                                 <?php foreach ($listCategory as $key => $value) { ?>
                                     <option value="<?= $value['idCategory'] ?>" <?php if ($_SESSION['category-book'] === $value['idCategory'])
                                           echo 'selected' ?>>
-                                        <?= $value['acronymCategory'] ?>
+                                        <?= $value['nameCategory'] ?>
                                     </option>
                                 <?php } ?>
                             </select>
@@ -48,12 +48,13 @@
             <table>
                 <tr>
                     <th style="width: 5%;">#</th>
-                    <th style="width: 27%;">Tên sách</th>
+                    <th style="width: 19%;">Tên sách</th>
                     <th style="width: 10%;">Tác giả</th>
                     <th style="width: 10%;">Hình ảnh</th>
                     <th style="width: 10%;">Số lượng</th>
                     <th style="width: 10%;">Nhà XB</th>
-                    <th style="width: 10%;">Năm XB</th>
+                    <th style="width: 9%;">Năm XB</th>
+                    <th style="width: 9%;">Thể loại</th>
                     <th style="width: 10%;">Mô tả</th>
                     <th style="width: 8%;"></th>
                 </tr>
@@ -86,7 +87,10 @@
                         </div>
                     </td>
                     <td>
-                        <div class="list__hidden-text"><?= $value[6] ?></div>
+                        <div class="list__hidden-text"><?= $value[7] ?></div>
+                    </td>
+                    <td>
+                        <div class="list__hidden-text"><?= $value[9] ?></div>
                     </td>
                     <td>
                         <div class="list__hidden-text"  style="-webkit-line-clamp: 2;"><?= $value[7] ?></div>
@@ -142,6 +146,7 @@
 <script src="./js/admin/book/openFormEdit.js"></script>
 <script src="./js/admin/book/deleteItem.js"></script>
 <script src="./js/admin/changeImg.js"></script>
-<script src="./js/admin/book/uploadImg.js"></script>
+<script src="./js/admin/book/addBook.js"></script>
+<script src="./js/admin/book/editBook.js"></script>
 
 

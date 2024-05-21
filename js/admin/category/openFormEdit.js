@@ -1,6 +1,6 @@
 $(document).on("click", ".list__action-open-edit", function () {
     var id = $(this).data('id');
-    var name = $(this).closest("tr").find("td:eq(2)").text().trim();
+    var name = $(this).closest("tr").find("td:eq(1)").text().trim();
     var bodyContainer = document.querySelector(".body__container");
     bodyContainer.classList.add("form-add-is-open");
     var addFormEdit = document.createElement("div");
