@@ -29,7 +29,7 @@ session_start();
 
     function handleCredentialResponse(response) {
       // Post JWT token to server-side
-      fetch("auth_init.php", {
+      ("auth_init.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ request_type: 'user_auth', credential: response.credential }),

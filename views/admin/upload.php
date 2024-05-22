@@ -3,7 +3,8 @@
         <div>
             <div style="flex: 1;display:flex;justify-content: space-between">
                 <div>
-                    <span>Danh sách Tải lên</span><button onclick="openFormAdd()" id="list__add-btn" type="button">UPLOAD +</button>
+                    <span>Danh sách Tải lên</span><button onclick="openFormAdd()" id="list__add-btn"
+                        type="button">UPLOAD +</button>
                 </div>
                 <div style="display:flex; gap: 5px; justify-content: center; padding: 0 0 5px;align-items: center;">
                     <fieldset>
@@ -16,12 +17,14 @@
                                     echo 'selected' ?>>
                                         Tất cả
                                     </option>
-                                <?php foreach ($listCategory as $value) { ?>
+                                    <?php
+                                foreach ($listCategory as $value) { ?>
                                     <option value="<?= $value['idCategory'] ?>" <?php if ($_SESSION['category-upload'] === $value['idCategory'])
                                           echo 'selected' ?>>
                                         <?= $value['nameCategory'] ?>
                                     </option>
-                                <?php } ?>
+                                    <?php
+                                } ?>
                             </select>
                             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
@@ -57,7 +60,7 @@
                     <th style="width: 13%;">Trạng thái</th>
                     <th style="width: 7%;"></th>
                 </tr>
-                <?php
+                <?php   
                                 $stt = (($current_page - 1) * $limit) + 1;
                                 foreach ($listUpload as $key => $value) {
                                     ?>
@@ -148,8 +151,15 @@
             <?php } ?>
         </div>
     </div>
-</div>
 
-<script src="./js/admin/upload/openFormAdd.js"></script>
-<script src="./js/admin/closeFormAdd.js"></script>
-<script src="./js/admin/upload/deleteItem.js"></script>
+    <script>
+        var id_User = <?php echo json_encode($_SESSION['user']['id']) ?>;
+        var listBook = <?php echo json_encode($listBook) ?>;
+        var listCategory = <?php echo json_encode($getNameCategory) ?>;
+    </script>
+    <script src="./js/admin/upload/openFormAdd.js"></script>
+    <script src="./js/admin/closeFormAdd.js"></script>
+    <script src="./js/admin/upload/deleteItem.js"></script>
+    <script src="./js/admin/upload/addUpload.js"></script>
+    
+

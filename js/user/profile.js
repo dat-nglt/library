@@ -1,4 +1,4 @@
-console.log('hehe')
+console.log("hehe");
 
 document.addEventListener("DOMContentLoaded", function () {
   const inputPasswordProfile = document.querySelectorAll(
@@ -55,12 +55,12 @@ $(document).ready(function () {
     }
 
     $.ajax({
-      url: "?controller=user&action=profile",
+      url: "./services/user/profile/changePassword.php",
       type: "POST",
+      dataType: "json",
       data: {
-        oldPassword: oldPassword,
-        newPassword: newPassword,
-        newPasswordConfirm: newPasswordConfirm,
+        oldPassword,
+        newPassword,
       },
       success: function (result) {
         Swal.fire({

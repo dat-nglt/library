@@ -57,8 +57,9 @@
                 <table class="table-upload">
                     <tr>
                         <th style="width: 5%">#</th>
-                        <th style="width: 60%">File tài liệu số</th>
+                        <th style="width: 40%">File tài liệu số</th>
                         <th style="width: 30%">Loại tài liệu</th>
+                        <th style="width: 20%">Trạng thái</th>
                         <th style="width: 5%"></th>
                     </tr>
 
@@ -69,9 +70,16 @@
                             <td><a href="<?= $upload['uploadURL'] ?>" target="_blank"><?= $upload['titleUpload'] ?>.pdf</a>
                             </td>
                             <td><?= $upload['nameCategory'] ?></td>
+                            <td><?php
+                            if ($upload['nameBook'] === null) {
+                                echo "Chờ xác nhận";
+                            } else {
+                                echo "Đã duyệt";
+                            }
+                            ?></td>
                             <td>
-                                <button type="button" name="delete" class="delete-btn" data-id="<?= $upload['idUpload'] ?>"><i
-                                        class="fa-regular fa-trash-can"></i></button>
+                                <button type="button" name="delete" class="delete-btn"
+                                    data-id="<?= $upload['idUpload'] ?>"><i class="fa-regular fa-trash-can"></i></button>
                             </td>
                         </tr>
                     <?php } ?>

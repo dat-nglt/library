@@ -11,8 +11,7 @@
                     <fieldset>
                         <legend>Tìm kiếm</legend>
                         <form action="" method="post" class="admin__form-search">
-                            <input type="text" name="search-borrow" placeholder="Tên sách, MSSV"
-                                autocomplete="off">
+                            <input type="text" name="search-borrow" placeholder="Tên sách, MSSV" autocomplete="off">
                             <select name="status-borrow" id="status-borrow">
                                 <option value="all" <?php if ($_SESSION['status-borrow'] === 'all')
                                     echo 'selected' ?>>
@@ -95,7 +94,7 @@
                                             $status = '';
                                             break;
                                     }
-                                ?>
+                                    ?>
                 <tr class="list__content">
                     <td><?= $stt ?></td>
                     <td>
@@ -118,8 +117,7 @@
                     </td>
                     <td>
                         <div>
-                            <button class="list__action-open-edit" type="button"
-                                data-id="<?= $value[0] ?>"><i
+                            <button class="list__action-open-edit" type="button" data-id="<?= $value[0] ?>"><i
                                     class="fa-solid fa-pen-to-square list__icon-edit"></i></button>
                             <button class="list__action-btn" type="button" data-id="<?= $value[0] ?>"><i
                                     class="fa-solid fa-trash list__icon-del"></i></button>

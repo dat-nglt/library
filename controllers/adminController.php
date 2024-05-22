@@ -368,10 +368,12 @@ class adminController extends baseController
     if ($current_page < 1) {
       $current_page = 1;
     }
+    $listBook = mysqli_fetch_all($this->adminModel->getNameBook());
     $start = ($current_page - 1) * $limit;
     $listUpload = $this->adminModel->getListUpload($start, $limit, $_SESSION['sort-upload'], $_SESSION['search-upload'], $_SESSION['category-upload']);
     $listCategory = $this->adminModel->getAllCategory('');
-    return $this->loadview('admin.upload', ['listUpload' => $listUpload, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    $getNameCategory = mysqli_fetch_all($this->adminModel->getAllCategory(''));
+    return $this->loadview('admin.upload', ['getNameCategory' => $getNameCategory, 'listBook' => $listBook, 'listUpload' => $listUpload, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
   }
 }
 

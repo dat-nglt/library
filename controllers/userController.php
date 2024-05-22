@@ -126,23 +126,26 @@ class userController extends baseController
           return $this->loadview('user.profile.profile', ['listRentBook' => $listRentBook, 'currentPage' => $currentPage, 'limit' => $limit, 'totalPage' => $totalPage, 'searchListRentBook' => $searchListRentBook]);
         case 'infoUser':
           return $this->loadview('user.profile.profile', []);
-        case 'changePassword':
-          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $oldPassword = $_POST['oldPassword'];
-            $newPassword = $_POST['newPassword'];
 
-            if (password_verify($oldPassword, $_SESSION['user']['password'])) {
-              $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-              if ($this->userModel->changePassword($_SESSION['user']['id'], $newHashedPassword)) {
-                $_SESSION['user']['password'] = $newHashedPassword;
-                http_response_code(200);
-              } else {
-                http_response_code(400);
-              }
-            } else {
-              http_response_code(400);
-            }
-          }
+        case 'changePassword':
+          // $_SESSION['a'] = isset($_SESSION['a']) ? $_SESSION['a'] : 1;
+          // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          //   // $_SESSION['a'] = 2;
+          //   $oldPassword = $_POST['oldPassword'];
+          //   $newPassword = $_POST['newPassword'];
+          //   if (password_verify($oldPassword, $_SESSION['user']['password'])) {
+          //     $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+          //     $changeResult = $this->userModel->changePassword($_SESSION['user']['id'], $newHashedPassword);
+          //     if ($changeResult) {
+          //       $_SESSION['user']['password'] = $newHashedPassword;
+          //       http_response_code(200);
+          //     } else {
+          //       http_response_code(400);
+          //     }
+          //   } else {
+          //     http_response_code(400);
+          //   }
+          // }
           return $this->loadview('user.profile.profile', []);
         default:
           return $this->loadview('user.profile.profile', []);
@@ -156,7 +159,6 @@ class userController extends baseController
 
   public function searchBook()
   {
-    // success('thành công', '?controller=user&action=searchBook')
     $options = array(
       "nameBook" => "sách",
       "creatorBook" => "tác giả",

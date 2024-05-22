@@ -145,7 +145,6 @@
 <script src="./js/admin/book/openFormEdit.js"></script>
 <script src="./js/admin/book/deleteBook.js"></script>
 <script src="./js/admin/changeImg.js"></script>
-<script src="./js/admin/book/addBook.js"></script>
 <script src="./js/admin/book/editBook.js"></script>
 
 

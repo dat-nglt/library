@@ -118,6 +118,13 @@ class adminModel extends baseModel
     return $query;
   }
 
+  public function getNameBook()
+  {
+    $sql = "SELECT * FROM book";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
 
   public function getListBook($start, $limit, $sort, $search, $category)
   {
@@ -182,11 +189,11 @@ class adminModel extends baseModel
 
   public function editBorrow($idBorrow, $id, $book, $status, $timeBorrow, $timeReturn)
   {
-    if($timeBorrow != ''){
+    if ($timeBorrow != '') {
       $sql = "UPDATE request SET id_User = '$id', id_Book = '$book', statusRequest = '$status', dateRental = '$timeBorrow', dateReturn = '$timeReturn' where idRequest = '$idBorrow'";
-    }else if($timeReturn != ''){
+    } else if ($timeReturn != '') {
       $sql = "UPDATE request SET id_User = '$id', id_Book = '$book', statusRequest = '$status', dateReturn = '$timeReturn' where idRequest = '$idBorrow'";
-    }else{
+    } else {
       $sql = "UPDATE request SET id_User = '$id', id_Book = '$book', statusRequest = '$status' where idRequest = '$idBorrow'";
     }
     $query = $this->_query($sql);

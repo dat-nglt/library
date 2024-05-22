@@ -28,7 +28,7 @@ $(document).ready(function () {
                     type: 'POST',
                     url: '?controller=user&action=upload',
                     data: postData,
-                    success: function (data) {
+                    success: function () {
                         Swal.fire({
                             title: "Thông báo",
                             text: "Upload tài liệu thành công",
@@ -63,3 +63,4 @@ $(document).ready(function () {
         });
     });
 })
+

@@ -25,7 +25,10 @@ class userModel extends baseModel
 
   public function uploadData($idUser)
   {
-    $sql = "SELECT * FROM upload LEFT JOIN category ON upload.id_Category = category.idCategory WHERE id_User = '$idUser'";
+    $sql = "SELECT upload.*, book.nameBook, book.creatorBook, book.dateBook, user.studentCode, user.fullName, category.nameCategory FROM upload 
+    LEFT JOIN user ON upload.id_User = user.id
+    LEFT JOIN category ON upload.id_Category = category.idCategory
+    LEFT JOIN book ON upload.id_Book = book.idBook WHERE id_User = '$idUser'";
     $query = $this->_query($sql);
     return $query;
   }
