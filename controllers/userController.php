@@ -79,15 +79,16 @@ class userController extends baseController
       $result = mysqli_fetch_assoc($this->userModel->getAccount($taiKhoan));
       if ($result && password_verify($matKhau, $result['password'])) {
         $_SESSION['user'] = $result;
-        return $this->loadView('user.home', ['notification' => ['type' => 'success', 'message' => 'Đăng nhập thành công', 'link' => 'http://localhost/library/']]);
+        if ($_SESSION['user']['roleAccess'] == 1) {
+          success('Đăng nhập thành công', 'http://localhost/library/');
+        } else if ($_SESSION['user']['roleAccess'] == 2) {
+          confirm('Đăng nhập thành công', 'Chọn trang bạn cần di chuyển đến!', 'success', 'Trang chủ', 'Admin', 'http://localhost/library/', 'http://localhost/library/?controller=admin');
+        } elseif ($_SESSION['user']['roleAccess'] == 0) {
+          unset($_SESSION['user']);
+          warning('Tài khoản của bạn tạm thời đã bị khóa!  Vui lòng đến thư viện và đóng phí 50.000VND để mở khóa!', 'http://localhost/library/?controller=user&action=login');
+        }
       } else {
-        return $this->loadview(
-          'general.login',
-          [
-            'notification' => ['type' => 'error', 'message' => 'Đăng nhập không thành công', 'link' => 'http://localhost/library/?controller=user&action=login']
-          ]
-        );
-
+        error('Tên tài khoản hoặc mật khẩu không chính xác!', 'http://localhost/library/?controller=user&action=login');
       }
     }
     return $this->loadview('general.login', []);
@@ -105,39 +106,24 @@ class userController extends baseController
       $pageOption = $_GET['profilePage'];
       switch ($pageOption) {
         case 'rentHistory':
-          // Lấy giá trị tìm kiếm
-          $searchListRentBook = $_POST['search_list_rent_book'] ?? '';
-
-          // Lấy giá trị sắp xếp
-          $sortListRentBook = $_SESSION['sort_list_rent_book'] ?? 'desc';
-          $sortListRentBook = $_POST['sort_list_rent_book'] ?? $sortListRentBook;
-
-          // Thiết lập số lượng bản ghi trên mỗi trang
+          $searchListRentBook = isset($_POST['search_list_rent_book']) ? $_POST['search_list_rent_book'] : '';
+          $_SESSION['sort_list_rent_book'] = isset($_SESSION['sort_list_rent_book']) ? $_SESSION['sort_list_rent_book'] : 'desc';
+          $_SESSION['sort_list_rent_book'] = isset($_POST['sort_list_rent_book']) ? $_POST['sort_list_rent_book'] : $_SESSION['sort_list_rent_book'];
           $limit = 10;
-
-          // Lấy danh sách các bản ghi cho thuê
-          $listAllRentBook = $this->userModel->listAllRentBook($_SESSION['user']['id'], $sortListRentBook, $searchListRentBook);
-
-          // Tính số trang
-          $currentPage = $_GET['page'] ?? 1;
+          $listAllRentBook = $this->userModel->listAllRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook);
+          $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
           $totalPage = ceil(mysqli_num_rows($listAllRentBook) / $limit);
-          $currentPage = max(1, min($currentPage, $totalPage));
-
-          // Tính vị trí bắt đầu của bản ghi
+          if ($currentPage > $totalPage) {
+            $currentPage = $totalPage;
+          }
+          if ($currentPage < 1) {
+            $currentPage = 1;
+          }
           $start = ($currentPage - 1) * $limit;
 
-          // Lấy danh sách các bản ghi cho thuê
-          $listRentBook = mysqli_fetch_all($this->userModel->listRentBook($_SESSION['user']['id'], $sortListRentBook, $searchListRentBook, $start, $limit));
+          $listRentBook = mysqli_fetch_all($this->userModel->listRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook, $start, $limit));
 
-          // Trả về view
-          return $this->loadview('user.profile.profile', [
-            'listRentBook' => $listRentBook,
-            'currentPage' => $currentPage,
-            'limit' => $limit,
-            'totalPage' => $totalPage,
-            'searchListRentBook' => $searchListRentBook
-          ]);
-
+          return $this->loadview('user.profile.profile', ['listRentBook' => $listRentBook, 'currentPage' => $currentPage, 'limit' => $limit, 'totalPage' => $totalPage, 'searchListRentBook' => $searchListRentBook]);
         case 'infoUser':
           return $this->loadview('user.profile.profile', []);
         case 'changePassword':

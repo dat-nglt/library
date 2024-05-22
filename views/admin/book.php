@@ -87,7 +87,7 @@
                         </div>
                     </td>
                     <td>
-                        <div class="list__hidden-text"><?= $value[7] ?></div>
+                        <div class="list__hidden-text"><?= $value[6] ?></div>
                     </td>
                     <td>
                         <div class="list__hidden-text"><?= $value[9] ?></div>
@@ -143,7 +143,7 @@
 <script src="./js/admin/book/openFormAdd.js"></script>
 <script src="./js/admin/closeFormAdd.js"></script>
 <script src="./js/admin/book/openFormEdit.js"></script>
-<script src="./js/admin/book/deleteItem.js"></script>
+<script src="./js/admin/book/deleteBook.js"></script>
 <script src="./js/admin/changeImg.js"></script>
 <script src="./js/admin/book/addBook.js"></script>
 <script src="./js/admin/book/editBook.js"></script>

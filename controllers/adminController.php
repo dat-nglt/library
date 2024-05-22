@@ -78,7 +78,6 @@ class adminController extends baseController
       $identificationNumber = $_POST['identification-number_user'];
       $class = $_POST['class_user'];
       $password = password_hash($_POST['password_user'], PASSWORD_DEFAULT);
-      ;
       if ($infoUserPrev = mysqli_fetch_assoc($this->adminModel->checkUserWithId($id))) {
         if ($infoUserPrev['studentCode'] === $studentCode) {
           if (($infoUserPrev['identificationNumber'] === $identificationNumber)) {
@@ -248,19 +247,6 @@ class adminController extends baseController
 
   public function borrow()
   {
-    $_SESSION['accept'] = isset($_SESSION['accept']) ? $_SESSION['accept'] : 'rỗng';
-    $_SESSION['id'] = isset($_SESSION['id']) ? $_SESSION['id'] : 'rỗng';
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $requestBody = file_get_contents('php://input');
-      $data = json_decode($requestBody, true);
-
-      if (isset($data['acceptRequest']) && isset($data['dataID'])) {
-        $_SESSION['accept'] = $data['acceptRequest'];
-        $_SESSION['id'] = $data['dataID'];
-        $this->adminModel->acceptRequest($data['dataID'], $data['acceptRequest']);
-      }
-    }
-
     $limit = 15;
     $_SESSION['sort-borrow'] = isset($_SESSION['sort-borrow']) ? $_SESSION['sort-borrow'] : 'desc';
     $_SESSION['search-borrow'] = isset($_SESSION['search-borrow']) ? $_SESSION['search-borrow'] : '';
@@ -287,60 +273,106 @@ class adminController extends baseController
       $current_page = 1;
     }
 
-
     $start = ($current_page - 1) * $limit;
     $listBorrow = mysqli_fetch_all($this->adminModel->getListBorrow($start, $limit, $_SESSION['sort-borrow'], $_SESSION['search-borrow'], $_SESSION['status-borrow']));
     $listBook = $this->adminModel->getAllBook('', 'all');
-    // if (isset($_POST['add_Borrow-handmade'])) {
-    //   $BorrowName = $_POST['Borrow_name'];
-    //   if (mysqli_num_rows($this->adminModel->checkBorrowWithName($BorrowName)) < 1) {
-    //       $add = $this->adminModel->addBorrow($BorrowName);
-    //       if ($add) {
-    //         $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //         success('Thêm thể loại thành công!', '?controller=admin&action=Borrow&page=' . $current_page);
-    //       } else {
-    //         $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //         error('Thêm thể loại thất bại!', '?controller=admin&action=Borrow&page=' . $current_page);
-    //       }
-    //   } else {
-    //     $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //     warning('Tên thể loại đã tồn tại!', '?controller=admin&action=Borrow&page=' . $current_page);
-    //   }
-    //   exit();
-    // }
-    // if (isset($_POST['edit_Borrow-handmade'])) {
-    //   $id = $_POST['Borrow_id'];
-    //   $name = $_POST['Borrow_name'];
-    //  if ($checkName = mysqli_fetch_assoc($this->adminModel->checkBorrowWithId($id))) {
-    //   if ($checkName['nameBorrow'] === $name) {
-    //     $edit = $this->adminModel->updateBorrow($id, $name);
-    //     if ($edit) {
-    //       $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //       success('Chỉnh sửa thể loại thành công!', '?controller=admin&action=Borrow&page=' . $current_page);
-    //     } else {
-    //       $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //       error('Chỉnh sửa thể loại thất bại!', '?controller=admin&action=Borrow&page=' . $current_page);
-    //     }
-    //   } else {
-    //     if (mysqli_num_rows($this->adminModel->checkBorrowWithName($name)) > 0) {
-    //       $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //       warning('Tên thể loại đã tồn tại!', '?controller=admin&action=Borrow&page=' . $current_page);
-    //     } else {
-    //       $edit = $this->adminModel->updateBorrow($id, $name);
-    //       if ($edit) {
-    //         $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //         success('Chỉnh sửa thể loại thành công!', '?controller=admin&action=Borrow&page=' . $current_page);
-    //       } else {
-    //         $this->loadview('admin.Borrow', ['listBorrow' => $listBorrow, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-    //         error('Chỉnh sửa thể loại thất bại!', '?controller=admin&action=Borrow&page=' . $current_page);
-    //       }
-    //     }
-    //   }
-    // }
-    //   exit();
-    // }
-    return $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    $listUser = $this->adminModel->getAllUser('');
+    if (isset($_POST['add-borrow'])) {
+      $idUser = $_POST['user_borrow'];
+      $idBook = $_POST['book_borrow'];
+      $time = date('Y/m/d');
+      $dayReturn = date('Y/m/d', strtotime($time . ' + 7 days'));
+      if (mysqli_num_rows($this->adminModel->checkUserBorrow($idUser)) < 10) {
+        $add = $this->adminModel->addBorrow($idUser, $idBook, $time, $dayReturn);
+        if ($add) {
+          $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+          success('Thêm phiếu mượn thành công!', '?controller=admin&action=borrow&page=' . $current_page);
+        } else {
+          $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+          error('Thêm phiếu mượn thất bại!', '?controller=admin&action=borrow&page=' . $current_page);
+        }
+      } else {
+        $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+        warning('Người dùng đang mượn 10 quyển sách!', '?controller=admin&action=borrow&page=' . $current_page);
+      }
+      exit();
+    }
+    if (isset($_POST['edit-borrow'])) {
+      $id = $_POST['id_borrow'];
+      $user = $_POST['user_borrow'];
+      $book = $_POST['book_borrow'];
+      $timeBorrow = $_POST['time_borrow'];
+      $statusBorrow = $_POST['status_borrow'];
+      if($timeBorrow === '' && $statusBorrow === '1'){
+        $time = date('Y/m/d');
+        $dayReturn = date('Y/m/d', strtotime($time . ' + 7 days'));
+        $edit = $this->adminModel->editBorrow($id, $user, $book, $statusBorrow, $time, $dayReturn);
+        if ($edit) {
+            $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+            success('Chỉnh sửa thành công!', '?controller=admin&action=borrow&page=' . $current_page);
+        } else {
+            $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+            error('Chỉnh sửa thất bại!', '?controller=admin&action=borrow&page=' . $current_page);
+        }
+      }else{
+        $edit = $this->adminModel->editBorrow($id, $user, $book, $statusBorrow, '', '');
+        if ($edit) {
+            $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+            success('Chỉnh sửa thành công!', '?controller=admin&action=borrow&page=' . $current_page);
+        } else {
+            $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+            error('Chỉnh sửa thất bại!', '?controller=admin&action=borrow&page=' . $current_page);
+        }
+      }
+      exit();
+    }
+    if (isset($_POST['new_time'])) {
+      $id = $_POST['id_borrow'];
+      $user = $_POST['user_borrow'];
+      $statusBorrow = $_POST['status_borrow'];
+      $book = $_POST['book_borrow'];
+      $time = date('Y/m/d');
+      $dayReturn = date('Y/m/d', strtotime($time . ' + 7 days'));
+      $edit = $this->adminModel->editBorrow($id, $user, $book, $statusBorrow, '', $dayReturn);
+      if ($edit) {
+          $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+          success('Gia hạn thành công!', '?controller=admin&action=borrow&page=' . $current_page);
+      } else {
+          $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+          error('Gia hạn thất bại!', '?controller=admin&action=borrow&page=' . $current_page);
+      }
+      exit();
+    }
+    return $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
   }
 
+  public function upload()
+  {
+    $limit = 15;
+    $_SESSION['sort-upload'] = isset($_SESSION['sort-upload']) ? $_SESSION['sort-upload'] : 'desc';
+    $_SESSION['search-upload'] = isset($_SESSION['search-upload']) ? $_SESSION['search-upload'] : '';
+    $_SESSION['category-upload'] = isset($_SESSION['category-upload']) ? $_SESSION['category-upload'] : 'all';
+    if (isset($_POST['sort-upload'])) {
+      $_SESSION['sort-upload'] = $_POST['sort-upload'];
+    }
+    if (isset($_POST['search-upload'])) {
+      $_SESSION['search-upload'] = $_POST['search-upload'];
+      $_SESSION['category-upload'] = $_POST['category-upload'];
+    }
+    $total = $this->adminModel->getAllUpload($_SESSION['search-upload'], $_SESSION['category-upload']);
+    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $total_page = ceil(mysqli_num_rows($total) / $limit);
+    if ($current_page > $total_page) {
+      $current_page = $total_page;
+    }
+    if ($current_page < 1) {
+      $current_page = 1;
+    }
+    $start = ($current_page - 1) * $limit;
+    $listUpload = $this->adminModel->getListUpload($start, $limit, $_SESSION['sort-upload'], $_SESSION['search-upload'], $_SESSION['category-upload']);
+    $listCategory = $this->adminModel->getAllCategory('');
+    return $this->loadview('admin.upload', ['listUpload' => $listUpload, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+  }
 }
+
 

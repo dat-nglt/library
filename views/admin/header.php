@@ -19,11 +19,14 @@
         <a href="?controller=admin&action=borrow">
             <li><i class="fa-solid fa-file-lines icon"></i>Mượn | Trả</li>
         </a>
+        <a href="?controller=admin&action=upload">
+            <li><i class="fa-solid fa-file-arrow-up icon"></i>Upload</li>
+        </a>
         <a href="?controller=admin&action=fine">
             <li><i class="fa-solid fa-dollar-sign icon"></i>Phí phạt</li>
         </a>
         <a href="?controller=user&action=logout">
-            <li><i class="fa-solid fa-right-to-bracket fa-rotate-180 icon"></i>Đăng xuất</li>
+            <li><i class="fa-solid fa-right-to-bracket fa-rotate-180 icon"></i> Đăng xuất</li>
         </a>
     </ul>
 </header>

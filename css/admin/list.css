@@ -101,9 +101,9 @@
           color: var(--red-cl);
         }
 
-        .list__action-open-edit,
-        .list__action-request
-          .list__action-btn {
+      .list__action-open-edit,
+      .list__action-request,
+      .list__action-btn {
           padding: 0;
           background-color: transparent !important;
           outline: 0;
@@ -134,7 +134,7 @@
       }
 
       input[type='text'] {
-        padding: 2px 0 4px 0;
+        padding: 2px 0;
         color: var(--white-cl);
         font-size: 15px;
         outline: 0;

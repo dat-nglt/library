@@ -11,7 +11,7 @@
                     <fieldset>
                         <legend>Tìm kiếm</legend>
                         <form action="" method="post" class="admin__form-search">
-                            <input type="text" name="search-borrow" placeholder="Tên, tác giả, năm xuất bản"
+                            <input type="text" name="search-borrow" placeholder="Tên sách, MSSV"
                                 autocomplete="off">
                             <select name="status-borrow" id="status-borrow">
                                 <option value="all" <?php if ($_SESSION['status-borrow'] === 'all')
@@ -20,15 +20,23 @@
                                     </option>
                                     <option value="0" <?php if ($_SESSION['status-borrow'] === '0')
                                     echo 'selected' ?>>
-                                        Yêu cầu
+                                        Chờ xét duyệt
                                     </option>
                                     <option value="1" <?php if ($_SESSION['status-borrow'] === '1')
                                     echo 'selected' ?>>
-                                        Mượn
+                                        Đang mượn
                                     </option>
                                     <option value="2" <?php if ($_SESSION['status-borrow'] === '2')
                                     echo 'selected' ?>>
-                                        Trả
+                                        Đã trả
+                                    </option>
+                                    <option value="3" <?php if ($_SESSION['status-borrow'] === '3')
+                                    echo 'selected' ?>>
+                                        Quá hạn trả
+                                    </option>
+                                    <option value="4" <?php if ($_SESSION['status-borrow'] === '4')
+                                    echo 'selected' ?>>
+                                        Q.hạn X.nhận
                                     </option>
                                 </select>
                                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -57,9 +65,8 @@
                 <tr>
                     <th style="width: 5%;">#</th>
                     <th style="width: 7%;">MSSV</th>
-                    <th style="width: 7%;">CCCD</th>
-                    <th style="width: 26%;">Tên sách</th>
-                    <th style="width: 10%;">Trạng thái</th>
+                    <th style="width: 31%;">Tên sách</th>
+                    <th style="width: 12%;">Trạng thái</th>
                     <th style="width: 11%;">T.gian Y.cầu</th>
                     <th style="width: 10%;">Ngày mượn</th>
                     <th style="width: 10%;">Ngày trả</th>
@@ -79,27 +86,23 @@
                                             $status = 'Đã trả';
                                             break;
                                         case '3':
-                                            $status = 'Quá hạn xác nhận';
+                                            $status = 'Quá hạn trả';
                                             break;
                                         case '4':
-                                            $status = 'Quá hạn trả';
+                                            $status = 'Quá hạn xác nhận';
                                             break;
                                         default:
                                             $status = '';
                                             break;
                                     }
-
-                                    ?>
+                                ?>
                 <tr class="list__content">
                     <td><?= $stt ?></td>
                     <td>
                         <div class="list__hidden-text"><?= $value[7] ?></div>
                     </td>
                     <td>
-                        <div class="list__hidden-text"><?= $value[8] ?></div>
-                    </td>
-                    <td>
-                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;"><?= $value[9] ?></div>
+                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;"><?= $value[8] ?></div>
                     </td>
                     <td>
                         <div class="list__hidden-text"><?= $status ?></div>
@@ -115,7 +118,7 @@
                     </td>
                     <td>
                         <div>
-                            <button class="action--request" class="list__action-request" type="button"
+                            <button class="list__action-open-edit" type="button"
                                 data-id="<?= $value[0] ?>"><i
                                     class="fa-solid fa-pen-to-square list__icon-edit"></i></button>
                             <button class="list__action-btn" type="button" data-id="<?= $value[0] ?>"><i
@@ -161,44 +164,11 @@
             ?>
         </div>
     </div>
-
     <script>
-        var listBook = <?php echo json_encode($listBook) ?>;
+        var listBook = <?php echo json_encode(mysqli_fetch_all($listBook)) ?>;
+        var listUser = <?php echo json_encode(mysqli_fetch_all($listUser)) ?>;
     </script>
     <script src="./js/admin/borrow/openFormAdd.js"></script>
     <script src="./js/admin/closeFormAdd.js"></script>
     <script src="./js/admin/borrow/openFormEdit.js"></script>
     <script src="./js/admin/borrow/deleteItem.js"></script>
-
-    <script>
-        $(".action--request").on("click", function () {
-            var dataId = $(this).data("id");
-            Swal.fire({
-                title: "Duyệt yêu cầu mượn sách",
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: "Duyệt yêu cầu",
-                denyButtonText: `Từ chối yều cầu`
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    updatePassword(dataId, 1);
-                } else if (result.isDenied) {
-                    updatePassword(dataId, 3);
-                }
-            });
-        })
-        function updatePassword(dataID, acceptRequest) {
-            fetch('?controller=admin&action=borrow', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ dataID, acceptRequest })
-            })
-                .then(response => {
-                    window.location.reload();
-                })
-                .catch(error => {
-                });
-        }
-    </script>

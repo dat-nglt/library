@@ -1,12 +1,3 @@
-<?php
-if (isset($data) && $data !== []) {
-  $notificationType = $data['notification']['type'];
-  $notificationMessage = $data['notification']['message'];
-  $notificationLink = $data['notification']['link'];
-  $notificationType($notificationMessage, $notificationLink);
-}
-?>
-
 <div class="login">
   <form action="?controller=user&action=login" method="POST">
     <div class="input-field">

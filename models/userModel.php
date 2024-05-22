@@ -84,7 +84,7 @@ class userModel extends baseModel
 
   public function requestBook($idUser, $idBook)
   {
-    $sql = "INSERT INTO request(dateRequest, id_User, id_Book) VALUES (NOW(), '$idUser', '$idBook')";
+    $sql = "INSERT INTO request(dateRequest, id_User, id_Book) VALUES (DATE(NOW()), '$idUser', '$idBook')";
     $query = $this->_query($sql);
     return $query;
   }

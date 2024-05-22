@@ -24,7 +24,7 @@ $(document).on("click", ".list__action-open-edit", function () {
             </div>
             <div class="list__form-btn">
                 <button type="button" class="close-btn" onclick="closeFormAdd()">Đóng</button>
-                <button type="submit" name="edit_category-handmade">Thêm</button>
+                <button type="submit" name="edit_category-handmade">Chỉnh sửa</button>
             </div>
         </form>`;
 });

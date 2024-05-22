@@ -7,7 +7,7 @@ class adminModel extends baseModel
   public function getAllUser($search)
   {
     if ($search != '') {
-      $sql = "SELECT * FROM user WHERE (studentCode = '$search' OR fullName like '%$search%')";
+      $sql = "SELECT * FROM user WHERE (studentCode = '$search' OR fullName like '%$search%') AND roleAccess IN (0,1)";
     } else {
       $sql = "SELECT * FROM user";
     }
@@ -18,9 +18,9 @@ class adminModel extends baseModel
   public function getListUser($start, $limit, $sort, $search)
   {
     if ($search != '') {
-      $sql = "SELECT * FROM user WHERE (studentCode = '$search' OR fullName like '%$search%') ORDER BY id $sort LIMIT $start,$limit";
+      $sql = "SELECT * FROM user WHERE (studentCode = '$search' OR fullName like '%$search%') AND roleAccess IN (0,1) ORDER BY id $sort LIMIT $start,$limit ";
     } else {
-      $sql = "SELECT * FROM user ORDER BY id $sort LIMIT $start,$limit";
+      $sql = "SELECT * FROM user where roleAccess IN (0,1) ORDER BY id $sort LIMIT $start,$limit";
     }
     $query = $this->_query($sql);
     return $query;
@@ -49,7 +49,7 @@ class adminModel extends baseModel
 
   public function addUser($studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class)
   {
-    $sql = "INSERT INTO user VALUES ('', '$studentCode', '$password', '$fullName', '$dateOfBirth', '$address', '$phoneNumber', '$email', '$identificationNumber' , '', '$class')";
+    $sql = "INSERT INTO user VALUES ('', '$studentCode', '$password', '$fullName', '$dateOfBirth', '$address', '$phoneNumber', '$email', '$identificationNumber' , '1', '$class')";
     $query = $this->_query($sql);
     return $query;
   }
@@ -152,25 +152,79 @@ class adminModel extends baseModel
   public function getListBorrow($start, $limit, $sort, $search, $status)
   {
     if ($status === 'all') {
-      $sql = "SELECT r.*, u.studentCode, u.identificationNumber, b.nameBook FROM request AS r 
+      $sql = "SELECT r.*, u.studentCode, b.nameBook FROM request AS r 
       JOIN book AS b ON r.id_book = b.idBook JOIN user AS u ON r.id_User = u.id
-      WHERE b.nameBook LIKE '%$search%' OR u.studentCode = '$search' OR u.identificationNumber = '$search'
+      WHERE b.nameBook LIKE '%$search%' OR u.studentCode = '$search'
       ORDER BY r.idRequest $sort LIMIT $start, $limit;";
     } else {
-      $sql = "SELECT r.*, u.studentCode, u.identificationNumber, b.nameBook FROM request AS r 
+      $sql = "SELECT r.*, u.studentCode, b.nameBook FROM request AS r 
       JOIN book AS b ON r.id_book = b.idBook JOIN user AS u ON r.id_User = u.id
-      WHERE (b.nameBook LIKE '%$search%' OR u.studentCode = '$search' OR u.identificationNumber = '$search') 
+      WHERE (b.nameBook LIKE '%$search%' OR u.studentCode = '$search') 
       AND r.statusRequest = '$status' ORDER BY r.idRequest $sort LIMIT $start, $limit;";
     }
     $query = $this->_query($sql);
     return $query;
   }
 
-  public function acceptRequest($ID, $acceptRequest)
+  public function checkUserBorrow($id)
   {
-    $sql = "UPDATE request
-    SET statusRequest = $acceptRequest
-    WHERE idRequest = $ID";
+    $sql = "select * from request WHERE id_user = $id and statusRequest = '1'";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function addBorrow($id, $book, $time, $dayReturn)
+  {
+    $sql = "INSERT INTO request VALUES ('', '$id', '$book', '$time', '1', '$time', '$dayReturn')";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function editBorrow($idBorrow, $id, $book, $status, $timeBorrow, $timeReturn)
+  {
+    if($timeBorrow != ''){
+      $sql = "UPDATE request SET id_User = '$id', id_Book = '$book', statusRequest = '$status', dateRental = '$timeBorrow', dateReturn = '$timeReturn' where idRequest = '$idBorrow'";
+    }else if($timeReturn != ''){
+      $sql = "UPDATE request SET id_User = '$id', id_Book = '$book', statusRequest = '$status', dateReturn = '$timeReturn' where idRequest = '$idBorrow'";
+    }else{
+      $sql = "UPDATE request SET id_User = '$id', id_Book = '$book', statusRequest = '$status' where idRequest = '$idBorrow'";
+    }
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  // upload
+
+  public function getAllUpload($search, $category)
+  {
+    if ($category === 'all') {
+      $sql = "SELECT upload.*, book.nameBook, book.creatorBook, book.dateBook, user.studentCode, user.fullName, category.nameCategory FROM upload 
+    LEFT JOIN user ON upload.id_User = user.id
+    LEFT JOIN category ON upload.id_Category = category.idCategory
+    LEFT JOIN book ON upload.id_Book = book.idBook WHERE (upload.titleUpload LIKE '%$search%' OR user.studentCode LIKE '%$search%' OR  upload.titleUpload  LIKE '%$search%')";
+    } else {
+      $sql = "SELECT upload.*, book.nameBook, book.creatorBook, book.dateBook, user.studentCode, user.fullName, category.nameCategory FROM upload 
+    LEFT JOIN user ON upload.id_User = user.id
+    LEFT JOIN category ON upload.id_Category = category.idCategory
+    LEFT JOIN book ON upload.id_Book = book.idBook WHERE (upload.titleUpload LIKE '%$search%' OR user.studentCode LIKE '%$search%' OR upload.titleUpload  LIKE '%$search%') AND upload.id_Category = '$category'";
+    }
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function getListUpload($start, $limit, $sort, $search, $category)
+  {
+    if ($category === 'all') {
+      $sql = "SELECT upload.*, book.nameBook, book.creatorBook, book.dateBook, user.studentCode, user.fullName, category.nameCategory FROM upload 
+    LEFT JOIN user ON upload.id_User = user.id
+    LEFT JOIN category ON upload.id_Category = category.idCategory
+    LEFT JOIN book  ON upload.id_Book = book.idBook WHERE (upload.titleUpload LIKE '%$search%' OR user.studentCode LIKE '%$search%' OR upload.timeUpload = '$search') ORDER BY idUpload $sort LIMIT $start, $limit;";
+    } else {
+      $sql = "SELECT upload.*, book.nameBook, book.creatorBook, book.dateBook, user.studentCode, user.fullName, category.nameCategory  FROM upload  
+    LEFT JOIN user ON upload.id_User = user.id
+    LEFT JOIN category ON upload.id_Category = category.idCategory
+    LEFT JOIN book ON upload.id_Book = book.idBook WHERE (upload.titleUpload LIKE '%$search%' OR user.studentCode LIKE '%$search%' OR upload.timeUpload = '$search') AND upload.id_Category = '$category' ORDER BY idUpload $sort LIMIT $start, $limit;";
+    }
     $query = $this->_query($sql);
     return $query;
   }

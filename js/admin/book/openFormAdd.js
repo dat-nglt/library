@@ -60,7 +60,7 @@ function openFormAdd() {
                         <div class="list__form-box" style="margin-top: 10px">
                             <label class="list__form-label">Danh mục</label>
                                 <select name="category-book" id="category-book-add">
-                                    ${optionCategory}
+                                    // ${optionCategory}
                                 </select>
                         </div>
                     </div>

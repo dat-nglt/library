@@ -80,8 +80,13 @@
                         <div>
                             <button class="list__action-open-edit" type="button" data-id="<?= $value[0] ?>"><i
                                     class="fa-solid fa-pen-to-square list__icon-edit"></i></button>
-                            <button class="list__action-btn" type="button" data-id="<?= $value[0] ?>"><i
-                                    class="fa-solid fa-trash list__icon-del"></i></button>
+                            <button class="list__action-btn" type="button" data-id="<?= $value[0] ?>">
+                                <?php if ($value[9] === '0') {
+                                    echo '<i class="fa-solid fa-lock list__icon-del"></i>';
+                                } else{
+                                    echo '<i class="fa-solid fa-lock-open list__icon-edit"></i>';
+                                } ?>
+                            </button>
                     </td>
                 </tr>
                 <?php $stt++;
@@ -123,8 +128,7 @@
     </div>
 </div>
 <script src="./js/admin/account/openFormAdd.js"></script>
-<script src="./js/admin/account/openFormAdd.js"></script>
 <script src="./js/admin/closeFormAdd.js"></script>
 <script src="./js/admin/showPassword.js"></script>
 <script src="./js/admin/account/openFormEdit.js"></script>
-<script src="./js/admin/account/deleteItem.js"></script>
+<script src="./js/admin/account/lockUser.js"></script>
