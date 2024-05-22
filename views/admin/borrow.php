@@ -70,16 +70,16 @@
                                 foreach ($listBorrow as $key => $value) {
                                     switch ($value[4]) {
                                         case '0':
-                                            $status = 'Đang chờ xét duyệt';
+                                            $status = 'Chờ xét duyệt';
                                             break;
                                         case '1':
-                                            $status = 'Quá hạn xác nhận';
-                                            break;
-                                        case '2':
                                             $status = 'Đang mượn';
                                             break;
-                                        case '3':
+                                        case '2':
                                             $status = 'Đã trả';
+                                            break;
+                                        case '3':
+                                            $status = 'Quá hạn xác nhận';
                                             break;
                                         case '4':
                                             $status = 'Quá hạn trả';
@@ -115,14 +115,16 @@
                     </td>
                     <td>
                         <div>
-                            <button class="list__action-open-edit" type="button" data-id="<?= $value[0] ?>"><i
+                            <button class="action--request" class="list__action-request" type="button"
+                                data-id="<?= $value[0] ?>"><i
                                     class="fa-solid fa-pen-to-square list__icon-edit"></i></button>
                             <button class="list__action-btn" type="button" data-id="<?= $value[0] ?>"><i
                                     class="fa-solid fa-trash list__icon-del"></i></button>
                     </td>
                 </tr>
                 <?php $stt++;
-                                } ?>
+                                }
+                                ?>
         </table>
         <div class="list__paging">
             <div>
@@ -155,10 +157,11 @@
 
             <?php if ($_SESSION['search-borrow'] != '') { ?>
                 <span>Từ khóa đã tìm kiếm: <span><?= $_SESSION['search-borrow'] ?></span></span>
-            <?php } ?>
+            <?php }
+            ?>
         </div>
     </div>
-    
+
     <script>
         var listBook = <?php echo json_encode($listBook) ?>;
     </script>
@@ -166,3 +169,36 @@
     <script src="./js/admin/closeFormAdd.js"></script>
     <script src="./js/admin/borrow/openFormEdit.js"></script>
     <script src="./js/admin/borrow/deleteItem.js"></script>
+
+    <script>
+        $(".action--request").on("click", function () {
+            var dataId = $(this).data("id");
+            Swal.fire({
+                title: "Duyệt yêu cầu mượn sách",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Duyệt yêu cầu",
+                denyButtonText: `Từ chối yều cầu`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    updatePassword(dataId, 1);
+                } else if (result.isDenied) {
+                    updatePassword(dataId, 3);
+                }
+            });
+        })
+        function updatePassword(dataID, acceptRequest) {
+            fetch('?controller=admin&action=borrow', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ dataID, acceptRequest })
+            })
+                .then(response => {
+                    window.location.reload();
+                })
+                .catch(error => {
+                });
+        }
+    </script>

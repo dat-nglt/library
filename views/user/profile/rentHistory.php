@@ -52,7 +52,7 @@ $listRentBook = $listRentBook ? $listRentBook : [];
             foreach ($listRentBook as $item) {
               switch ($item[8]) {
                 case 0:
-                  $statusRequest = "Chờ xác nhận";
+                  $statusRequest = 'Chờ xét duyệt';
                   break;
                 case 1:
                   $statusRequest = "Đang mượn";
@@ -64,7 +64,7 @@ $listRentBook = $listRentBook ? $listRentBook : [];
                   $statusRequest = "Từ chối mượn";
                   break;
                 default:
-                  return "Chờ xác nhận";
+                  return "Chờ xét duyệt";
               }
               echo '<tr>';
               echo '<td>' . $stt . '</td>';
@@ -73,7 +73,7 @@ $listRentBook = $listRentBook ? $listRentBook : [];
               echo '<td>' . $item[7] . '</td>';
               echo '<td>' . $item[4] . '</td>';
               echo '<td>' . $item[5] . '</td>';
-              echo '<td>' . $statusRequest . '</td>';
+              echo '<td style="max-width: 30px;">' . $statusRequest . '</td>';
               echo '</tr>';
               $stt++;
             }

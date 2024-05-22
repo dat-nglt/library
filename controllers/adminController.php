@@ -80,7 +80,7 @@ class adminController extends baseController
       $password = password_hash($_POST['password_user'], PASSWORD_DEFAULT);
       ;
       if ($infoUserPrev = mysqli_fetch_assoc($this->adminModel->checkUserWithId($id))) {
-        if($infoUserPrev['studentCode'] === $studentCode){
+        if ($infoUserPrev['studentCode'] === $studentCode) {
           if (($infoUserPrev['identificationNumber'] === $identificationNumber)) {
             $update = $this->adminModel->updateUser($id, $studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class);
             if ($update) {
@@ -91,25 +91,25 @@ class adminController extends baseController
               error('Cập nhật tài khoản thất bại!', '?controller=admin&action=account&page=' . $current_page);
             }
           } else {
-            if(mysqli_num_rows($this->adminModel->checkUserWithIdentificationNumber($identificationNumber)) > 0){
+            if (mysqli_num_rows($this->adminModel->checkUserWithIdentificationNumber($identificationNumber)) > 0) {
               $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
               warning('Số căn cước công dân đã tồn tại!', '?controller=admin&action=account&page=' . $current_page);
-          }else{
-            $update = $this->adminModel->updateUser($id, $studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class);
-            if ($update) {
-              $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-              success('Cập nhật tài khoản thành công!', '?controller=admin&action=account&page=' . $current_page);
             } else {
-              $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-              error('Cập nhật tài khoản thất bại!', '?controller=admin&action=account&page=' . $current_page);
+              $update = $this->adminModel->updateUser($id, $studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class);
+              if ($update) {
+                $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+                success('Cập nhật tài khoản thành công!', '?controller=admin&action=account&page=' . $current_page);
+              } else {
+                $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+                error('Cập nhật tài khoản thất bại!', '?controller=admin&action=account&page=' . $current_page);
+              }
             }
           }
-          }
-        }else {
-          if(mysqli_num_rows($this->adminModel->checkUserWithStudentCode($studentCode)) > 0){
+        } else {
+          if (mysqli_num_rows($this->adminModel->checkUserWithStudentCode($studentCode)) > 0) {
             $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
             warning('Mã số sinh viên đã tồn tại!', '?controller=admin&action=account&page=' . $current_page);
-          }else{
+          } else {
             if (($infoUserPrev['identificationNumber'] === $identificationNumber)) {
               $update = $this->adminModel->updateUser($id, $studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class);
               if ($update) {
@@ -119,11 +119,11 @@ class adminController extends baseController
                 $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
                 error('Cập nhật tài khoản thất bại!', '?controller=admin&action=account&page=' . $current_page);
               }
-            }else{
-              if(mysqli_num_rows($this->adminModel->checkUserWithIdentificationNumber($identificationNumber)) > 0){
+            } else {
+              if (mysqli_num_rows($this->adminModel->checkUserWithIdentificationNumber($identificationNumber)) > 0) {
                 $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
                 warning('Số căn cước công dân đã tồn tại!', '?controller=admin&action=account&page=' . $current_page);
-              }else{
+              } else {
                 $update = $this->adminModel->updateUser($id, $studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class);
                 if ($update) {
                   $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
@@ -136,10 +136,10 @@ class adminController extends baseController
             }
           }
         }
-      }else {
+      } else {
         $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
         error('Không thể cập nhật người dùng!', '?controller=admin&action=account&page=' . $current_page);
-      } 
+      }
       exit();
     }
     return $this->loadview('admin.account', ['listAccount' => $listAccount, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
@@ -170,14 +170,14 @@ class adminController extends baseController
     if (isset($_POST['add_category-handmade'])) {
       $categoryName = $_POST['category_name'];
       if (mysqli_num_rows($this->adminModel->checkCategoryWithName($categoryName)) < 1) {
-          $add = $this->adminModel->addCategory($categoryName);
-          if ($add) {
-            $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-            success('Thêm thể loại thành công!', '?controller=admin&action=category&page=' . $current_page);
-          } else {
-            $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-            error('Thêm thể loại thất bại!', '?controller=admin&action=category&page=' . $current_page);
-          }
+        $add = $this->adminModel->addCategory($categoryName);
+        if ($add) {
+          $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+          success('Thêm thể loại thành công!', '?controller=admin&action=category&page=' . $current_page);
+        } else {
+          $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+          error('Thêm thể loại thất bại!', '?controller=admin&action=category&page=' . $current_page);
+        }
       } else {
         $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
         warning('Tên thể loại đã tồn tại!', '?controller=admin&action=category&page=' . $current_page);
@@ -187,21 +187,8 @@ class adminController extends baseController
     if (isset($_POST['edit_category-handmade'])) {
       $id = $_POST['category_id'];
       $name = $_POST['category_name'];
-     if ($checkName = mysqli_fetch_assoc($this->adminModel->checkCategoryWithId($id))) {
-      if ($checkName['nameCategory'] === $name) {
-        $edit = $this->adminModel->updateCategory($id, $name);
-        if ($edit) {
-          $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-          success('Chỉnh sửa thể loại thành công!', '?controller=admin&action=category&page=' . $current_page);
-        } else {
-          $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-          error('Chỉnh sửa thể loại thất bại!', '?controller=admin&action=category&page=' . $current_page);
-        }
-      } else {
-        if (mysqli_num_rows($this->adminModel->checkCategoryWithName($name)) > 0) {
-          $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-          warning('Tên thể loại đã tồn tại!', '?controller=admin&action=category&page=' . $current_page);
-        } else {
+      if ($checkName = mysqli_fetch_assoc($this->adminModel->checkCategoryWithId($id))) {
+        if ($checkName['nameCategory'] === $name) {
           $edit = $this->adminModel->updateCategory($id, $name);
           if ($edit) {
             $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
@@ -210,9 +197,22 @@ class adminController extends baseController
             $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
             error('Chỉnh sửa thể loại thất bại!', '?controller=admin&action=category&page=' . $current_page);
           }
+        } else {
+          if (mysqli_num_rows($this->adminModel->checkCategoryWithName($name)) > 0) {
+            $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+            warning('Tên thể loại đã tồn tại!', '?controller=admin&action=category&page=' . $current_page);
+          } else {
+            $edit = $this->adminModel->updateCategory($id, $name);
+            if ($edit) {
+              $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+              success('Chỉnh sửa thể loại thành công!', '?controller=admin&action=category&page=' . $current_page);
+            } else {
+              $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+              error('Chỉnh sửa thể loại thất bại!', '?controller=admin&action=category&page=' . $current_page);
+            }
+          }
         }
       }
-    }
       exit();
     }
     return $this->loadview('admin.category', ['listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
@@ -248,28 +248,48 @@ class adminController extends baseController
 
   public function borrow()
   {
+    $_SESSION['accept'] = isset($_SESSION['accept']) ? $_SESSION['accept'] : 'rỗng';
+    $_SESSION['id'] = isset($_SESSION['id']) ? $_SESSION['id'] : 'rỗng';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $requestBody = file_get_contents('php://input');
+      $data = json_decode($requestBody, true);
+
+      if (isset($data['acceptRequest']) && isset($data['dataID'])) {
+        $_SESSION['accept'] = $data['acceptRequest'];
+        $_SESSION['id'] = $data['dataID'];
+        $this->adminModel->acceptRequest($data['dataID'], $data['acceptRequest']);
+      }
+    }
+
     $limit = 15;
     $_SESSION['sort-borrow'] = isset($_SESSION['sort-borrow']) ? $_SESSION['sort-borrow'] : 'desc';
     $_SESSION['search-borrow'] = isset($_SESSION['search-borrow']) ? $_SESSION['search-borrow'] : '';
     $_SESSION['status-borrow'] = isset($_SESSION['status-borrow']) ? $_SESSION['status-borrow'] : 'all';
+
     if (isset($_POST['sort-borrow'])) {
       $_SESSION['sort-borrow'] = $_POST['sort-borrow'];
     }
+
     if (isset($_POST['search-borrow'])) {
       $_SESSION['status-borrow'] = $_POST['status-borrow'];
       $_SESSION['search-borrow'] = $_POST['search-borrow'];
     }
-    $total = $this->adminModel->getAllBorrow($_SESSION['search-borrow'],$_SESSION['status-borrow']);
+
+    $total = $this->adminModel->getAllBorrow($_SESSION['search-borrow'], $_SESSION['status-borrow']);
     $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
     $total_page = ceil(mysqli_num_rows($total) / $limit);
+
     if ($current_page > $total_page) {
       $current_page = $total_page;
     }
+
     if ($current_page < 1) {
       $current_page = 1;
     }
+
+
     $start = ($current_page - 1) * $limit;
-    $listBorrow = mysqli_fetch_all($this->adminModel->getListBorrow($start, $limit, $_SESSION['sort-borrow'], $_SESSION['search-borrow'],$_SESSION['status-borrow']));
+    $listBorrow = mysqli_fetch_all($this->adminModel->getListBorrow($start, $limit, $_SESSION['sort-borrow'], $_SESSION['search-borrow'], $_SESSION['status-borrow']));
     $listBook = $this->adminModel->getAllBook('', 'all');
     // if (isset($_POST['add_Borrow-handmade'])) {
     //   $BorrowName = $_POST['Borrow_name'];

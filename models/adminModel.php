@@ -138,7 +138,7 @@ class adminModel extends baseModel
       $sql = "SELECT r.*, u.studentCode, u.identificationNumber, b.nameBook FROM request AS r 
         JOIN book AS b ON r.id_book = b.idBook JOIN user AS u ON r.id_User = u.id
         WHERE b.nameBook LIKE '%$search%' OR u.studentCode = '$search' OR u.identificationNumber = '$search'";
-    }else{
+    } else {
       $sql = "SELECT r.*, u.studentCode, u.identificationNumber, b.nameBook FROM request AS r 
       JOIN book AS b ON r.id_book = b.idBook JOIN user AS u ON r.id_User = u.id
       WHERE (b.nameBook LIKE '%$search%' OR u.studentCode = '$search' OR u.identificationNumber = '$search') 
@@ -147,6 +147,7 @@ class adminModel extends baseModel
     $query = $this->_query($sql);
     return $query;
   }
+
 
   public function getListBorrow($start, $limit, $sort, $search, $status)
   {
@@ -161,6 +162,15 @@ class adminModel extends baseModel
       WHERE (b.nameBook LIKE '%$search%' OR u.studentCode = '$search' OR u.identificationNumber = '$search') 
       AND r.statusRequest = '$status' ORDER BY r.idRequest $sort LIMIT $start, $limit;";
     }
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function acceptRequest($ID, $acceptRequest)
+  {
+    $sql = "UPDATE request
+    SET statusRequest = $acceptRequest
+    WHERE idRequest = $ID";
     $query = $this->_query($sql);
     return $query;
   }
