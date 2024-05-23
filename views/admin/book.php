@@ -54,9 +54,9 @@
                     <th style="width: 10%;">Số lượng</th>
                     <th style="width: 10%;">Nhà XB</th>
                     <th style="width: 9%;">Năm XB</th>
-                    <th style="width: 9%;">Thể loại</th>
+                    <th style="width: 11%;">Thể loại</th>
                     <th style="width: 10%;">Mô tả</th>
-                    <th style="width: 8%;"></th>
+                    <th style="width: 6%;"></th>
                 </tr>
                 <?php
                                 $stt = (($current_page - 1) * $limit) + 1;
@@ -73,7 +73,7 @@
                     <td>
                         <div style="display: flex; align-items: center; justify-content: center">
                             <?php if($value[3] === ''){?>
-                                <img style="height: 80%; width: 80%" src="./upload/book.png" alt="<?= $value[1] ?>">
+                                <img style="height: 80%; width: 80%" src="https://res.cloudinary.com/di37whq60/image/upload/v1716194722/image/axdown7pmlzlgs7yelkd.png" alt="<?= $value[1] ?>">
                             <?php }else{ ?>
                                 <img style="height: 80%; width: 80%" src="<?= $value[3] ?>" alt="<?= $value[1] ?>">
                             <?php }?>

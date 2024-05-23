@@ -1,7 +1,7 @@
 <header class="header__nav">
     <div>
-        <a href="http://localhost/library/"><img src="./upload/logo-admin.png" alt=""><span>Trung tâm học
-                liệu</span></a>
+        <a href="http://localhost/library/"><img src="https://res.cloudinary.com/di37whq60/image/upload/v1716201697/image/wclgegomv1fipqoujanr.png" alt=""><span>
+                TRUNG TÂM HỌC LIỆU</span></a>
     </div>
     <ul>
         <a href="?controller=admin&action=dashboard">
@@ -25,6 +25,11 @@
         <a href="?controller=admin&action=fine">
             <li><i class="fa-solid fa-dollar-sign icon"></i>Phí phạt</li>
         </a>
+        <?php   if(isset($_SESSION['user']) &&  $_SESSION['user']['roleAccess'] === '3' ){ ?>
+            <a href="?controller=admin&action=librarian">
+                <li><i class="fa-solid fa-people-roof icon"></i>Thủ thư</li>
+            </a>
+        <?php }?>
         <a href="?controller=user&action=logout">
             <li><i class="fa-solid fa-right-to-bracket fa-rotate-180 icon"></i> Đăng xuất</li>
         </a>

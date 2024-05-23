@@ -63,13 +63,13 @@
             <table>
                 <tr>
                     <th style="width: 5%;">#</th>
-                    <th style="width: 7%;">MSSV</th>
-                    <th style="width: 31%;">Tên sách</th>
+                    <th style="width: 10%;">MSSV</th>
+                    <th style="width: 30%;">Tên sách</th>
                     <th style="width: 12%;">Trạng thái</th>
-                    <th style="width: 11%;">T.gian Y.cầu</th>
+                    <th style="width: 13%;">T.gian Y.cầu</th>
                     <th style="width: 10%;">Ngày mượn</th>
                     <th style="width: 10%;">Ngày trả</th>
-                    <th style="width: 8%;">H.động</th>
+                    <th style="width: 4%;"></th>
                 </tr>
                 <?php
                                 $stt = (($current_page - 1) * $limit) + 1;

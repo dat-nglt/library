@@ -60,7 +60,7 @@
                     <th style="width: 13%;">Trạng thái</th>
                     <th style="width: 7%;"></th>
                 </tr>
-                <?php   
+                <?php
                                 $stt = (($current_page - 1) * $limit) + 1;
                                 foreach ($listUpload as $key => $value) {
                                     ?>
@@ -153,13 +153,11 @@
     </div>
 
     <script>
-        var id_User = <?php echo json_encode($_SESSION['user']['id']) ?>;
         var listBook = <?php echo json_encode($listBook) ?>;
         var listCategory = <?php echo json_encode($getNameCategory) ?>;
     </script>
     <script src="./js/admin/upload/openFormAdd.js"></script>
+    <script src="./js/admin/upload/openFormEdit.js"></script>
     <script src="./js/admin/closeFormAdd.js"></script>
-    <script src="./js/admin/upload/deleteItem.js"></script>
+    <script src="./js/admin/upload/deleteUpload.js"></script>
     <script src="./js/admin/upload/addUpload.js"></script>
-    
-

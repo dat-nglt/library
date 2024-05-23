@@ -18,6 +18,14 @@
         } ?>">
           Đổi mật khẩu
         </a>
+
+        <?php
+        if ($_SESSION['user']['roleAccess'] == 2) {
+          echo '<a href="?controller=admin" class="profile__menu-option">
+            Quản trị viên
+          </a>';
+        }
+        ?>
         <a href="?controller=user&action=logout" class="profile__menu-option">
           Đăng xuất
         </a>

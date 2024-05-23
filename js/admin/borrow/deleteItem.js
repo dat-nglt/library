@@ -8,7 +8,7 @@ $(document).ready(function () {
             cancelButtonColor: "#d33",
             cancelButtonText: "Huỷ",
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "Xác nhận",
+            confirmButtonText: "Xác nhận", 
         }).then((result) => {
             if (result.isConfirmed) {
                 var id = $(this).data("id");

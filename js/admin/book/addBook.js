@@ -40,6 +40,7 @@ function submitBook() {
     }
 
     var file = $("#newImg")[0].files[0];
+    
     if (file === undefined) {
         var data = {
             name,

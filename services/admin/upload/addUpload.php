@@ -3,7 +3,7 @@
 require_once '../../databaseUsingAjax.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $idUser = $_POST['id'];
+    $idUser = $_SESSION['user']['id'];
     $name = $_POST['name'];
     $book = $_POST['book'];
     $category = $_POST['category'];

@@ -1,20 +1,10 @@
 $(document).on("click", ".list__action-open-edit", function () {
     var userId = $(this).data('id');
-    var studentCode = $(this).closest("tr").find("td:eq(1)").text().trim();
+    var username = $(this).closest("tr").find("td:eq(1)").text().trim();
     var fullName = $(this).closest("tr").find("td:eq(2)").text().trim();
-    var address = $(this).closest("tr").find("td:eq(3)").text().trim();
-    var dataOfBirth = $(this).closest("tr").find("td:eq(4)").text().trim();
-    var phoneNumber = $(this).closest("tr").find("td:eq(5)").text().trim();
-    var email = $(this).closest("tr").find("td:eq(6)").text().trim();
-    var identificationNumber = $(this)
-        .closest("tr")
-        .find("td:eq(7)")
-        .text()
-        .trim();
-    var className = $(this).closest("tr").find("td:eq(8)").text().trim();
-
-    var parts = dataOfBirth.split("-");
-    var convertedDataOfBirth = parts[2] + "-" + parts[1] + "-" + parts[0];
+    var phoneNumber = $(this).closest("tr").find("td:eq(3)").text().trim();
+    var email = $(this).closest("tr").find("td:eq(4)").text().trim();
+    var className = $(this).closest("tr").find("td:eq(5)").text().trim();
 
     var bodyContainer = document.querySelector(".body__container");
     bodyContainer.classList.add("form-add-is-open");
@@ -22,7 +12,7 @@ $(document).on("click", ".list__action-open-edit", function () {
     addFormEdit.className = "list__form";
     bodyContainer.appendChild(addFormEdit);
     addFormEdit.innerHTML = `
-        <form action="?controller=admin&action=account" method="post" style="height: 500px" class="list__form-add">
+        <form action="?controller=admin&action=librarian" method="post" style="height: 350px" class="list__form-add">
             <div class="list__form-title">
                 <span><i class="fa-solid fa-user"></i> Chỉnh sửa tài khoản</span><i class="fa-solid fa-xmark close-icon"
                 onclick="closeFormAdd()"></i>
@@ -30,8 +20,8 @@ $(document).on("click", ".list__action-open-edit", function () {
             <div class="list__form-content">
                 <div class="list__add-handmade">
                     <div class="list__form-box">
-                        <label for="input-student-code" class="list__form-label">MSSV <span>*</span></label>
-                        <input type="text" class="list__form-input" value="${studentCode}" name="student-code_user" required id="input-student-code"
+                        <label for="input-username" class="list__form-label">MSSV <span>*</span></label>
+                        <input type="text" class="list__form-input" value="${username}" name="username_user" required id="input-username"
                             placeholder="Nhập mã số sinh viên">
                     </div>
                     <div class="list__form-box">
@@ -39,16 +29,6 @@ $(document).on("click", ".list__action-open-edit", function () {
                         <input type="text" class="list__form-input" name="name_user" value="${fullName}" required id="input-name"
                             placeholder="Nhập họ tên">
                     </div>
-                    <div class="list__form-box">
-                        <label for="input-date-of-birth" class="list__form-label">Ngày sinh <span>*</span></label>
-                        <input type="date" class="list__form-input" name="date-of-birth_user" value="${convertedDataOfBirth}" required id="input-date-of-birth"
-                            placeholder="Nhập ngày sinh">
-                    </div>
-                    <div class="list__form-box">
-                        <label for="input-address" class="list__form-label">Địa chỉ <span>*</span></label>
-                        <input type="text" class="list__form-input" name="address_user" value="${address}" required id="input-address"
-                            placeholder="Nhập địa chỉ">
-                        </div>
                     <div class="list__form-box">
                         <label for="input-phone-number" class="list__form-label">Số điện thoại <span>*</span></label>
                         <input type="number" class="list__form-input" name="phone-number_user" value="${phoneNumber}" required id="input-phone-number"
@@ -58,11 +38,6 @@ $(document).on("click", ".list__action-open-edit", function () {
                         <label for="input-email" class="list__form-label">Email <span>*</span></label>
                         <input type="email" class="list__form-input" name="email_user" value="${email}" required id="input-email"
                             placeholder="Nhập email">
-                    </div>
-                    <div class="list__form-box">
-                        <label for="input-identification-number" class="list__form-label">Số CCCD <span>*</span></label>
-                        <input type="text" class="list__form-input" name="identification-number_user" value="${identificationNumber}" required id="input-identification-number" 
-                            placeholder="Nhập số CCCD">
                     </div>
                     <div class="list__form-box">
                         <label for="input-class" class="list__form-label">Lớp <span>*</span></label>
@@ -80,7 +55,7 @@ $(document).on("click", ".list__action-open-edit", function () {
             </div>
             <div class="list__form-btn">
                 <button type="button" class="close-btn" onclick="closeFormAdd()">Đóng</button>
-                <button type="submit" name="edit_account-handmade">Chỉnh sửa</button>
+                <button type="submit" name="edit_librarian-handmade">Chỉnh sửa</button>
             </div>
         </form>`;
 });

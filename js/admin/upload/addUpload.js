@@ -4,7 +4,6 @@ function submitUpload() {
     api_key: "228961218815535",
     api_secret: "gpjAXY5kGhg40Hd5adbcMUIeV84",
   });
-  var id = id_User;
   var name = $("#input-name").val();
   var book = $("#select-book").val();
   var category = $("#select-category").val();
@@ -41,7 +40,6 @@ function submitUpload() {
     contentType: false,
     success: function (response) {
       var data = {
-        id: id,
         name: name,
         book: book,
         category: category,

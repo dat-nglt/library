@@ -17,7 +17,7 @@ class userController extends baseController
 
     $componentName = 'homeHotBook';
     if (isset($_SESSION['user'])) {
-      $this->userModel->denyRequest($_SESSION['user']['id']);
+      $this->userModel->denyRequest($_SESSION['user']['id']); //hủy yêu cầu sau 24h
     }
     return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
 
@@ -84,7 +84,7 @@ class userController extends baseController
         $_SESSION['user'] = $result;
         if ($_SESSION['user']['roleAccess'] == 1) {
           success('Đăng nhập thành công', 'http://localhost/library/');
-        } else if ($_SESSION['user']['roleAccess'] == 2) {
+        } else if ($_SESSION['user']['roleAccess'] == 2 || $_SESSION['user']['roleAccess'] == 3) {
           confirm('Đăng nhập thành công', 'Chọn trang bạn cần di chuyển đến!', 'success', 'Trang chủ', 'Admin', 'http://localhost/library/', 'http://localhost/library/?controller=admin');
         } elseif ($_SESSION['user']['roleAccess'] == 0) {
           unset($_SESSION['user']);
@@ -171,6 +171,11 @@ class userController extends baseController
 
   public function upload()
   {
+    if (!isset($_SESSION['user'])) {
+
+      $error_message = "Vui lòng đăng nhập để sử dụng chức năng này.";
+      return $this->loadview('user.404', ['error_message' => $error_message]);
+    }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $upload_url = $_POST['uploadURL'];
       $nhanDe = $_POST['title1'];

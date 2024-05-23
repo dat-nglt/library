@@ -2,7 +2,7 @@ $(document).ready(function () {
   $('.list__action-btn').on('click', function () {
     Swal.fire({
       title: 'Xác nhận',
-      text: 'Bạn có muốn xóa thể loại sách!',
+      text: 'Bạn có muốn xóa File dữ liệu này!',
       icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d33',
@@ -11,12 +11,12 @@ $(document).ready(function () {
       confirmButtonText: 'Xác nhận',
   }).then((result) => {
       if (result.isConfirmed) {
-        var itemId = $(this).data('id');
+        var id = $(this).data('id');
     $.ajax({
-      url: './services/admin/category/delete.php',
+      url: './services/admin/upload/deleteUpload.php',
       type: 'DELETE',
       dataType: 'json',
-      data: { id: itemId },
+      data: { id: id },
       success: function (result) {
         Swal.fire({
             title: "Thông báo",
@@ -30,7 +30,7 @@ $(document).ready(function () {
       error: function (xhr, status, error) {
         Swal.fire({
           title: "Thông báo",
-          text: "Xóa không thành công.",
+          text: "Xóa không thành công",
           icon: "error",
           showConfirmButton: true,
         }).then(function () {

@@ -91,5 +91,4 @@
 </div>
 
 <script src="./js/user/upload.js"></script>
-
 <script src="./js/user/deleteUpload.js"></script>

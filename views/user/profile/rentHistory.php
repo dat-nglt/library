@@ -70,7 +70,7 @@ $listRentBook = $listRentBook ? $listRentBook : [];
                 default:
                   $statusRequest = "Chờ xét duyệt";
               }
-              echo '<tr>';
+              echo '<tr' . ($item[8] == 4 ? ' style="background-color: #ffe9bf;"' : '') . '>';
               echo '<td>' . $stt . '</td>';
               echo '<td>' . $item[0] . '</td>';
               echo '<td>' . $item[6] . '</td>';

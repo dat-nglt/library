@@ -33,13 +33,6 @@ class userModel extends baseModel
     return $query;
   }
 
-  public function delUpload($idUpload)
-  {
-    $sql = "DELETE FROM upload WHERE idUpload = '$idUpload'";
-    $query = $this->_query($sql);
-    return $query;
-  }
-
   public function getDataType()
   {
     $sql = "SELECT * FROM category";
@@ -87,14 +80,20 @@ class userModel extends baseModel
 
   public function denyRequest($id)
   {
-    $sql = "UPDATE request SET request.statusRequest = 4 WHERE request.id_User= $id AND request.dateRequest < CURRENT_DATE() AND request.statusRequest = 0;";
+    $sql = "UPDATE request, user
+    SET request.statusRequest = 4
+    WHERE (DATE(dateRequest) < DATE(NOW())) 
+    AND (TIME(NOW()) > TIME(dateRequest))
+    AND user.id = $id
+    AND request.statusRequest = 0";
     $query = $this->_query($sql);
     return $query;
   }
 
   public function requestBook($idUser, $idBook)
   {
-    $sql = "INSERT INTO request(dateRequest, id_User, id_Book) VALUES (DATE(NOW()), '$idUser', '$idBook')";
+    // $currentDateTime = date('Y-m-d H:i:s');
+    $sql = "INSERT INTO request(dateRequest, id_User, id_Book) VALUES (NOW(), '$idUser', '$idBook')";
     $query = $this->_query($sql);
     return $query;
   }
