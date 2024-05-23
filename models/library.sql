@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 20, 2024 lúc 01:45 AM
+-- Thời gian đã tạo: Th5 22, 2024 lúc 07:47 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -32,6 +32,7 @@ CREATE TABLE `book` (
   `nameBook` varchar(100) NOT NULL,
   `quantityBook` int(11) NOT NULL,
   `imgBook` varchar(255) NOT NULL,
+  `topicBook` varchar(255) NOT NULL,
   `creatorBook` varchar(50) NOT NULL,
   `publisherBook` varchar(255) NOT NULL,
   `dateBook` year(4) NOT NULL,
@@ -43,19 +44,19 @@ CREATE TABLE `book` (
 -- Đang đổ dữ liệu cho bảng `book`
 --
 
-INSERT INTO `book` (`idBook`, `nameBook`, `quantityBook`, `imgBook`, `creatorBook`, `publisherBook`, `dateBook`, `desBook`, `id_Category`) VALUES
-(1, 'Harry Potter', 10, '', 'J.K. Rowling', 'Trương Văn Đạt', '2005', 'A fantasy novel series', 8),
-(2, 'To Kill a Mockingbird', 5, '', 'Harper Lee', 'Trương Văn Đạt', '1960', 'A classic American novel', 9),
-(3, 'The Great Gatsby', 3, '', 'F. Scott Fitzgerald', 'Trương Văn Đạt', '1925', 'A novel set in the Jazz Age', 10),
-(4, 'Pride and Prejudice', 7, '', 'Jane Austen', 'Trương Văn Đạt', '0000', 'A classic romance novel', 11),
-(5, '1984', 8, '', 'George Orwell', 'Trương Văn Đạt', '1949', 'A dystopian novel', 12),
-(6, 'The Catcher in the Rye', 4, '', 'J.D. Salinger', 'Trương Văn Đạt', '1951', 'A coming-of-age novel', 13),
-(7, 'To Kill a Kingdom', 6, '', 'Alexandra Christo', 'Trương Văn Đạt', '2018', 'A fantasy novel about sirens and pirates', 14),
-(8, 'The Alchemist', 2, '', 'Paulo Coelho', 'Trương Văn Đạt', '1988', 'A philosophical novel', 12),
-(9, 'The Da Vinci Code', 9, '', 'Dan Brown', 'Trương Văn Đạt', '2003', 'A mystery thriller', 11),
-(10, 'The Lord of the Rings', 3, '', 'J.R.R. Tolkien', 'Trương Văn Đạt', '1954', 'An epic high fantasy novel', 12),
-(11, 'The Hobbit', 5, '', 'J.R.R. Tolkien', 'Trương Văn Đạt', '1937', 'A fantasy adventure novel', 10),
-(12, 'The Chronicles of Narnia', 7, '', 'C.S. Lewis', 'Trương Văn Đạt', '1950', 'A series of fantasy novels', 9);
+INSERT INTO `book` (`idBook`, `nameBook`, `quantityBook`, `imgBook`, `topicBook`, `creatorBook`, `publisherBook`, `dateBook`, `desBook`, `id_Category`) VALUES
+(1, 'Harry Potter', 10, '', 'Kinh dị\r\n', 'J.K. Rowling', 'Trương Văn Đạt', '2005', 'A fantasy novel series', 8),
+(2, 'To Kill a Mockingbird', 5, '', '', 'Harper Lee', 'Trương Văn Đạt', '1960', 'A classic American novel', 9),
+(3, 'The Great Gatsby', 3, '', '', 'F. Scott Fitzgerald', 'Trương Văn Đạt', '1925', 'A novel set in the Jazz Age', 10),
+(4, 'Pride and Prejudice', 7, '', '', 'Jane Austen', 'Trương Văn Đạt', '0000', 'A classic romance novel', 11),
+(5, '1984', 8, '', '', 'George Orwell', 'Trương Văn Đạt', '1949', 'A dystopian novel', 12),
+(6, 'The Catcher in the Rye', 4, '', '', 'J.D. Salinger', 'Trương Văn Đạt', '1951', 'A coming-of-age novel', 13),
+(7, 'To Kill a Kingdom', 6, '', '', 'Alexandra Christo', 'Trương Văn Đạt', '2018', 'A fantasy novel about sirens and pirates', 14),
+(8, 'The Alchemist', 2, '', '', 'Paulo Coelho', 'Trương Văn Đạt', '1988', 'A philosophical novel', 12),
+(9, 'The Da Vinci Code', 9, '', '', 'Dan Brown', 'Trương Văn Đạt', '2003', 'A mystery thriller', 11),
+(10, 'The Lord of the Rings', 3, '', '', 'J.R.R. Tolkien', 'Trương Văn Đạt', '1954', 'An epic high fantasy novel', 12),
+(11, 'The Hobbit', 5, '', '', 'J.R.R. Tolkien', 'Trương Văn Đạt', '1937', 'A fantasy adventure novel', 10),
+(12, 'The Chronicles of Narnia', 7, '', '', 'C.S. Lewis', 'Trương Văn Đạt', '1950', 'A series of fantasy novels', 9);
 
 -- --------------------------------------------------------
 
@@ -114,27 +115,6 @@ CREATE TABLE `request` (
   `dateRental` date DEFAULT NULL,
   `dateReturn` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `request`
---
-
-INSERT INTO `request` (`idRequest`, `id_User`, `id_Book`, `dateRequest`, `statusRequest`, `dateRental`, `dateReturn`) VALUES
-(30, 3, 6, '2024-05-19 21:00:43', 0, NULL, NULL),
-(31, 3, 5, '2024-05-19 21:00:45', 0, NULL, NULL),
-(32, 3, 4, '2024-05-19 21:00:47', 0, NULL, NULL),
-(33, 3, 8, '2024-05-19 21:00:50', 0, NULL, NULL),
-(34, 3, 2, '2024-05-19 21:00:53', 0, NULL, NULL),
-(35, 3, 3, '2024-05-19 21:00:54', 0, NULL, NULL),
-(36, 3, 1, '2024-05-19 21:00:56', 0, NULL, NULL),
-(37, 3, 7, '2024-05-19 21:00:58', 0, NULL, NULL),
-(38, 3, 7, '2024-05-19 22:46:52', 0, NULL, NULL),
-(39, 3, 7, '2024-05-19 22:46:54', 0, NULL, NULL),
-(40, 3, 7, '2024-05-19 22:46:56', 0, NULL, NULL),
-(41, 3, 7, '2024-05-19 22:46:59', 0, NULL, NULL),
-(42, 3, 7, '2024-05-19 22:47:01', 0, NULL, NULL),
-(43, 3, 7, '2024-05-19 22:47:02', 0, NULL, NULL),
-(44, 3, 7, '2024-05-19 22:47:03', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -265,7 +245,7 @@ ALTER TABLE `google_account`
 -- AUTO_INCREMENT cho bảng `request`
 --
 ALTER TABLE `request`
-  MODIFY `idRequest` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `idRequest` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT cho bảng `upload`

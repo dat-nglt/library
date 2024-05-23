@@ -1,6 +1,6 @@
-
 <?php
 $listRentBook = $listRentBook ? $listRentBook : [];
+// var_dump($listRentBook);
 ?>
 
 <div class="content">
@@ -62,10 +62,13 @@ $listRentBook = $listRentBook ? $listRentBook : [];
                   $statusRequest = "Đã trả";
                   break;
                 case 3:
-                  $statusRequest = "Từ chối mượn";
+                  $statusRequest = "Quá hạn trả";
+                  break;
+                case 4:
+                  $statusRequest = "Yêu cầu bị từ chối";
                   break;
                 default:
-                  return "Chờ xét duyệt";
+                  $statusRequest = "Chờ xét duyệt";
               }
               echo '<tr>';
               echo '<td>' . $stt . '</td>';

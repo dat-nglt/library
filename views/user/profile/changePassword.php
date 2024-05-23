@@ -9,7 +9,6 @@
         <i class="fa-regular fa-eye-slash eye-info"></i>
       </div>
       <div class="info-fields">
-        <?php echo $_SESSION['a']?>
         <label for="">Mật khẩu mới</label>
         <input class="input-password-profile" type="password" id="newPassword">
         <span class="error-message-profile">Vui lòng nhập mật khẩu mới!</span>

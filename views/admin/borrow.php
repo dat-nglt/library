@@ -35,7 +35,7 @@
                                     </option>
                                     <option value="4" <?php if ($_SESSION['status-borrow'] === '4')
                                     echo 'selected' ?>>
-                                        Q.hạn X.nhận
+                                        Yêu cầu bị từ chối
                                     </option>
                                 </select>
                                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -88,7 +88,7 @@
                                             $status = 'Quá hạn trả';
                                             break;
                                         case '4':
-                                            $status = 'Quá hạn xác nhận';
+                                            $status = 'Yêu cầu bị từ chối';
                                             break;
                                         default:
                                             $status = '';

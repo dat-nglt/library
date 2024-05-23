@@ -64,4 +64,28 @@ function warning($msg, $link)
     </script>';
 }
 
+function errorNotLoad($msg)
+{
+    echo '<script>
+        Swal.fire({
+            title: "Thông báo",
+            text: "' . $msg . '",
+            icon: "error",
+            showConfirmButton: true,
+        })
+    </script>';
+}
+
+function warningNotLoad($msg)
+{
+    echo '<script>
+        Swal.fire({
+            title: "Thông báo",
+            text: "' . $msg . '",
+            icon: "warning",
+            showConfirmButton: true,
+        })
+    </script>';
+}
+
 ?>

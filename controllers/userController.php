@@ -6,7 +6,7 @@ class userController extends baseController
 
   public function __construct()
   {
-    $this->loadModel('userModel'); //gọi lại model đã tạo
+    $this->loadModel('userModel');
     $this->userModel = new userModel;
 
   }
@@ -16,6 +16,9 @@ class userController extends baseController
     $books = $this->userModel->getAllBook();
 
     $componentName = 'homeHotBook';
+    if (isset($_SESSION['user'])) {
+      $this->userModel->denyRequest($_SESSION['user']['id']);
+    }
     return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
 
 
@@ -85,10 +88,10 @@ class userController extends baseController
           confirm('Đăng nhập thành công', 'Chọn trang bạn cần di chuyển đến!', 'success', 'Trang chủ', 'Admin', 'http://localhost/library/', 'http://localhost/library/?controller=admin');
         } elseif ($_SESSION['user']['roleAccess'] == 0) {
           unset($_SESSION['user']);
-          warning('Tài khoản của bạn tạm thời đã bị khóa!  Vui lòng đến thư viện và đóng phí 50.000VND để mở khóa!', 'http://localhost/library/?controller=user&action=login');
+          warningNotLoad('Tài khoản của bạn tạm thời đã bị khóa!  Vui lòng đến thư viện và đóng phí 50.000VND để mở khóa!');
         }
       } else {
-        error('Tên tài khoản hoặc mật khẩu không chính xác!', 'http://localhost/library/?controller=user&action=login');
+        errorNotLoad('Tên tài khoản hoặc mật khẩu không chính xác!');
       }
     }
     return $this->loadview('general.login', []);
@@ -102,7 +105,7 @@ class userController extends baseController
 
   public function profile()
   {
-    if (isset($_SESSION['user'])) {
+    if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] == 1 || $_SESSION['user']['roleAccess'] == 2)) {
       $pageOption = $_GET['profilePage'];
       switch ($pageOption) {
         case 'rentHistory':
@@ -128,24 +131,6 @@ class userController extends baseController
           return $this->loadview('user.profile.profile', []);
 
         case 'changePassword':
-          // $_SESSION['a'] = isset($_SESSION['a']) ? $_SESSION['a'] : 1;
-          // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-          //   // $_SESSION['a'] = 2;
-          //   $oldPassword = $_POST['oldPassword'];
-          //   $newPassword = $_POST['newPassword'];
-          //   if (password_verify($oldPassword, $_SESSION['user']['password'])) {
-          //     $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-          //     $changeResult = $this->userModel->changePassword($_SESSION['user']['id'], $newHashedPassword);
-          //     if ($changeResult) {
-          //       $_SESSION['user']['password'] = $newHashedPassword;
-          //       http_response_code(200);
-          //     } else {
-          //       http_response_code(400);
-          //     }
-          //   } else {
-          //     http_response_code(400);
-          //   }
-          // }
           return $this->loadview('user.profile.profile', []);
         default:
           return $this->loadview('user.profile.profile', []);

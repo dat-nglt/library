@@ -10,9 +10,10 @@ class adminController extends baseController
     $this->adminModel = new adminModel;
 
   }
+
   public function index()
   {
-    return $this->loadview('admin.home', []);
+        return $this->loadview('admin.home', []);
   }
 
   public function account()

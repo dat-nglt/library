@@ -101,9 +101,9 @@
           color: var(--red-cl);
         }
 
-      .list__action-open-edit,
-      .list__action-request,
-      .list__action-btn {
+        .list__action-open-edit,
+        .list__action-request,
+        .list__action-btn {
           padding: 0;
           background-color: transparent !important;
           outline: 0;
@@ -263,7 +263,7 @@
       .list__form-title {
         color: var(--white-cl);
         position: relative;
-        padding: 20px 120px;
+        padding: 20px 100px;
         background-color: var(
           --blue-cl
         );

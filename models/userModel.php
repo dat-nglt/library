@@ -85,6 +85,13 @@ class userModel extends baseModel
     return $query;
   }
 
+  public function denyRequest($id)
+  {
+    $sql = "UPDATE request SET request.statusRequest = 4 WHERE request.id_User= $id AND request.dateRequest < CURRENT_DATE() AND request.statusRequest = 0;";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
   public function requestBook($idUser, $idBook)
   {
     $sql = "INSERT INTO request(dateRequest, id_User, id_Book) VALUES (DATE(NOW()), '$idUser', '$idBook')";
