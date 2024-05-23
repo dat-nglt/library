@@ -50,8 +50,8 @@
                     <th style="width: 5%;">#</th>
                     <th style="width: 19%;">Tên sách</th>
                     <th style="width: 10%;">Tác giả</th>
-                    <th style="width: 10%;">Hình ảnh</th>
-                    <th style="width: 10%;">Số lượng</th>
+                    <th style="width: 11%;">Hình ảnh</th>
+                    <th style="width: 9%;">Số lượng</th>
                     <th style="width: 10%;">Nhà XB</th>
                     <th style="width: 9%;">Năm XB</th>
                     <th style="width: 11%;">Thể loại</th>
@@ -145,6 +145,7 @@
 <script src="./js/admin/book/openFormEdit.js"></script>
 <script src="./js/admin/book/deleteBook.js"></script>
 <script src="./js/admin/changeImg.js"></script>
+<script src="./js/admin/book/addBook.js"></script>
 <script src="./js/admin/book/editBook.js"></script>
 
 

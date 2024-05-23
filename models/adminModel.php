@@ -3,6 +3,51 @@
 class adminModel extends baseModel
 {
 
+  public function countRequestInMonth()
+  {
+    $sql = "SELECT 
+    MONTH(dateRental) AS month,
+    COUNT(*) AS count
+    FROM 
+        request
+    WHERE 
+        YEAR(dateRental) = 2024
+    GROUP BY 
+        MONTH(dateRental)
+    ORDER BY month;";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function countStatusRequest()
+  {
+    $sql = "SELECT statusRequest, COUNT(*) AS total 
+    FROM request
+    GROUP BY statusRequest";
+
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function countUser()
+  {
+    $sql = "SELECT roleAccess, COUNT(*) AS total 
+    FROM user
+    GROUP BY roleAccess;";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function countCategory()
+  {
+    $sql = "SELECT category.idCategory, category.nameCategory, COUNT(*)
+    FROM book
+    INNER JOIN category ON book.id_Category = category.idCategory
+    GROUP BY category.nameCategory";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
   // User
   public function getAllUser($search)
   {
@@ -172,6 +217,17 @@ class adminModel extends baseModel
     return $query;
   }
 
+  public function denyRequest()
+  {
+    $sql = "UPDATE request
+    SET statusRequest = 4
+    WHERE (DATE(dateRequest) < DATE(NOW())) 
+    AND (TIME(NOW()) > TIME(dateRequest))
+    AND statusRequest = 0";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
 
   public function getListBorrow($start, $limit, $sort, $search, $status)
   {
@@ -299,6 +355,31 @@ class adminModel extends baseModel
     LEFT JOIN category ON upload.id_Category = category.idCategory
     LEFT JOIN book ON upload.id_Book = book.idBook WHERE (upload.titleUpload LIKE '%$search%' OR user.studentCode LIKE '%$search%' OR upload.timeUpload = '$search') AND upload.id_Category = '$category' ORDER BY idUpload $sort LIMIT $start, $limit;";
     }
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function getAllPunish($start, $limit, $sort)
+  {
+    if ($sort === 'DESC') {
+      $sql = "SELECT r.*, u.studentCode, u.fullName, p.* FROM request AS r 
+    LEFT JOIN book AS b ON r.id_book = b.idBook LEFT JOIN user AS u ON r.id_User = u.id
+    JOIN punish as p On p.id_Request = r.idRequest ORDER BY idPunish DESC LIMIT $start, $limit";
+    } else {
+      $sql = "SELECT r.*, u.studentCode, u.fullName, p.* FROM request AS r 
+    LEFT JOIN book AS b ON r.id_book = b.idBook LEFT JOIN user AS u ON r.id_User = u.id
+    JOIN punish as p On p.id_Request = r.idRequest ORDER BY idPunish LIMIT $start, $limit";
+    }
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function getPunish()
+  {
+    $sql = "SELECT r.*, u.studentCode, u.fullName, p.* FROM request AS r 
+    LEFT JOIN book AS b ON r.id_book = b.idBook LEFT JOIN user AS u ON r.id_User = u.id
+    JOIN punish as p On p.id_Request = r.idRequest";
+
     $query = $this->_query($sql);
     return $query;
   }

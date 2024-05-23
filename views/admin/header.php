@@ -22,7 +22,7 @@
         <a href="?controller=admin&action=upload">
             <li><i class="fa-solid fa-file-arrow-up icon"></i>Upload</li>
         </a>
-        <a href="?controller=admin&action=fine">
+        <a href="?controller=admin&action=punish">
             <li><i class="fa-solid fa-dollar-sign icon"></i>Phí phạt</li>
         </a>
         <?php   if(isset($_SESSION['user']) &&  $_SESSION['user']['roleAccess'] === '3' ){ ?>

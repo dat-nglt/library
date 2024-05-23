@@ -51,14 +51,14 @@
             <table>
                 <tr>
                     <th style="width: 3%;">#</th>
-                    <th style="width: 5%;">MSSV</th>
+                    <th style="width: 7%;">MSSV</th>
                     <th style="width: 10%;">Họ & tên</th>
                     <th style="width: 17%;">File dữ liệu số</th>
                     <th style="width: 10%;">Ngày tải lên</th>
                     <th style="width: 10%;">Danh mục</th>
                     <th style="width: 25%;">Tài liệu</th>
                     <th style="width: 13%;">Trạng thái</th>
-                    <th style="width: 7%;"></th>
+                    <th style="width: 5%;"></th>
                 </tr>
                 <?php
                                 $stt = (($current_page - 1) * $limit) + 1;
@@ -161,3 +161,4 @@
     <script src="./js/admin/closeFormAdd.js"></script>
     <script src="./js/admin/upload/deleteUpload.js"></script>
     <script src="./js/admin/upload/addUpload.js"></script>
+    <script src="./js/admin/upload/editUpload.js"></script>

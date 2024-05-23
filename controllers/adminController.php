@@ -12,9 +12,18 @@ class adminController extends baseController
   }
 
   public function index()
-  {
+  { 
     if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
-      return $this->loadview('admin.home', []);
+      $countRequestInMonth = mysqli_fetch_all($this->adminModel->countRequestInMonth());
+      $countStatusRequest = mysqli_fetch_all($this->adminModel->countStatusRequest());
+      $countUser = mysqli_fetch_all($this->adminModel->countUser());
+      $countCategory = mysqli_fetch_all($this->adminModel->countCategory());
+      return $this->loadview('admin.home', [
+        'countStatusRequest' => $countStatusRequest,
+        'countUser' => $countUser,
+        'countCategory' => $countCategory,
+        'countRequestInMonth' => $countRequestInMonth
+      ]);
     } else {
       header('Location: http://localhost/library/');
       exit();
@@ -378,6 +387,7 @@ class adminController extends baseController
   public function borrow()
   {
     if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
+      $this->adminModel->denyRequest();
       $limit = 15;
       $_SESSION['sort-borrow'] = isset($_SESSION['sort-borrow']) ? $_SESSION['sort-borrow'] : 'desc';
       $_SESSION['search-borrow'] = isset($_SESSION['search-borrow']) ? $_SESSION['search-borrow'] : '';
@@ -460,7 +470,7 @@ class adminController extends baseController
         } else {
           $edit = $this->adminModel->editBorrow($id, $user, $book, $statusBorrow, '', '');
           if ($edit) {
-            if($statusBorrow === '2'){
+            if ($statusBorrow === '2') {
               $book = $this->adminModel->plusCountBook($book);
               if (!$book) {
                 $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
@@ -473,6 +483,7 @@ class adminController extends baseController
             $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
             error('Chỉnh sửa thất bại!', '?controller=admin&action=borrow&page=' . $current_page);
           }
+
         }
         exit();
       }
@@ -503,7 +514,7 @@ class adminController extends baseController
   public function upload()
   {
     if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
-      $limit = 15;
+      $limit = 3;
       $_SESSION['sort-upload'] = isset($_SESSION['sort-upload']) ? $_SESSION['sort-upload'] : 'desc';
       $_SESSION['search-upload'] = isset($_SESSION['search-upload']) ? $_SESSION['search-upload'] : '';
       $_SESSION['category-upload'] = isset($_SESSION['category-upload']) ? $_SESSION['category-upload'] : 'all';
@@ -535,6 +546,30 @@ class adminController extends baseController
     }
   }
 
+  public function punish()
+  {
+    if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
+      $limit = 1;
+      if (isset($_POST['sort-upload'])) {
+        $_SESSION['sort-upload'] = $_POST['sort-upload'];
+      }
+      $total = $this->adminModel->getPunish();
+      $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+      $total_page = ceil(mysqli_num_rows($total) / $limit);
+      if ($current_page > $total_page) {
+        $current_page = $total_page;
+      }
+      if ($current_page < 1) {
+        $current_page = 1;
+      }
+      $start = ($current_page - 1) * $limit;
+      $_SESSION['sort-punish'] = isset($_SESSION['sort-punish']) ? $_SESSION['sort-punish'] : 'DESC';
+      $listPunish = $this->adminModel->getAllPunish($start, $limit, $_SESSION['sort-upload']);
+      return $this->loadview('admin.punish', ['listPunish' => $listPunish, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    } else {
+      header('Location: http://localhost/library/');
+      exit();
+    }
+  }
 }
-
 

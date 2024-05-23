@@ -1,18 +1,18 @@
 <style>
   .chart__container {
     width: calc(100vw - 254px);
-    height: 100vh;
     padding: 20px;
     position: relative;
     left: 254px;
     display: flex;
-    gap: 50px;
-    justify-content: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 
   .box__chart {
-    width: fit-content;
-    height: fit-content;
+    flex: 0 0 calc(50% - 10px);
+    /* Mỗi item chiếm 50% không gian, trừ đi khoảng cách giữa các item */
+    margin: 5px;
   }
 
   .title__chart {
@@ -26,15 +26,16 @@
     font-weight: 600;
   }
 
+  .content__chart {
+    height: calc(100vh / 2 - 70px);
+  }
+
   #book-chart {
-    overflow: hidden;
-    height: 300px;
-    width: 550px;
+    /* width: 550px; */
   }
 
   #request-chart {
-    height: 300px;
-    width: 600px;
+    /* width: 600px; */
   }
 </style>
 
@@ -42,14 +43,26 @@
 
   <div class="chart__container">
     <div class="box__chart">
-      <div class="title__chart">Số lượng sách đã mượn</div>
-      <div id="book-chart">
+      <div id='1' class="title__chart">Số lượng sách được mượn</div>
+      <div class="content__chart" id="book-chart">
       </div>
     </div>
 
     <div class="box__chart">
-      <div class="title__chart">Số lượng yều cầu mượn sách</div>
-      <div id="request-chart">
+      <div class="title__chart">Số lượng yêu cầu mượn sách</div>
+      <div class="content__chart" id="request-chart">
+      </div>
+    </div>
+
+    <div class="box__chart">
+      <div class="title__chart">Số lượng tài khoản</div>
+      <div class="content__chart" id="user-chart">
+      </div>
+    </div>
+
+    <div class="box__chart">
+      <div class="title__chart">Số lượng tài liệu</div>
+      <div class="content__chart" id="type-chart">
       </div>
     </div>
   </div>
@@ -57,6 +70,14 @@
 </div>
 
 <script type="text/javascript">
+  var countRequest = <?php echo json_encode($data['countRequestInMonth']); ?>; 
+
+  var countStatus = <?php echo json_encode($data['countStatusRequest']); ?>; 
+
+  var countUser = <?php echo json_encode($data['countUser']); ?>;
+
+  var countCategory = <?php echo json_encode($data['countCategory']); ?>; 
+
   window.onload = function () {
     var bookChart = new CanvasJS.Chart("book-chart",
       {
@@ -65,24 +86,12 @@
         data: [
 
           {
-            dataPoints: [
-              { x: 1, y: 2975715, label: "Tháng 1" },
-              { x: 2, y: 267017, label: "Tháng 2" },
-              { x: 3, y: 175200, label: "Tháng 3" },
-              { x: 4, y: 154580, label: "Tháng 4" },
-              { x: 5, y: 116000, label: "Tháng 5" },
-              { x: 6, y: 97800, label: "Tháng 6" },
-              { x: 7, y: 20682, label: "Tháng 7" },
-              { x: 8, y: 20350, label: "Tháng 8" },
-              { x: 9, y: 20350, label: "Tháng 9" },
-              { x: 10, y: 20350, label: "Tháng 10" },
-              { x: 11, y: 20350, label: "Tháng 11" },
-              { x: 12, y: 20350, label: "Tháng 12" },
-            ]
+            dataPoints: countRequest.map((item) => {
+              return { x: parseInt(item[0]), y: parseInt(item[1]), label: `Tháng ${item[0]}` }
+            })
           }
         ]
       });
-
     bookChart.render();
 
     var requestChart = new CanvasJS.Chart("request-chart",
@@ -96,16 +105,76 @@
             type: "pie",
             showInLegend: true,
             legendText: "{indexLabel}",
-            dataPoints: [
-              { y: 4181563, indexLabel: "Chờ xét duyệt" },
-              { y: 2175498, indexLabel: "Đang mượn" },
-              { y: 3125844, indexLabel: "Đã trả" },
-              { y: 1176121, indexLabel: "Quá hạn" },
-              { y: 1727161, indexLabel: "Yêu cầu bị từ chối" },
-            ]
+            dataPoints:
+              countStatus.map((item) => {
+                var nameStatus;
+                if (parseInt(item[0]) === 0) {
+                  nameStatus = 'Chờ xét duyệt';
+                } else if (parseInt(item[0]) === 1) {
+                  nameStatus = 'Đang mượn';
+                } else if (parseInt(item[0]) === 2) {
+                  nameStatus = 'Đã trả';
+                } else if (parseInt(item[0]) === 3) {
+                  nameStatus = 'Mượn quá hạn';
+                } else if (parseInt(item[0]) === 4) {
+                  nameStatus = 'Yêu cầu bị từ chối';
+                }
+
+                return { y: parseInt(item[1]), indexLabel: nameStatus }
+
+              })
           }
         ]
       });
     requestChart.render();
+
+    var userChart = new CanvasJS.Chart("user-chart",
+      {
+        legend: {
+          // maxWidth: 350,
+          itemWidth: 70
+        },
+        data: [
+          {
+            type: "pie",
+            showInLegend: true,
+            legendText: "{indexLabel}",
+            dataPoints:
+              countUser.map((item) => {
+                var nameUser;
+                if (parseInt(item[0]) === 0 || parseInt(item[0]) === 1) {
+                  nameUser = 'Độc giả';
+                } else if (parseInt(item[0]) === 2 || parseInt(item[0]) === 4) {
+                  nameUser = 'Thủ thư';
+                } else if (parseInt(item[0]) === 3) {
+                  nameUser = 'Quản trị viên';
+                }
+                return { y: parseInt(item[1]), indexLabel: nameUser }
+
+              })
+          }
+        ]
+      });
+    userChart.render();
+
+    var typeChart = new CanvasJS.Chart("type-chart",
+      {
+        legend: {
+          // maxWidth: 350,
+          itemWidth: 70
+        },
+        data: [
+          {
+            type: "pie",
+            showInLegend: true,
+            legendText: "{indexLabel}",
+            dataPoints:
+              countCategory.map((item) => {
+                return { y: parseInt(item[2]), indexLabel: item[1] }
+              })
+          }
+        ]
+      });
+    typeChart.render();
   }
 </script>
