@@ -12,16 +12,13 @@ class userController extends baseController
   }
   public function index()
   {
-
     $books = $this->userModel->getAllBook();
 
     $componentName = 'homeHotBook';
     if (isset($_SESSION['user'])) {
       $this->userModel->denyRequest($_SESSION['user']['id']); //hủy yêu cầu sau 24h
     }
-    return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
-
-
+    return $this->loadView('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
   }
 
   public function bookHot()
@@ -29,7 +26,7 @@ class userController extends baseController
     $books = $this->userModel->getAllBook();
 
     $componentName = 'homeHotBook';
-    $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
+    $this->loadView('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
   }
 
   public function newshot()
@@ -69,7 +66,7 @@ class userController extends baseController
       ],
     ];
     $componentName = 'homeHotNews';
-    return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $news]);
+    return $this->loadView('user.home', ['componentName' => $componentName, 'componentDatas' => $news]);
   }
 
 
@@ -94,7 +91,7 @@ class userController extends baseController
         errorNotLoad('Tên tài khoản hoặc mật khẩu không chính xác!');
       }
     }
-    return $this->loadview('general.login', []);
+    return $this->loadView('general.login', []);
   }
 
   public function logout()
@@ -126,14 +123,14 @@ class userController extends baseController
 
           $listRentBook = mysqli_fetch_all($this->userModel->listRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook, $start, $limit));
 
-          return $this->loadview('user.profile.profile', ['listRentBook' => $listRentBook, 'currentPage' => $currentPage, 'limit' => $limit, 'totalPage' => $totalPage, 'searchListRentBook' => $searchListRentBook]);
+          return $this->loadView('user.profile.profile', ['listRentBook' => $listRentBook, 'currentPage' => $currentPage, 'limit' => $limit, 'totalPage' => $totalPage, 'searchListRentBook' => $searchListRentBook]);
         case 'infoUser':
-          return $this->loadview('user.profile.profile', []);
+          return $this->loadView('user.profile.profile', []);
 
         case 'changePassword':
-          return $this->loadview('user.profile.profile', []);
+          return $this->loadView('user.profile.profile', []);
         default:
-          return $this->loadview('user.profile.profile', []);
+          return $this->loadView('user.profile.profile', []);
 
       }
 
@@ -162,7 +159,7 @@ class userController extends baseController
     }
 
     $books = $this->userModel->searchBooks($contentSearch, $optionSearch);
-    $this->loadview('user.searchBook', [
+    $this->loadView('user.searchBook', [
       'componentDatas' => $books,
       'contentSearch' => $contentSearch,
       'optionText' => $optionText
@@ -174,18 +171,17 @@ class userController extends baseController
     if (!isset($_SESSION['user'])) {
 
       $error_message = "Vui lòng đăng nhập để sử dụng chức năng này.";
-      return $this->loadview('user.404', ['error_message' => $error_message]);
+      return $this->loadView('user.404', ['error_message' => $error_message]);
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $upload_url = $_POST['uploadURL'];
       $nhanDe = $_POST['title1'];
       $loaiTaiLieu = $_POST['type1'];
       $this->userModel->uploadFile($upload_url, $nhanDe, $loaiTaiLieu, $_SESSION['user']['id']);
-
     }
     $uploadData = $this->userModel->uploadData($_SESSION['user']['id']);
     $typeData = $this->userModel->getDataType();
-    return $this->loadview('user.upload', ['uploadData' => $uploadData, 'typeData' => $typeData]);
+    return $this->loadView('user.upload', ['uploadData' => $uploadData, 'typeData' => $typeData]);
   }
 
   public function book_detail()
@@ -197,7 +193,7 @@ class userController extends baseController
       $this->userModel->requestBook($_SESSION['user']['id'], $id);
     }
 
-    return $this->loadview('user.book-detail', ['bookData' => $getOneBook]);
+    return $this->loadView('user.book-detail', ['bookData' => $getOneBook]);
   }
 }
 
