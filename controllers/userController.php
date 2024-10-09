@@ -32,6 +32,11 @@ class userController extends baseController
     $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
   }
 
+  public function rentSticket()
+  {
+    $this->loadview(viewPath: 'user.rentSticket');
+  }
+
   public function newshot()
   {
     $news = [

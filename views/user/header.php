@@ -29,10 +29,22 @@
         <a class="menu-item" href="">
           liên hệ
         </a>
+
       </div>
       <div class="header-login">
         <?php
         if (isset($_SESSION['user'])) {
+
+          echo '
+        <div class="rent-sticket">
+          <a class="menu-item" href="http://localhost/library/?controller=user&action=rentSticket">
+            Phiếu mượn
+          </a>
+          <div>
+          <p>99</p>
+          </div>
+        </div>
+          ';
           echo '<a class="menu-item" href="?controller=user&action=profile&profilePage=infoUser">' . $_SESSION['user']['studentCode'] . '</a>';
         } else {
           echo '<a class="menu-item" href="?controller=user&action=login">Đăng nhập</a>';
@@ -42,3 +54,105 @@
     </div>
   </div>
 </div>
+<style>
+  .header.top {
+    padding: 12px;
+    background-color: var(--white-color);
+  }
+
+  .header-top-text {
+    color: #264480;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-transform: uppercase;
+  }
+
+  .header-top-text>p {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .header-top-text>strong {
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .sub-header-top {
+    display: flex;
+    align-items: center;
+    width: 1350px;
+    margin: 0 auto;
+    gap: 20px;
+  }
+
+  .sub-header-top .header-top-img img {
+    height: 70px;
+    aspect-ratio: 1 /1;
+  }
+
+  .header.bottom {
+    position: sticky;
+    top: -1px;
+    background: var(--green-color);
+  }
+
+  .sub-header-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1350px;
+    margin: 0 auto;
+
+  }
+
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    align-items: center;
+  }
+
+  .menu-item {
+    padding: 15px 0;
+    color: var(--white-color);
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .menu-item:hover {
+    color: var(--orange-color);
+    transition: color 0.2s ease;
+  }
+
+  .header-login {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .rent-sticket {
+    display: flex;
+    position: relative;
+
+    >div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      position: absolute;
+      background: red;
+      min-width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      color: #fff;
+      right: -10px;
+      top: 8px;
+
+      >p {
+        font-size: 10px;
+      }
+    }
+  }
+</style>
