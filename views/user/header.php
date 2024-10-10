@@ -26,7 +26,7 @@
         <a class="menu-item" href="">
           danh sách tài liệu
         </a>
-        <a class="menu-item" href="">
+        <a class="menu-item" href="?controller=user&action=contact">
           liên hệ
         </a>
 
@@ -38,7 +38,7 @@
           echo '
         <div class="rent-sticket">
           <a class="menu-item" href="http://localhost/library/?controller=user&action=rentSticket">
-            Phiếu mượn
+            Giỏ sách của tôi
           </a>
           <div>
           <p>99</p>

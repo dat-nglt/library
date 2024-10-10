@@ -61,13 +61,31 @@ session_start();
 
     if (isset($_GET['controller'])) {
       $controllerName = $_GET['controller'] . 'Controller';
-      if ($_GET['controller'] === 'user') {
+      $actionName = isset($_REQUEST['action']) ? strtolower($_REQUEST['action']) : 'index';
+      if ($_GET['controller'] === 'user' && $actionName === 'login') {
         require_once './views/user/header.php';
-        echo '<div class="background-container">';
+        echo '<div class="background-container" style="
+          position: relative;
+          top: 130px;
+          width: 100%;
+          height: fit-content;
+          padding: 40px 0px 20px;
+          background-image: url(https://images.pexels.com/photos/2908984/pexels-photo-2908984.jpeg?cs=srgb&dl=pexels-technobulka-2908984.jpg&fm=jpg);
+          background-position: center;
+          background-size: cover;
+        ">';
+      } elseif ($_GET['controller'] === 'user') {
+        require_once './views/user/header.php';
+        echo '<div class="background-container" style="
+        position: relative;
+        top: 130px;
+        width: 100%;
+        height: fit-content;
+        padding: 40px 0px 20px;
+             ">';
       } else if ($_GET['controller'] === 'admin') {
         require_once './views/admin/header.php';
       }
-      $actionName = isset($_REQUEST['action']) ? strtolower($_REQUEST['action']) : 'index';
 
       require_once "./controllers/" . $controllerName . ".php";
       $controllerObject = new $controllerName;

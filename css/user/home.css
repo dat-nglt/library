@@ -169,34 +169,3 @@
   padding: 10px 20px;
   background-color: var(--green-color);
 }
-
-.news-img {
-  width: 315px;
-  height: 225px;
-  border-radius: 5px;
-}
-
-.news-form {
-  width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  gap: 30px;
-  padding: 25px 25px 0 25px;
-}
-
-.news-data {
-  gap: 30px;
-  display: flex;
-  flex-direction: column;
-}
-
-.news-data > div > span,
-.news-data > span,
-.news-data > a {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-}
-
-.BN-title {
-}

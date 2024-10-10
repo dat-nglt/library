@@ -20,10 +20,12 @@ class userController extends baseController
       $this->userModel->denyRequest($_SESSION['user']['id']); //hủy yêu cầu sau 24h
     }
     return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
-
-
   }
 
+  public function contact()
+  {
+    $this->loadview('user.contact');
+  }
   public function bookHot()
   {
     $books = $this->userModel->getAllBook();
