@@ -3,18 +3,18 @@
     <p>
       Kết nối với chúng tôi
     </p>
-    <form action="#" method="post">
+    <form method="post">
             <label for="name">Họ tên:</label>
             <input type="text" id="name" name="name" placeholder="Nhập họ tên" required>
 
-            <label for="phone">Số điện thoại:</label>
-            <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
+            <label for="tel">Số điện thoại:</label>
+            <input type="tel" id="tel" name="tel" placeholder="Nhập số điện thoại" required>
 
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="@student.ctuet.edu.vn" required>
 
-            <label for="message">Nội dung:</label>
-            <textarea id="message" name="message" rows="4" placeholder="Nhập nội dung" required></textarea>
+            <label for="des">Nội dung:</label>
+            <textarea id="des" name="des" rows="4" placeholder="Nhập nội dung" required></textarea>
 
             <button type="submit">Gửi</button>
     </form>
@@ -56,6 +56,9 @@
 
   </div>
 </div>
+<scrip>
+
+</scrip>
 <style>
   /* 2101364
   dat20April@ */
