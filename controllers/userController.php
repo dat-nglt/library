@@ -94,8 +94,7 @@ class userController extends baseController
       $taiKhoan = $_POST["taiKhoan"];
       $matKhau = $_POST["matKhau"];
       $result = mysqli_fetch_assoc($this->userModel->getAccount($taiKhoan));
-      // if ($result && password_verify($matKhau, $result['password'])) {
-      if (true) {
+      if ($result && password_verify($matKhau, $result['password'])) {
         $_SESSION['user'] = $result;
         if ($_SESSION['user']['roleAccess'] == 1) {
           success('Đăng nhập thành công', 'http://localhost/library/');

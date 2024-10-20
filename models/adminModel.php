@@ -331,12 +331,12 @@ class adminModel extends baseModel
       $sql = "SELECT upload.*, book.nameBook, book.creatorBook, book.dateBook, user.studentCode, user.fullName, category.nameCategory FROM upload 
     LEFT JOIN user ON upload.id_User = user.id
     LEFT JOIN category ON upload.id_Category = category.idCategory
-    LEFT JOIN book ON upload.id_Book = book.idBook WHERE (upload.titleUpload LIKE '%$search%' OR user.studentCode LIKE '%$search%' OR  upload.titleUpload  LIKE '%$search%')";
+    LEFT JOIN book ON upload.id_Book = book.idBook WHERE (upload.titleUpload LIKE '%$search%' OR user.studentCode LIKE '%$search%')";
     } else {
       $sql = "SELECT upload.*, book.nameBook, book.creatorBook, book.dateBook, user.studentCode, user.fullName, category.nameCategory FROM upload 
     LEFT JOIN user ON upload.id_User = user.id
     LEFT JOIN category ON upload.id_Category = category.idCategory
-    LEFT JOIN book ON upload.id_Book = book.idBook WHERE (upload.titleUpload LIKE '%$search%' OR user.studentCode LIKE '%$search%' OR upload.titleUpload  LIKE '%$search%') AND upload.id_Category = '$category'";
+    LEFT JOIN book ON upload.id_Book = book.idBook WHERE (upload.titleUpload LIKE '%$search%' OR user.studentCode LIKE '%$search%') AND upload.id_Category = '$category'";
     }
     $query = $this->_query($sql);
     return $query;
@@ -359,6 +359,22 @@ class adminModel extends baseModel
     return $query;
   }
 
+  public function getListReport($start, $limit, $sort, $search, $category)
+  {
+    if ($category === 'all') {
+      $sql = "SELECT upload.*, book.nameBook, book.creatorBook, book.dateBook, user.studentCode, user.fullName, category.nameCategory FROM upload 
+    LEFT JOIN user ON upload.id_User = user.id
+    LEFT JOIN category ON upload.id_Category = category.idCategory
+    LEFT JOIN book  ON upload.id_Book = book.idBook WHERE (upload.titleUpload LIKE '%$search%' OR user.studentCode LIKE '%$search%' OR upload.timeUpload = '$search') ORDER BY idUpload $sort LIMIT $start, $limit;";
+    } else {
+      $sql = "SELECT upload.*, book.nameBook, book.creatorBook, book.dateBook, user.studentCode, user.fullName, category.nameCategory  FROM upload  
+    LEFT JOIN user ON upload.id_User = user.id
+    LEFT JOIN category ON upload.id_Category = category.idCategory
+    LEFT JOIN book ON upload.id_Book = book.idBook WHERE (upload.titleUpload LIKE '%$search%' OR user.studentCode LIKE '%$search%' OR upload.timeUpload = '$search') AND upload.id_Category = '$category' ORDER BY idUpload $sort LIMIT $start, $limit;";
+    }
+    $query = $this->_query($sql);
+    return $query;
+  }
   public function getAllPunish($start, $limit, $sort)
   {
     if ($sort === 'DESC') {
@@ -380,6 +396,12 @@ class adminModel extends baseModel
     LEFT JOIN book AS b ON r.id_book = b.idBook LEFT JOIN user AS u ON r.id_User = u.id
     JOIN punish as p On p.id_Request = r.idRequest";
 
+    $query = $this->_query($sql);
+    return $query;
+  }
+  public function getAllReport()
+  {
+    $sql = "SELECT * FROM report";
     $query = $this->_query($sql);
     return $query;
   }

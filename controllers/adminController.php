@@ -571,5 +571,17 @@ class adminController extends baseController
       exit();
     }
   }
+
+
+  public function contact()
+  {
+    
+    if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
+      return $this->loadview('admin.contact');
+    } else {
+      header('Location: http://localhost/library/');
+      exit();
+    }
+  }
 }
 
