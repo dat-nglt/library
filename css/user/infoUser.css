@@ -13,7 +13,7 @@
 .info-fields {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .info-fields > input {
@@ -23,11 +23,10 @@
   border-radius: 5px;
   outline: none;
   border: 1px #dbdbdb solid;
-  margin-top: 8px
+  margin-top: 8px;
 }
 
 .eye-info {
   position: absolute;
   right: 10px;
 }
-

@@ -24,6 +24,7 @@
     font-size: 20px;
     background-color: #299849;
     font-weight: 600;
+    color: white;
   }
 
   .content__chart {

@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 } else {
   $response = array(
-    'status' => 'success',
+    'status' => 'error',
     'msg' => 'Lỗi không thể thêm sách.',
     'path' => "?controller=admin&action=book"
   );

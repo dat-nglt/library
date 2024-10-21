@@ -25,6 +25,9 @@
         <a href="?controller=admin&action=punish">
             <li><i class="fa-solid fa-dollar-sign icon"></i>Phí phạt</li>
         </a>
+        <a href="?controller=admin&action=contact">
+            <li><i class="fa-solid fa-file-contract icon"></i></i>Phản hồi</li>
+        </a>
         <?php   if(isset($_SESSION['user']) &&  $_SESSION['user']['roleAccess'] === '3' ){ ?>
             <a href="?controller=admin&action=librarian">
                 <li><i class="fa-solid fa-people-roof icon"></i>Thủ thư</li>

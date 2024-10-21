@@ -1,8 +1,8 @@
 .body__container {
     display: flex;
-    background-color: var(--black-gray-cl);
+    background-color: white;
     min-height: 100vh;
-    color: var(--white-cl);
+    color: black;
 
     .list__container {
         flex: 1;
@@ -40,7 +40,7 @@
             margin-top: 5px;
             width: -webkit-fill-available;
             border-collapse: collapse;
-            border: 5px solid var(--white-cl);
+            border: 1px solid black;
             border-bottom: 2px solid var(--gray-cl);
 
             th,
@@ -133,7 +133,7 @@
                 padding: 0;
                 font-size: 15px;
                 cursor: pointer;
-                color: var(--white-cl);
+                color: black;
                 border: 0;
                 border-radius: 5px;
                 background-color: transparent;

@@ -3,7 +3,7 @@
         <div>
             <div style="flex: 1;display:flex;justify-content: space-between">
                 <div>
-                    <span>Danh sách mượn|trả </span><button onclick="openFormAdd()" id="list__add-btn"
+                    <span>Danh sách mượn - trả </span><button onclick="openFormAdd()" id="list__add-btn"
                         type="button">Thêm
                         phiếu mượn</button>
                 </div>

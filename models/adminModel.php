@@ -383,5 +383,10 @@ class adminModel extends baseModel
     $query = $this->_query($sql);
     return $query;
   }
-
+  public function getAllReport()
+  {
+    $sql = "SELECT * FROM report";
+    $query = $this->_query($sql);
+    return $query;
+  }
 }

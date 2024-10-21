@@ -12,7 +12,7 @@
     <div class="sub-header-bottom">
       <div class="menu">
         <a class="menu-item" href="/library">
-          <i class="fa-solid fa-house-chimney" style="font-size: 20px"></i>
+          <i class="fa-solid fa-house-chimney" style="font-size: 15px"></i>
         </a>
         <a class="menu-item" href="">
           Tra cứu tài liệu
@@ -20,12 +20,12 @@
         <a class="menu-item" href="?controller=user&action=upload">
           Upload tài liệu số
         </a>
-        <a class="menu-item" href="?controller=user&action=profile&profilePage=rentHistory">
+        <!-- <a class="menu-item" href="?controller=user&action=profile&profilePage=rentHistory">
           Yêu cầu tài liệu
-        </a>
-        <a class="menu-item" href="">
+        </a> -->
+        <!-- <a class="menu-item" href="">
           danh sách tài liệu
-        </a>
+        </a> -->
         <a class="menu-item" href="?controller=user&action=contact">
           liên hệ
         </a>
@@ -38,11 +38,11 @@
           echo '
         <div class="rent-sticket">
           <a class="menu-item" href="http://localhost/library/?controller=user&action=rentSticket">
-            Giỏ sách của tôi
+            Giỏ sách
+            <div>
+            <p>99</p>
+            </div>
           </a>
-          <div>
-          <p>99</p>
-          </div>
         </div>
           ';
           echo '<a class="menu-item" href="?controller=user&action=profile&profilePage=infoUser">' . $_SESSION['user']['studentCode'] . '</a>';
@@ -81,7 +81,7 @@
   .sub-header-top {
     display: flex;
     align-items: center;
-    width: 1350px;
+    width: 95%;
     margin: 0 auto;
     gap: 20px;
   }
@@ -101,7 +101,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 1350px;
+    width: 90%;
     margin: 0 auto;
 
   }
@@ -116,7 +116,7 @@
   .menu-item {
     padding: 15px 0;
     color: var(--white-color);
-    font-size: 18px;
+    font-size: 13px;
     text-transform: uppercase;
     font-weight: 700;
   }
@@ -129,26 +129,27 @@
   .header-login {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 60px;
   }
 
   .rent-sticket {
     display: flex;
     position: relative;
 
-    >div {
+    > a > div {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
+      font-weight: 500;
       position: absolute;
       background: red;
       min-width: 15px;
       height: 15px;
       border-radius: 50%;
       color: #fff;
-      right: -10px;
-      top: 8px;
+      right: -25px;
+      top: 5px;
+      padding: 10px 5px ;
 
       >p {
         font-size: 10px;

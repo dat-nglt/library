@@ -40,7 +40,6 @@ function submitBook() {
     }
 
     var file = $("#newImg")[0].files[0];
-    
     if (file === undefined) {
         var data = {
             name,
@@ -70,7 +69,7 @@ function submitBook() {
                 Swal.fire({
                     title: "Thông báo",
                     text: "Thêm sách không thành công",
-                    icon: "success",
+                    icon: "error",
                     showConfirmButton: true,
                 }).then(function () {
                     window.location.assign("?controller=admin&action=book");

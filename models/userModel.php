@@ -123,5 +123,11 @@ class userModel extends baseModel
     $query = $this->_query($sql);
     return $query;
   }
+  public function addReport( $name, $email, $tel, $des)
+  {
+    $sql = "INSERT INTO report( name, email, tel, description, timeReport ) VALUES ('$name', '$email', '$tel', '$des',NOW())";
+    $query = $this->_query($sql);
+    return $query;
+  }
 }
 ?>

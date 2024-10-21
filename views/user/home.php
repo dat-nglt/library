@@ -65,7 +65,7 @@ if (isset($data['notification']) && $data !== []) {
     <div class="BN-title">
       <?php
       echo '<a href="?controller=user&action=bookHot" class="BN-item" id="book-hot">Điểm sách hay</a>';
-      echo '<a href="?controller=user&action=newsHot" class="BN-item" id="news-hot">Tin tức - Event (Đang phát triển)</a>';
+      echo '<a href="?controller=user&action=newsHot" class="BN-item" id="news-hot">Tin tức - Event</a>';
       ?>
     </div>
 

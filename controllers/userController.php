@@ -24,7 +24,14 @@ class userController extends baseController
 
   public function contact()
   {
-    $this->loadview('user.contact');
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $name = $_POST['name'];
+      $email = $_POST['email'];
+      $tel = $_POST['email'];
+      $des = $_POST['des'];
+      $this->userModel->addReport($name, $email, $tel, $des);
+    }
+    return $this->loadview('user.contact', []);
   }
   public function bookHot()
   {
@@ -206,6 +213,7 @@ class userController extends baseController
 
     return $this->loadview('user.book-detail', ['bookData' => $getOneBook]);
   }
+
 }
 
 ?>
