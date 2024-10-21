@@ -47,6 +47,13 @@ class userModel extends baseModel
     return $query;
   }
 
+  public function getAllNews()
+  {
+    $sql = "SELECT * FROM news";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
   public function searchBooks($contentSearch, $optionSearch)
   {
     if ($optionSearch == 'all') {

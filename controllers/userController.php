@@ -48,41 +48,43 @@ class userController extends baseController
 
   public function newshot()
   {
-    $news = [
-      [
-        'image' => './upload/check-in.png',
-        'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
-        'author' => 'Trương Văn Đạt',
-        'views' => 2601,
-        'date' => '26/01/2024',
-        'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
-      ],
-      [
-        'image' => './upload/check-in.png',
-        'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
-        'author' => 'Trương Văn Đạt',
-        'views' => 2601,
-        'date' => '26/01/2024',
-        'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
-      ],
-      [
-        'image' => './upload/check-in.png',
-        'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
-        'author' => 'Trương Văn Đạt',
-        'views' => 2601,
-        'date' => '26/01/2024',
-        'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
-      ],
-      [
-        'image' => './upload/check-in.png',
-        'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
-        'author' => 'Trương Văn Đạt',
-        'views' => 2601,
-        'date' => '26/01/2024',
-        'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
-      ],
-    ];
+    // $news = [
+    //   [
+    //     'image' => './upload/check-in.png',
+    //     'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
+    //     'author' => 'Trương Văn Đạt',
+    //     'views' => 2601,
+    //     'date' => '26/01/2024',
+    //     'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư việnHướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư việnHướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư việnHướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư việnHướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư việnHướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
+    //   ],
+    //   [
+    //     'image' => './upload/check-in.png',
+    //     'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
+    //     'author' => 'Trương Văn Đạt',
+    //     'views' => 2601,
+    //     'date' => '26/01/2024',
+    //     'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
+    //   ],
+    //   [
+    //     'image' => './upload/check-in.png',
+    //     'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
+    //     'author' => 'Trương Văn Đạt',
+    //     'views' => 2601,
+    //     'date' => '26/01/2024',
+    //     'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
+    //   ],
+    //   [
+    //     'image' => './upload/check-in.png',
+    //     'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
+    //     'author' => 'Trương Văn Đạt',
+    //     'views' => 2601,
+    //     'date' => '26/01/2024',
+    //     'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
+    //   ],
+    // ];
+
     $componentName = 'homeHotNews';
+    $news = $this->userModel->getAllNews();
     return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $news]);
   }
 

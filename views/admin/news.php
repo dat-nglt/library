@@ -36,42 +36,43 @@
             <table>
                 <tr>
                     <th style="width: 5%;">#</th>
-                    <th style="width: 50%;">Tiêu đề</th>
-                    <th style="width: 15%;">Ảnh bìa</th>
-                    <th style="width: 15%;">Nội dung</th>
-                    <th style="width: 10%;">Ngày đăng</th>
-                    <th style="width: 4%;"></th>
+                    <th style="width: 30%;">Tiêu đề</th>
+                    <th style="width: 10%;">Ảnh bìa</th>
+                    <th style="width: 35%;">Nội dung</th>
+                    <th style="width: 13%;">Ngày đăng</th>
+                    <th style="width: 8%;"></th>
                 </tr>
-                <?php
+                <?php 
                                 $stt = (($current_page - 1) * $limit) + 1;
                                 foreach ($listNews as $key => $value) {
                                     ?>
                 <tr class="list__content">
                     <td><?= $stt ?></td>
                     <td>
-                        <div class="list__hidden-text"><?= $value[1] ?></div>
+                        <div class="list__hidden-text"><?= $value['title'] ?></div>
                     </td>
                     <td>
-                        <div class="list__hidden-text"><?= $value[2] ?></div>
+                        <div style="display: flex; align-items: center; justify-content: center">
+                            <?php if($value['image'] === ''){?>
+                                <img style="height: 80%; width: 80%" src="https://res.cloudinary.com/di37whq60/image/upload/v1716194722/image/axdown7pmlzlgs7yelkd.png" alt="<?= $value[1] ?>">
+                            <?php }else{ ?>
+                                <img style="height: 80%; width: 80%" src="<?= $value['image'] ?>" alt="<?= $value['title'] ?>">
+                            <?php }?>
+                    </div>
                     </td>
                     <td>
-                        <div class="list__hidden-text"><?= $value[3] ?></div>
+                        <div class="list__hidden-text"><?= $value['content'] ?></div>
                     </td>
                     <td>
-                        <div class="list__hidden-text"><?= date("d-m-Y", strtotime($value[4])) ?></div>
+                        <div class="list__hidden-text"><?= date("d-m-Y", strtotime($value['date'])) ?></div>
                     </td>
                     <td>
-                        <div>
-                            <button class="list__action-open-edit" type="button" data-id="<?= $value[0] ?>"><i
-                                    class="fa-solid fa-pen-to-square list__icon-edit"></i></button>
-                            <button class="list__action-btn" type="button" data-id="<?= $value[0] ?>">
-                                <?php if ($value[9] === '1') {
-                                    echo '<i class="fa-solid fa-lock list__icon-del"></i>';
-                                } else{
-                                    echo '<i class="fa-solid fa-lock-open list__icon-edit"></i>';
-                                } ?>
-                            </button>
-                    </td>
+<div>
+                     <button class="list__action-open-edit" type="button" data-id="<?= $value['id'] ?>"><i
+                             class="fa-solid fa-pen-to-square list__icon-edit"></i></button>
+                     <button class="list__action-btn" type="button" data-id="<?= $value['id'] ?>"><i
+                             class="fa-solid fa-trash list__icon-del"></i></button>
+             </td>
                 </tr>
                 <?php $stt++;
                                 } ?>

@@ -1,25 +1,21 @@
-var bodyContainer = document.querySelector(".body__container");
-var selectCategory = document.querySelector("#category-book");
+var bodyContainer = document.querySelector('.body__container')
+var selectCategory = document.querySelector('#category-book')
 
 function openFormAdd() {
-    var optionCategory = "";
+  var optionCategory = ''
 
-    if (selectCategory.options.length > 1) {
-        for (var i = 1; i < selectCategory.options.length; i++) {
-            var option = selectCategory.options[i];
-            optionCategory +=
-                '<option value="' +
-                option.value +
-                '">' +
-                option.text +
-                "</option>";
-        }
+  if (selectCategory.options.length > 1) {
+    for (var i = 1; i < selectCategory.options.length; i++) {
+      var option = selectCategory.options[i]
+      optionCategory +=
+        '<option value="' + option.value + '">' + option.text + '</option>'
     }
-    bodyContainer.classList.add("form-add-is-open");
-    var addFormAdd = document.createElement("div");
-    addFormAdd.className = "list__form";
-    bodyContainer.appendChild(addFormAdd);
-    addFormAdd.innerHTML = `
+  }
+  bodyContainer.classList.add('form-add-is-open')
+  var addFormAdd = document.createElement('div')
+  addFormAdd.className = 'list__form'
+  bodyContainer.appendChild(addFormAdd)
+  addFormAdd.innerHTML = `
             <form action="" method="post" id="form-add-book" class="list__form-add" style="height: 620px;">
             <div class="list__form-title">
                 <span><i class="fa-solid fa-book icon"></i> Thêm sách</span><i class="fa-solid fa-xmark close-icon"
@@ -88,5 +84,5 @@ function openFormAdd() {
                 <button type="button" class="close-btn" onclick="closeFormAdd()">Đóng</button>
                 <button type="button" onclick="submitBook()" name="add-book" >Thêm</button>
             </div>
-        </form>`;
+        </form>`
 }

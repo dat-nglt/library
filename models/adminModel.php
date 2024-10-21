@@ -404,7 +404,7 @@ class adminModel extends baseModel
   }
   public function getListNews($start, $limit, $sort, $search)
   {
-    $sql = "SELECT * FROM user WHERE fullName like '%$search%' ORDER BY id $sort LIMIT $start,$limit ";
+    $sql = "SELECT * FROM news WHERE title like '%$search%' ORDER BY id $sort LIMIT $start,$limit ";
     $query = $this->_query($sql);
     return $query;
   }

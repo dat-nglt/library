@@ -601,7 +601,9 @@ class adminController extends baseController
       $limit = 5;
       $_SESSION['sort-report'] = isset($_SESSION['sort-report']) ? $_SESSION['sort-report'] : 'desc';
       $_SESSION['search-report'] = isset($_SESSION['search-report']) ? $_SESSION['search-report'] : '';
-
+      if (isset($_POST['sort-report'])) {
+        $_SESSION['sort-report'] = $_POST['sort-report'];
+      }
       return $this->loadview('admin.contact');
     } else {
       header('Location: http://localhost/library/');
