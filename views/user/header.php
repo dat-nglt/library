@@ -12,10 +12,10 @@
     <div class="sub-header-bottom">
       <div class="menu">
         <a class="menu-item" href="/library">
-          <i class="fa-solid fa-house-chimney" style="font-size: 15px"></i>
+          <i class="fa-solid fa-house-chimney" style="font-size: 17px"></i>
         </a>
         <a class="menu-item" href="">
-          Tra cứu tài liệu
+          Trang chủ
         </a>
         <a class="menu-item" href="?controller=user&action=upload">
           Upload tài liệu số
@@ -81,7 +81,7 @@
   .sub-header-top {
     display: flex;
     align-items: center;
-    width: 95%;
+    width: 1300px;
     margin: 0 auto;
     gap: 20px;
   }
@@ -101,7 +101,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 90%;
+    width: 1250px;
     margin: 0 auto;
 
   }
@@ -116,7 +116,7 @@
   .menu-item {
     padding: 15px 0;
     color: var(--white-color);
-    font-size: 13px;
+    font-size: 17px;
     text-transform: uppercase;
     font-weight: 700;
   }

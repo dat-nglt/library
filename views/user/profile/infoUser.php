@@ -21,74 +21,28 @@
       </div>
       <div class="info-field">
         <h4>Ngày sinh: </h4>
-        <h4>20/04/2003</h4>
+        <h4><?= $_SESSION['user']['dateOfBirth'] ?></h4>
       </div>
     </div>
     <div class="info-box">
       <div class="info-field">
         <h4>Email: </h4>
-        <h4>Nguyễn Lê Tấn Đạt</h4>
+        <h4><?= $_SESSION['user']['email'] ?></h4>
       </div>
       <div class="info-field">
         <h4>Số điện thoại: </h4>
-        <h4>2101364</h4>
+        <h4><?= $_SESSION['user']['phoneNumber'] ?></h4>
       </div>
       <div class="info-field">
         <h4>Số CCCD: </h4>
-        <h4>KTPM0121</h4>
+        <h4><?= $_SESSION['user']['identificationNumber'] ?></h4>
       </div>
       <div class="info-field">
         <h4>Địa chỉ: </h4>
-        <h4>Óc Eo, Thoại Sơn, An Giang</h4>
+        <h4><?= $_SESSION['user']['address'] ?></h4>
       </div>
     </div>
   </div>
-
-  <!-- <div class="avatar-box">
-    </main>
-  </div>
-  <div id="profile-box">
-    <div class="sub-profile-box">
-      <div class="info-fields">
-        <h6 for="">Mã độc giả</h6>
-        <input type="text" disabled value="<?= $_SESSION['user']['studentCode'] ?>">
-      </div>
-      <div class="info-fields">
-        <h6 for="">Họ và tên</h6>
-        <input type="text" disabled value="<?= $_SESSION['user']['fullName'] ?>">
-      </div>
-    </div>
-    <div class="sub-profile-box">
-      <div class="info-fields">
-        <h6 for="">Chi đoàn</h6>
-        <input type="text" disabled value="<?= $_SESSION['user']['className'] ?>">
-      </div>
-      <div class="info-fields">
-        <h6 for="">Ngày sinh</h6>
-        <input type="text" disabled value="<?= $_SESSION['user']['dateOfBirth'] ?>">
-      </div>
-    </div>
-    <div class="sub-profile-box">
-      <div class="info-fields">
-        <h6 for="">Số điện thoại</h6>
-        <input type="text" disabled value="<?= $_SESSION['user']['phoneNumber'] ?>">
-      </div>
-      <div class="info-fields">
-        <h6 for="">Email</h6>
-        <input type="text" disabled value="<?= $_SESSION['user']['email'] ?>">
-      </div>
-    </div>
-    <div class="sub-profile-box">
-      <div class="info-fields">
-        <h6 for="">Số CCCD</h6>
-        <input type="text" disabled value="<?= $_SESSION['user']['identificationNumber'] ?>">
-      </div>
-      <div class="info-fields">
-        <h6 for="">Địa chỉ</h6>
-        <input type="text" disabled value="<?= $_SESSION['user']['email'] ?>">
-      </div>
-    </div>
-  </div> -->
 </div>
 
 <style>
@@ -110,7 +64,7 @@
       padding: 10px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 25px;
       min-width: 290px;
 
       .info-field {
@@ -129,34 +83,5 @@
 
       }
     }
-  }
-
-  .sub-profile-box {
-    display: flex;
-    align-items: center;
-    margin: 10px 0px;
-    gap: 20px;
-  }
-
-  .info-fields {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-  }
-
-  .info-fields>input {
-    width: 100%;
-    padding: 8px 13px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    outline: none;
-    border: 1px #dbdbdb solid;
-    margin-top: 8px;
-  }
-
-  .eye-info {
-    position: absolute;
-    right: 10px;
   }
 </style>

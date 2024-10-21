@@ -31,11 +31,11 @@
                                     </option>
                                     <option value="3" <?php if ($_SESSION['status-borrow'] === '3')
                                     echo 'selected' ?>>
-                                        Quá hạn trả
+                                        Quá hạn
                                     </option>
                                     <option value="4" <?php if ($_SESSION['status-borrow'] === '4')
                                     echo 'selected' ?>>
-                                        Yêu cầu bị từ chối
+                                        Từ chối yêu cầu
                                     </option>
                                 </select>
                                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -85,10 +85,10 @@
                                             $status = 'Đã trả';
                                             break;
                                         case '3':
-                                            $status = 'Quá hạn trả';
+                                            $status = 'Quá hạn';
                                             break;
                                         case '4':
-                                            $status = 'Yêu cầu bị từ chối';
+                                            $status = 'Từ chối yêu cầu';
                                             break;
                                         default:
                                             $status = '';

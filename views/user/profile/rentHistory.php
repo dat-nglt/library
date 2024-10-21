@@ -7,19 +7,47 @@ $listRentBook = $listRentBook ? $listRentBook : [];
   <div id="profile__title"> Lịch sử mượn sách</div>
   <div class="filterRentBook">
     <div class="sub-filter">
+  
       <fieldset>
         <legend>Tìm kiếm</legend>
         <form action="?controller=user&action=profile&profilePage=rentHistory" method="post" class="admin__form-search">
           <input type="text" name="search_list_rent_book" placeholder="Tìm theo tên sách..." autocomplete="off">
-          <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </form>
-      </fieldset>
+          <select name="status-rent" id="status-rent">
 
-      <fieldset>
-        <legend>Sắp xếp</legend>
-        <form action="?controller=user&action=profile&profilePage=rentHistory" method="post" class="admin__form-search">
-          <select name="sort_list_rent_book" id="">
-            <option value="desc" <?php if ($_SESSION['sort_list_rent_book'] === 'desc')
+            <option value="all" <?php if ($_SESSION['status-rent'] === 'all')
+              echo 'selected' ?>>
+                Tất cả
+              </option>
+              <option value="0" <?php if ($_SESSION['status-rent'] === '0')
+              echo 'selected' ?>>
+                Chờ xét duyệt
+              </option>
+              <option value="1" <?php if ($_SESSION['status-rent'] === '1')
+              echo 'selected' ?>>
+                Đang mượn
+              </option>
+              <option value="2" <?php if ($_SESSION['status-rent'] === '2')
+              echo 'selected' ?>>
+                Đã trả
+              </option>
+              <option value="3" <?php if ($_SESSION['status-rent'] === '3')
+              echo 'selected' ?>>
+                Quá hạn
+              </option>
+              <option value="4" <?php if ($_SESSION['status-rent'] === '4')
+              echo 'selected' ?>>
+                Từ chối yêu cầu
+              </option>
+            </select>
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </form>
+        </fieldset>
+
+        <fieldset>
+          <legend>Sắp xếp</legend>
+          <form action="?controller=user&action=profile&profilePage=rentHistory" method="post" class="admin__form-search">
+            <select name="sort_list_rent_book" id="">
+              <option value="desc" <?php if ($_SESSION['sort_list_rent_book'] === 'desc')
               echo 'selected' ?>>
                 Mới nhất
               </option>
@@ -32,7 +60,6 @@ $listRentBook = $listRentBook ? $listRentBook : [];
           </form>
         </fieldset>
       </div>
-      <a href="?controller=user&action=profile&profilePage=rentHistory">Tất cả</a>
     </div>
     <div class="table-box">
       <table id="rent-table">
@@ -62,10 +89,10 @@ $listRentBook = $listRentBook ? $listRentBook : [];
                   $statusRequest = "Đã trả";
                   break;
                 case 3:
-                  $statusRequest = "Quá hạn trả";
+                  $statusRequest = "Quá hạn";
                   break;
                 case 4:
-                  $statusRequest = "Yêu cầu bị từ chối";
+                  $statusRequest = "Từ chối yêu cầu";
                   break;
                 default:
                   $statusRequest = "Chờ xét duyệt";
@@ -128,26 +155,14 @@ $listRentBook = $listRentBook ? $listRentBook : [];
     justify-content: space-between;
   }
 
-  .filterRentBook>a {
-    font-weight: 600;
-    background: #919190;
-    padding: 7px 35px;
-    font-size: 14px;
-    color: var(--white-cl);
-
-    &:hover {
-      background: #1ca26d;
-    }
-  }
-
   .filterRentBook>div>fieldset {
     display: inline-block;
     margin-right: 20px;
     width: fit-content;
     background-color: transparent;
-    border-radius: 0px;
+    border-radius: 5px;
     border: 1px solid #727271;
-    padding: 0px 10px 2px 10px;
+    padding: 0px 10px 4px 10px;
 
     .admin__form-search {
       display: flex;

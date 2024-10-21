@@ -1,7 +1,7 @@
 <style>
   #change-password-form {
     padding: 15px;
-    width: 65%;
+    width: 50%;
     margin: 30px auto 0;
   }
 
@@ -20,11 +20,18 @@
     outline: none;
     border: 1px #dbdbdb solid;
     margin-top: 8px;
+
+    &:focus {
+      border-color: #66afe9;
+      outline: none;
+      box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+    }
   }
 
   .info-fields>i {
     position: absolute;
     top: 37px;
+    right: 10px;
     cursor: pointer;
   }
 
@@ -67,19 +74,19 @@
     <form action="" id="change-password-form">
       <div class="info-fields">
         <label for="" method="POST">Mật khẩu cũ</label>
-        <input class="input-password-profile" type="password" id="oldPassword">
+        <input class="input-password-profile" type="password" id="oldPassword" placeholder="Nhập mật khẩu cũ">
         <span class="error-message-profile">Vui lòng nhập mật khẩu cũ!</span>
         <i class="fa-regular fa-eye-slash eye-info"></i>
       </div>
       <div class="info-fields">
         <label for="">Mật khẩu mới</label>
-        <input class="input-password-profile" type="password" id="newPassword">
+        <input class="input-password-profile" type="password" id="newPassword" placeholder="Nhập mật khẩu mới">
         <span class="error-message-profile">Vui lòng nhập mật khẩu mới!</span>
         <i class="fa-regular fa-eye-slash eye-info"></i>
       </div>
       <div class="info-fields">
-        <label for="">Nhập lại mật khẩu mới</label>
-        <input class="input-password-profile" type="password" id="newPasswordConfirm">
+        <label for="">Xác nhận mật khẩu mới</label>
+        <input class="input-password-profile" type="password" id="newPasswordConfirm" placeholder="Nhập lại mật khẩu">
         <span class="error-message-profile">Vui lòng nhập lại mật khẩu cũ!</span>
         <i class="fa-regular fa-eye-slash eye-info"></i>
       </div>

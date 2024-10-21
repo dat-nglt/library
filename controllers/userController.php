@@ -126,8 +126,11 @@ class userController extends baseController
           $searchListRentBook = isset($_POST['search_list_rent_book']) ? $_POST['search_list_rent_book'] : '';
           $_SESSION['sort_list_rent_book'] = isset($_SESSION['sort_list_rent_book']) ? $_SESSION['sort_list_rent_book'] : 'desc';
           $_SESSION['sort_list_rent_book'] = isset($_POST['sort_list_rent_book']) ? $_POST['sort_list_rent_book'] : $_SESSION['sort_list_rent_book'];
+
+          $_SESSION['status-rent'] = isset($_SESSION['status-rent']) ? $_SESSION['status-rent'] : '1';
+          $_SESSION['status-rent'] = isset($_POST['status-rent']) ? $_POST['status-rent'] : $_SESSION['status-rent'];
           $limit = 10;
-          $listAllRentBook = $this->userModel->listAllRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook);
+          $listAllRentBook = $this->userModel->listAllRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook, $_SESSION['status-rent']);
           $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
           $totalPage = ceil(mysqli_num_rows($listAllRentBook) / $limit);
           if ($currentPage > $totalPage) {
@@ -138,7 +141,7 @@ class userController extends baseController
           }
           $start = ($currentPage - 1) * $limit;
 
-          $listRentBook = mysqli_fetch_all($this->userModel->listRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook, $start, $limit));
+          $listRentBook = mysqli_fetch_all($this->userModel->listRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook, $_SESSION['status-rent'], $start, $limit));
 
           return $this->loadview('user.profile.profile', ['listRentBook' => $listRentBook, 'currentPage' => $currentPage, 'limit' => $limit, 'totalPage' => $totalPage, 'searchListRentBook' => $searchListRentBook]);
         case 'infoUser':

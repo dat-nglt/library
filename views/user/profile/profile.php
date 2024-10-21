@@ -43,12 +43,11 @@
 </div>
 
 <script src="./js/user/profile.js"></script>
-
 <style>
   .profile-box {
     padding: 20px;
     overflow: hidden;
-    width: 90%;
+    width: 1250px;
     margin: 0 auto;
     background-color: #fff;
     box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.3);

@@ -389,4 +389,23 @@ class adminModel extends baseModel
     $query = $this->_query($sql);
     return $query;
   }
+  public function getReport($id)
+  {
+    $sql = "SELECT * FROM report WHERE id = $id";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function getAllNews($search)
+  {
+    $sql = "SELECT * FROM news WHERE title like '%$search%'";
+    $query = $this->_query($sql);
+    return $query;
+  }
+  public function getListNews($start, $limit, $sort, $search)
+  {
+    $sql = "SELECT * FROM user WHERE fullName like '%$search%' ORDER BY id $sort LIMIT $start,$limit ";
+    $query = $this->_query($sql);
+    return $query;
+  }
 }

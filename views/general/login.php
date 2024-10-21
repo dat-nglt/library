@@ -45,6 +45,12 @@
     border-radius: var(--border-radius);
     border: 1px solid #cdcdcd;
     outline: none;
+
+    &:focus {
+      border-color: #66afe9;
+      outline: none;
+      box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+    }
   }
 
   .login .input-field:nth-of-type(2) input {

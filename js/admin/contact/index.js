@@ -2,7 +2,7 @@
 const modal = document.getElementById("myModal");
 const openModalBtn = document.getElementById("openModalBtn");
 const closeModalBtn = document.getElementById("closeModalBtn");
-
+fetch
 // Hàm mở modal
 openModalBtn.onclick = function() {
     modal.style.display = "block";

@@ -118,7 +118,7 @@
                 } else if (parseInt(item[0]) === 3) {
                   nameStatus = 'Mượn quá hạn';
                 } else if (parseInt(item[0]) === 4) {
-                  nameStatus = 'Yêu cầu bị từ chối';
+                  nameStatus = 'Từ chối yêu cầu';
                 }
 
                 return { y: parseInt(item[1]), indexLabel: nameStatus }

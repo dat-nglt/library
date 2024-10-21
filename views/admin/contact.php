@@ -1,80 +1,77 @@
 <div class="body__container">
     <div class="list__container">
-        <!-- <div>
+        <div>
             <div style="flex: 1;display:flex;justify-content: space-between">
                 <div>
-                    <span>PHẢN HỒI TỪ NGƯỜI DÙNG</span>
-                    
+                    <span>Danh sách sách</span>
                 </div>
                 <div style="display:flex; gap: 5px; justify-content: center; padding: 0 0 5px;align-items: center;">
                     <fieldset>
                         <legend>Tìm kiếm</legend>
                         <form action="" method="post" class="admin__form-search">
-                            <input type="text" name="search-upload" placeholder="Nhập từ khoá cần tìm..."
-                                autocomplete="off">
+                            <input type="text" name="search-report" placeholder="Tên,email" autocomplete="off">
+
                             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
                     </fieldset>
                     <fieldset>
                         <legend>Sắp xếp</legend>
                         <form action="" method="post" class="admin__form-search">
-                            <select name="sort-upload" id="">
-                                <option value="desc" <?php if ($_SESSION['sort-upload'] === 'desc')
-                                    echo 'selected' ?>>
-                                        Mới nhất
-                                    </option>
-                                    <option value="asc" <?php if ($_SESSION['sort-upload'] === 'asc')
-                                    echo 'selected' ?>>Cũ
-                                        nhất
+                            <select name="sort-report" id="">
+                                <option value="desc" <?php if ($_SESSION['sort-report'] === 'desc') echo 'selected' ?>>
+                                    Mới nhất
+                                </option>
+                                <option value="asc" <?php if ($_SESSION['sort-report'] === 'asc') echo 'selected' ?>>
+                                    Cũ nhất
                                 </option>
                             </select>
                             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
                     </fieldset>
-                    </div>
                 </div>
-            </div> -->
-            <table>
-                <tr>
-                    <th style="width: 3%;">#</th>
-                        <th style="width: 12%;">Họ & tên</th>
-                        <th style="width: 20%;">email</th>
-                        <th style="width: 15%;">Số điện thoại</th>
-                        <th style="width: 40%;">Nội dung</th>
-                        <th style="width: 10%;">Ngày gửi</th>
-                    <th style="width: 1%;"></th>
-                </tr>
-                <tr class="list__content">
-                    <td>1</td>
-                    <td>
-                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;">Hòa Hòa Hòa</div>
-                    </td>
-                    <td>
-                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;">hoahoahoa@gmai.com</div>
-                    </td>
-                    <td>
-                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;">000000000000000</div>
-                    </td>
-                    <td>
-                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;">1111111111111111111</div>
-                    </td>
-                    <td>
-                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;">
-                            22/12/2003
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <button class="list__action-open-edit" id="openModalBtn" type="button">   
-                            <i class="fa-solid fa-eye" style="color: #63E6BE;"></i></button>
-                    </td>
-                </tr>
-                
-                
-            </table>
+            </div>
+        </div>
+        <table>
+            <tr>
+                <th style="width: 3%;">#</th>
+                    <th style="width: 12%;">Họ & tên</th>
+                    <th style="width: 20%;">email</th>
+                    <th style="width: 15%;">Số điện thoại</th>
+                    <th style="width: 40%;">Nội dung</th>
+                    <th style="width: 10%;">Ngày gửi</th>
+                <th style="width: 1%;"></th>
+            </tr>
+            <tr class="list__content">
+                <td>1</td>
+                <td>
+                    <div class="list__hidden-text" style="-webkit-line-clamp: 2;">Hòa Hòa Hòa</div>
+                </td>
+                <td>
+                    <div class="list__hidden-text" style="-webkit-line-clamp: 2;">hoahoahoa@gmai.com</div>
+                </td>
+                <td>
+                    <div class="list__hidden-text" style="-webkit-line-clamp: 2;">000000000000000</div>
+                </td>
+                <td>
+                    <div class="list__hidden-text" style="-webkit-line-clamp: 2;">1111111111111111111</div>
+                </td>
+                <td>
+                    <div class="list__hidden-text" style="-webkit-line-clamp: 2;">
+                        22/12/2003
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <button class="list__action-open-edit" id="openModalBtn" type="button">   
+                        <i class="fa-solid fa-eye" style="color: #63E6BE;"></i></button>
+                </td>
+            </tr>
+            
+            
+        </table>
 
 
-        <!-- <div class="list__paging">
+    <!-- <div class="list__paging">
             <div>
                 <?php
                 if ($total_page > 1) {
@@ -102,7 +99,6 @@
                 }
                 ?>
             </div>
-
         </div> -->
     </div>
 
