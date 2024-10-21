@@ -36,9 +36,9 @@
             <table>
                 <tr>
                     <th style="width: 5%;">#</th>
-                    <th style="width: 7%;">Tiêu đề</th>
-                    <th style="width: 18%;">Ảnh bìa</th>
-                    <th style="width: 13%;">Nội dung</th>
+                    <th style="width: 50%;">Tiêu đề</th>
+                    <th style="width: 15%;">Ảnh bìa</th>
+                    <th style="width: 15%;">Nội dung</th>
                     <th style="width: 10%;">Ngày đăng</th>
                     <th style="width: 4%;"></th>
                 </tr>
@@ -116,4 +116,3 @@
 <script src="./js/admin/showPassword.js"></script>
 <script src="./js/admin/news/openFormEdit.js"></script>
 <script src="./js/admin/news/lockUser.js"></script>
-<!-- <script src="./js/admin/account/addExcelFile.js"></script> -->
