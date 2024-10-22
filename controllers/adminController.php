@@ -573,30 +573,6 @@ class adminController extends baseController
   }
   public function contact()
   {
-      // $limit = 5;
-      // $_SESSION['sort-book'] = isset($_SESSION['sort-book']) ? $_SESSION['sort-book'] : 'desc';
-      // $_SESSION['search-book'] = isset($_SESSION['search-book']) ? $_SESSION['search-book'] : '';
-      // $_SESSION['category-book'] = isset($_SESSION['category-book']) ? $_SESSION['category-book'] : 'all';
-      // if (isset($_POST['sort-book'])) {
-      //   $_SESSION['sort-book'] = $_POST['sort-book'];
-      // }
-      // if (isset($_POST['search-book'])) {
-      //   $_SESSION['search-book'] = $_POST['search-book'];
-      //   $_SESSION['category-book'] = $_POST['category-book'];
-      // }
-      // $total = $this->adminModel->getAllBook($_SESSION['search-book'], $_SESSION['category-book']);
-      // $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-      // $total_page = ceil(mysqli_num_rows($total) / $limit);
-      // if ($current_page > $total_page) {
-      //   $current_page = $total_page;
-      // }
-      // if ($current_page < 1) {
-      //   $current_page = 1;
-      // }
-      // $start = ($current_page - 1) * $limit;
-      // $listBook = mysqli_fetch_all($this->adminModel->getListBook($start, $limit, $_SESSION['sort-book'], $_SESSION['search-book'], $_SESSION['category-book']));
-      // $listCategory = $this->adminModel->getAllCategory('');
-      // return $this->loadview('admin.book', ['listBook' => $listBook, 'listCategory' => $listCategory, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
     if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
       $limit = 5;
       $_SESSION['sort-report'] = isset($_SESSION['sort-report']) ? $_SESSION['sort-report'] : 'desc';
@@ -604,25 +580,43 @@ class adminController extends baseController
       if (isset($_POST['sort-report'])) {
         $_SESSION['sort-report'] = $_POST['sort-report'];
       }
-      return $this->loadview('admin.contact');
+      if (isset($_POST['search-report'])) {
+          $_SESSION['search-report'] = $_POST['search-report'];
+      }
+      $total = $this->adminModel->getAllReport($_SESSION['search-report']);
+
+
+      $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+      $total_page = ceil(mysqli_num_rows($total) / $limit);
+      if ($current_page > $total_page) {
+        $current_page = $total_page;
+      }
+      if ($current_page < 1) {
+        $current_page = 1;
+      }
+      $start = ($current_page - 1) * $limit;
+      $listReport = mysqli_fetch_all($this->adminModel->getListReport($start, $limit, $_SESSION['sort-report'], $_SESSION['search-report']));
+      return $this->loadview('admin.contact', ['listReport' => $listReport, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
     } else {
       header('Location: http://localhost/library/');
       exit();
     }
   }
-  public function fecthGetReport($id) {
-    $result = $this->adminModel->getReport($id);
-    $data = [];
-    if ($result) {
-        $data = mysqli_fetch_assoc($result);
-        header('Content-Type: application/json');
-        echo json_encode($data);
-    }
-  }
+  // public function fecthgetreport() {
+  //   header('Content-Type: application/json');
+  //   $id = $_POST['id']; // Giả sử bạn lấy id từ POST
+  //   $result = $this->adminModel->getReport($id);
+
+  //   if ($result) {
+  //       echo json_encode($result);
+  //   } else {
+  //       echo json_encode(['error' => 'Không tìm thấy báo cáo']);
+  //   }
+  // }
   public function news()
   {
     if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
-      $limit = 15;
+      $limit = 6;
       $_SESSION['sort-news'] = isset($_SESSION['sort-news']) ? $_SESSION['sort-news'] : 'desc';
       $_SESSION['search-news'] = isset($_SESSION['search-news']) ? $_SESSION['search-news'] : '';
       if (isset($_POST['sort-news'])) {

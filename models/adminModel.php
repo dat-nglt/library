@@ -391,11 +391,26 @@ class adminModel extends baseModel
   }
   public function getReport($id)
   {
-    $sql = "SELECT * FROM report WHERE id = $id";
+      $sql = "SELECT * FROM report WHERE id = $id"; // Truy vấn
+      $query = $this->_query($sql); // Thực hiện truy vấn
+  
+      // Kiểm tra xem có kết quả không
+      if ($query) {
+          $data = []; // Khởi tạo mảng để chứa kết quả
+          while ($row = mysqli_fetch_assoc($query)) {
+              $data[] = $row; // Thêm từng dòng vào mảng
+          }
+          return $data; // Trả về mảng kết quả
+      }
+  
+      return null; // Nếu không có kết quả nào, trả về null
+  }
+  public function getListReport($start, $limit, $sort, $search)
+  {
+    $sql = "SELECT * FROM report AS r WHERE r.name LIKE '%$search%' OR r.email like '%$search%' OR r.tel like '%$search%' OR r.description like '%$search%' OR timeReport = '$search' ORDER BY r.id $sort LIMIT $start, $limit;";
     $query = $this->_query($sql);
     return $query;
   }
-
   public function getAllNews($search)
   {
     $sql = "SELECT * FROM news WHERE title like '%$search%'";

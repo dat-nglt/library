@@ -87,7 +87,13 @@ class userController extends baseController
     $news = $this->userModel->getAllNews();
     return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $news]);
   }
-
+  public function newsdetails()
+  {
+      $id = $_GET["id"];
+      $componentName = 'homeNewsDetails';
+      $news = $this->userModel->getNews($id);
+    return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $news]);
+  }
 
   public function login()
   {

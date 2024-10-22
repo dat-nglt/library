@@ -53,7 +53,13 @@ class userModel extends baseModel
     $query = $this->_query($sql);
     return $query;
   }
-
+  public function getNews($id)
+  {
+    $sql = "SELECT * FROM news WHERE id = '$id'";
+    $query = $this->_query($sql);
+    return $query;
+  }
+  
   public function searchBooks($contentSearch, $optionSearch)
   {
     if ($optionSearch == 'all') {

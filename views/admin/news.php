@@ -54,9 +54,9 @@
                     <td>
                         <div style="display: flex; align-items: center; justify-content: center">
                             <?php if($value['image'] === ''){?>
-                                <img style="height: 80%; width: 80%" src="https://res.cloudinary.com/di37whq60/image/upload/v1716194722/image/axdown7pmlzlgs7yelkd.png" alt="<?= $value[1] ?>">
+                                <img style="height: 80px; width: 90%" src="https://res.cloudinary.com/di37whq60/image/upload/v1716194722/image/axdown7pmlzlgs7yelkd.png" alt="<?= $value['title'] ?>">
                             <?php }else{ ?>
-                                <img style="height: 80%; width: 80%" src="<?= $value['image'] ?>" alt="<?= $value['title'] ?>">
+                                <img style="height: 80px; width: 90%" src="<?= $value['image'] ?>" alt="<?= $value['title'] ?>">
                             <?php }?>
                     </div>
                     </td>
@@ -114,6 +114,6 @@
 </div>
 <script src="./js/admin/news/openFormAdd.js"></script>
 <script src="./js/admin/closeFormAdd.js"></script>
-<script src="./js/admin/showPassword.js"></script>
 <script src="./js/admin/news/openFormEdit.js"></script>
-<script src="./js/admin/news/lockUser.js"></script>
+<script src="./js/admin/book/deleteBook.js"></script>
+<script src="./js/admin/changeImgNews.js"></script>

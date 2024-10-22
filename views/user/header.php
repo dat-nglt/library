@@ -14,7 +14,7 @@
         <a class="menu-item" href="/library">
           <i class="fa-solid fa-house-chimney" style="font-size: 17px"></i>
         </a>
-        <a class="menu-item" href="">
+        <a class="menu-item" href="/library">
           Trang chủ
         </a>
         <a class="menu-item" href="?controller=user&action=upload">

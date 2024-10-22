@@ -101,6 +101,7 @@
                                     class="fa-solid fa-pen-to-square list__icon-edit"></i></button>
                             <button class="list__action-btn" type="button" data-id="<?= $value[0] ?>"><i
                                     class="fa-solid fa-trash list__icon-del"></i></button>
+                        </div>
                     </td>
                 </tr>
                 <?php $stt++;

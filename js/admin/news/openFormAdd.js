@@ -6,16 +6,15 @@ function openFormAdd() {
   addFormAdd.className = 'list__form'
   bodyContainer.appendChild(addFormAdd) 
   addFormAdd.innerHTML = `
-         <form action="" method="post" id="form-add-book" class="list__form-add" style="height: 620px;">
+         <form action="" method="post" id="form-add-book" class="list__form-add" style="height: 490px;">
             <div class="list__form-title">
-                <span><i class="fa-solid fa-book icon"></i> Thêm sách</span><i class="fa-solid fa-xmark close-icon"
+                <span><i class="fa-solid fa-newspaper"></i>T Thêm tin tức</span><i class="fa-solid fa-xmark close-icon"
                 onclick="closeFormAdd()"></i>
             </div>
-            
             <div class="list__form-content"style="display: block">
               <div class="list__add-handmade" style="display:flex">
                    <div class="list__form-box" style="flex: 1">
-                    <label for="input-name" class="list__form-label">Tiêu đề <span>*</span></label>
+                    <label for="input-name" class="list__form-label">Tiêu đề<span>*</span></label>
                     <input type="text" class="list__form-input" id="input-name" required placeholder="Nhập tiêu đề">
                     </div>
                 </div>
@@ -32,13 +31,12 @@ function openFormAdd() {
                         </div>
                     </div>
                     <div>
-                   
                 </div>
                 </div>
                 <div class="list__add-handmade" style="display:flex">
                     <div class="list__form-box" style="flex: 1">
-                        <label for="input-des" class="list__form-label">Mô tả</label>
-                        <textarea id="input-des" placeholder="Nhập mô tả"></textarea>
+                        <label for="input-des" class="list__form-label">Nội dung</label>
+                        <textarea id="input-des" placeholder="Nhập nội dung"></textarea>
                     </div>
                 </div>
             </div>
@@ -47,4 +45,7 @@ function openFormAdd() {
                 <button type="button" onclick="submitBook()" name="add-book" >Thêm</button>
             </div>
         </form>`
+        CKEDITOR.replace('input-des');
 }
+
+             

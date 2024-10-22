@@ -427,7 +427,7 @@
                 bottom: 0;
             }
 
-            button {
+            .list__form-btn button {
                 color: var(--white-cl);
                 background-color: var(--green-black-cl);
                 padding: 8px 25px;

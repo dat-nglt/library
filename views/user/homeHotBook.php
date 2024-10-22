@@ -9,7 +9,7 @@
         break;
       } ?>
 
-      <div class="book-card" href="">
+      <div class="book-card">
         <div style="display: flex;">
           <div class="book-card_info">
             <h3><?php echo $componentData['nameBook']; ?></h3>

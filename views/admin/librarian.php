@@ -30,6 +30,7 @@
                                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                             </form>
                         </fieldset>
+                    
                     </div>
                 </div>
             </div>

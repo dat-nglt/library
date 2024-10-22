@@ -71,11 +71,11 @@ if (isset($data['notification']) && $data !== []) {
 
     <div id="content">
       <?php
-      $data['componentName'] = isset($data['componentName']) ? $data['componentName'] : 'home';
-      require_once './views/user/' . $data['componentName'] . '.php'
-        ?>
+        $data['componentName'] = isset($data['componentName']) ? $data['componentName'] : 'home';
+        require_once './views/user/' . $data['componentName'] . '.php'
+      ?>
     </div>
-    <a class="BN-viewAll" href="">Xem tất cả</a>
+    <!-- <a class="BN-viewAll" href="">Xem tất cả</a> -->
   </div>
 </div>
 
