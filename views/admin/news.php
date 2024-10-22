@@ -42,7 +42,7 @@
                     <th style="width: 13%;">Ngày đăng</th>
                     <th style="width: 8%;"></th>
                 </tr>
-                <?php 
+            <?php
                                 $stt = (($current_page - 1) * $limit) + 1;
                                 foreach ($listNews as $key => $value) {
                                     ?>
@@ -53,12 +53,15 @@
                     </td>
                     <td>
                         <div style="display: flex; align-items: center; justify-content: center">
-                            <?php if($value['image'] === ''){?>
-                                <img style="height: 80px; width: 90%" src="https://res.cloudinary.com/di37whq60/image/upload/v1716194722/image/axdown7pmlzlgs7yelkd.png" alt="<?= $value['title'] ?>">
-                            <?php }else{ ?>
-                                <img style="height: 80px; width: 90%" src="<?= $value['image'] ?>" alt="<?= $value['title'] ?>">
-                            <?php }?>
-                    </div>
+                            <?php if ($value['image'] === '') { ?>
+                                <img style="width: 100px; aspect-ratio: 1; object-fit: cover"
+                                    src="https://res.cloudinary.com/dta7fdnph/image/upload/v1729434759/soft_shadow_ocndts.png"
+                                    alt="<?= $value['title'] ?>">
+                            <?php } else { ?>
+                                <img style="width: 100px; aspect-ratio: 1;object-fit: cover" src="<?= $value['image'] ?>"
+                                    alt="<?= $value['title'] ?>">
+                            <?php } ?>
+                        </div>
                     </td>
                     <td>
                         <div class="list__hidden-text"><?= $value['content'] ?></div>
@@ -67,12 +70,12 @@
                         <div class="list__hidden-text"><?= date("d-m-Y", strtotime($value['date'])) ?></div>
                     </td>
                     <td>
-<div>
-                     <button class="list__action-open-edit" type="button" data-id="<?= $value['id'] ?>"><i
-                             class="fa-solid fa-pen-to-square list__icon-edit"></i></button>
-                     <button class="list__action-btn" type="button" data-id="<?= $value['id'] ?>"><i
-                             class="fa-solid fa-trash list__icon-del"></i></button>
-             </td>
+                        <div>
+                            <button class="list__action-open-edit" type="button" data-id="<?= $value['id'] ?>"><i
+                                    class="fa-solid fa-pen-to-square list__icon-edit"></i></button>
+                            <button class="list__action-btn" type="button" data-id="<?= $value['id'] ?>"><i
+                                    class="fa-solid fa-trash list__icon-del"></i></button>
+                    </td>
                 </tr>
                 <?php $stt++;
                                 } ?>
@@ -115,5 +118,7 @@
 <script src="./js/admin/news/openFormAdd.js"></script>
 <script src="./js/admin/closeFormAdd.js"></script>
 <script src="./js/admin/news/openFormEdit.js"></script>
-<script src="./js/admin/book/deleteBook.js"></script>
+<script src="./js/admin/news/deleteNews.js"></script>
 <script src="./js/admin/changeImgNews.js"></script>
+<script src="./js/admin/news/addNews.js"></script>
+<script src="./js/admin/news/editNews.js"></script>t>

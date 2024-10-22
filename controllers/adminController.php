@@ -616,7 +616,7 @@ class adminController extends baseController
   public function news()
   {
     if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
-      $limit = 6;
+      $limit = 5;
       $_SESSION['sort-news'] = isset($_SESSION['sort-news']) ? $_SESSION['sort-news'] : 'desc';
       $_SESSION['search-news'] = isset($_SESSION['search-news']) ? $_SESSION['search-news'] : '';
       if (isset($_POST['sort-news'])) {

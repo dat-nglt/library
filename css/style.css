@@ -40,7 +40,7 @@ body {
   position: relative;
   top: 130px;
   width: 100%;
-  height: fit-content;
+  height: 100vh;
   padding: 40px 0px 20px;
 }
 

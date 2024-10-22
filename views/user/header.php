@@ -14,18 +14,19 @@
         <a class="menu-item" href="/library">
           <i class="fa-solid fa-house-chimney" style="font-size: 17px"></i>
         </a>
-        <a class="menu-item" href="/library">
-          Trang chủ
+
+        <a class="menu-item" href="?controller=user&action=allBooks">
+          Kho sách
         </a>
+
+        <a class="menu-item" href="?controller=user&action=allNews">
+          Tin tức
+        </a>
+
         <a class="menu-item" href="?controller=user&action=upload">
           Upload tài liệu số
         </a>
-        <!-- <a class="menu-item" href="?controller=user&action=profile&profilePage=rentHistory">
-          Yêu cầu tài liệu
-        </a> -->
-        <!-- <a class="menu-item" href="">
-          danh sách tài liệu
-        </a> -->
+
         <a class="menu-item" href="?controller=user&action=contact">
           liên hệ
         </a>
@@ -136,7 +137,7 @@
     display: flex;
     position: relative;
 
-    > a > div {
+    >a>div {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -149,7 +150,7 @@
       color: #fff;
       right: -25px;
       top: 5px;
-      padding: 10px 5px ;
+      padding: 10px 5px;
 
       >p {
         font-size: 10px;

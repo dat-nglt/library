@@ -1,5 +1,5 @@
 .user-search {
-  margin: 30px auto;
+  margin: 0px auto 15px;
   left: 50%;
   width: 1200px;
   display: flex;
@@ -16,8 +16,27 @@
   font-size: 18px;
   overflow: hidden;
 }
+.news-search {
+  margin: 0px auto 15px;
+  left: 50%;
+  width: 1200px;
+  display: flex;
+  background: rgba(154, 143, 143, 0.8);
+  border-top: 8px var(--green-color)
+    solid;
+}
+
+.news-search-sub {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 15% 10% 60% 15%;
+  line-height: 29px;
+  font-size: 18px;
+  overflow: hidden;
+}
 .select-search,
 .input-search,
+.date-news,
 #btn-search {
   width: 100%;
   padding: 15px 10px;

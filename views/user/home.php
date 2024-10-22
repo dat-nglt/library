@@ -24,7 +24,7 @@ if (isset($data['notification']) && $data !== []) {
       <button id="search-btn" type="button">Tìm kiếm</button>
     </div>
   </div>
-  <div class="book-data">
+  <!-- <div class="book-data">
     <div class="book-data-sub">
       <div class="book-data-title">
         <i class="fa-solid fa-tags"></i>Tài liệu chuyên ngành
@@ -59,21 +59,21 @@ if (isset($data['notification']) && $data !== []) {
         <a href="?controller=user&action=searchBook&contentSearch=Tạp%20chí&optionSearch=nameCategory">- Tạp chí</a>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="book-news">
     <div class="BN-title">
       <?php
-      echo '<a href="?controller=user&action=bookHot" class="BN-item" id="book-hot">Điểm sách hay</a>';
-      echo '<a href="?controller=user&action=newsHot" class="BN-item" id="news-hot">Tin tức - Event</a>';
+      echo '<a href="?controller=user&action=bookHot" class="BN-item" id="book-hot">Điểm sách mới</a>';
+      echo '<a href="?controller=user&action=newsHot" class="BN-item" id="news-hot">Tin tức mới</a>';
       ?>
     </div>
 
     <div id="content">
       <?php
-        $data['componentName'] = isset($data['componentName']) ? $data['componentName'] : 'home';
-        require_once './views/user/' . $data['componentName'] . '.php'
-      ?>
+      $data['componentName'] = isset($data['componentName']) ? $data['componentName'] : 'home';
+      require_once './views/user/' . $data['componentName'] . '.php'
+        ?>
     </div>
     <!-- <a class="BN-viewAll" href="">Xem tất cả</a> -->
   </div>
@@ -99,10 +99,10 @@ if (isset($data['notification']) && $data !== []) {
     const contentSearch = $("#content-search").val();
     const optionSearch = $("#option-search").val();
 
-    if (!contentSearch) {
-      showAlert("Vui lòng từ khóa cần tìm kiếm!", "warning");
-      return;
-    }
+    // if (!contentSearch) {
+    //   showAlert("Vui lòng từ khóa cần tìm kiếm!", "warning");
+    //   return;
+    // }
 
     window.location.href = '?controller=user&action=searchBook&contentSearch=' + encodeURIComponent(contentSearch) + '&optionSearch=' + encodeURIComponent(optionSearch);
   })

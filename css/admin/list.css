@@ -427,7 +427,7 @@
                 bottom: 0;
             }
 
-            .list__form-btn button {
+            .list__form-btn > button {
                 color: var(--white-cl);
                 background-color: var(--green-black-cl);
                 padding: 8px 25px;
@@ -455,4 +455,8 @@
             }
         }
     }
+}
+
+.ck.ck-editor__main>.ck-editor__editable {
+    height: 150px !important;
 }

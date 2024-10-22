@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
   $response = array(
     'status' => 'success',
-    'msg' => 'Lỗi không thể thêm sách.',
+    'msg' => 'Lỗi không thể chỉnh sửa.',
     'path' => "?controller=admin&action=book"
   );
   echo json_encode($response);

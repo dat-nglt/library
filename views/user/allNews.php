@@ -1,3 +1,16 @@
+<div class="news-search">
+  <div class="news-search-sub">
+    <select class="select-search" id="sort-search">
+      <option value="desc">Mới nhất</option>
+      <option value="asc">Xưa nhất</option>
+    </select>
+    <input class="date-news" type="date" id="date-search">
+    <input id="content-search" class="input-search" type="text"
+      placeholder="Nhập từ khoá cần tìm ...">
+    <button id="search-btn" type="button">Tìm kiếm</button>
+  </div>
+</div>
+
 <div class="news-content">
   <?php foreach ($componentDatas as $componentData) { ?>
     <div class="news-form">
@@ -7,14 +20,30 @@
       <div class="news-data">
         <a href="?controller=user&action=newsdetails&id=<?php echo $componentData['id'] ?>" class="news-title"><?php echo $componentData['title'] ?></a>
         <div class="info-field-news">
-          <div class="content-container"><span class="hidden_content_news"><?php echo $componentData['content'] ?></span></div>
+          <div class="content-container"><i class="fa-solid fa-newspaper"></i><span><?php echo $componentData['content'] ?></span></div>
           <div><i class="fa-solid fa-calendar-days"></i><span><?php echo $componentData['date'] ?></span></div>
         </div>
       </div>
     </div>
   <?php } ?>
 </div>
-<!-- <a class="BN-viewAll" href="?controller=user&action=allNews">Xem tất cả</a> -->
+<script>
+  const searchBtn = document.querySelector('#search-btn')
+  $("#search-btn").on('click', function () {
+    const contentSearch = $("#content-search").val();
+    const sortSearch = $("#sort-search").val();
+    const dateSearch = $("#date-search").val();
+    window.location.href = '?controller=user&action=searchNews&contentSearch=' + encodeURIComponent(contentSearch) + '&sortSearch=' + encodeURIComponent(optionSearch) + '&=' + encodeURIComponent(optionSearch);
+  })
+  function showAlert(message, icon) {
+    Swal.fire({
+      title: "Thông báo",
+      text: message,
+      icon,
+      showConfirmButton: true,
+    }).then(location.reload);
+  }
+</script>
 <style>
   .news-content {
     max-width: 1200px; 
@@ -66,16 +95,12 @@
   }
 
   .content-container {
-   
-  }
-
-  .hidden_content_news{
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 1;
     overflow: hidden;
     text-overflow: ellipsis;
-    min-height: 4.5em;
+    max-height: 3em;
     line-height: 1.5em;
   }
 

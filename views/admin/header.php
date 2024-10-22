@@ -6,6 +6,10 @@
                 TRUNG TÂM HỌC LIỆU</span></a>
     </div>
     <ul>
+        <a href="http://localhost/library/?controller=admin">
+            <li> <i class="fa-solid fa-chart-simple"></i>
+                Thống kê</li>
+        </a>
         <a href="?controller=admin&action=account">
             <li><i class="fa-solid fa-user-group icon"></i>Tài khoản</li>
         </a>

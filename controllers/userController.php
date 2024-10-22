@@ -13,13 +13,29 @@ class userController extends baseController
   public function index()
   {
 
-    $books = $this->userModel->getAllBook();
+    $books = $this->userModel->getAllBook(9);
 
     $componentName = 'homeHotBook';
     if (isset($_SESSION['user'])) {
       $this->userModel->denyRequest($_SESSION['user']['id']); //hủy yêu cầu sau 24h
     }
     return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
+  }
+
+  public function allBooks()
+  {
+
+    $allBooks = $this->userModel->getAllBook();
+
+    return $this->loadview('user.allBooks', ['componentDatas' => $allBooks]);
+  }
+
+  public function allNews()
+  {
+
+    $allNews = $this->userModel->getAllNews();
+
+    return $this->loadview('user.allNews', ['componentDatas' => $allNews]);
   }
 
   public function contact()
@@ -35,7 +51,7 @@ class userController extends baseController
   }
   public function bookHot()
   {
-    $books = $this->userModel->getAllBook();
+    $books = $this->userModel->getAllBook(6);
 
     $componentName = 'homeHotBook';
     $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
@@ -84,15 +100,15 @@ class userController extends baseController
     // ];
 
     $componentName = 'homeHotNews';
-    $news = $this->userModel->getAllNews();
+    $news = $this->userModel->getAllNews(3);
     return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $news]);
   }
   public function newsdetails()
   {
-      $id = $_GET["id"];
-      $componentName = 'homeNewsDetails';
-      $news = $this->userModel->getNews($id);
-    return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $news]);
+    $id = $_GET["id"];
+    $componentName = 'homeNewsDetails';
+    $news = $this->userModel->getNews($id);
+    return $this->loadview('user.detailsNews', ['componentDatas' => $news]);
   }
 
   public function login()
@@ -135,7 +151,7 @@ class userController extends baseController
           $_SESSION['sort_list_rent_book'] = isset($_SESSION['sort_list_rent_book']) ? $_SESSION['sort_list_rent_book'] : 'desc';
           $_SESSION['sort_list_rent_book'] = isset($_POST['sort_list_rent_book']) ? $_POST['sort_list_rent_book'] : $_SESSION['sort_list_rent_book'];
 
-          $_SESSION['status-rent'] = isset($_SESSION['status-rent']) ? $_SESSION['status-rent'] : '1';
+          $_SESSION['status-rent'] = isset($_SESSION['status-rent']) ? $_SESSION['status-rent'] : 'all';
           $_SESSION['status-rent'] = isset($_POST['status-rent']) ? $_POST['status-rent'] : $_SESSION['status-rent'];
           $limit = 10;
           $listAllRentBook = $this->userModel->listAllRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook, $_SESSION['status-rent']);
@@ -193,7 +209,19 @@ class userController extends baseController
       'optionText' => $optionText
     ]);
   }
+  public function searchNews()
+  {
+    $contentSearch = $_GET['contentSearch'];
+    $sortSearch = $_GET['sortSearch'];
+    $dateSearch = $_GET['dateSearch'];
 
+    $books = $this->userModel->newsSearch($contentSearch,$sortSearch,$dateSearch);
+    $this->loadview('user.searchBook', [
+      'componentDatas' => $books,
+      'contentSearch' => $contentSearch,
+      'dateSearch' => $dateSearch
+    ]);
+  }
   public function upload()
   {
     if (!isset($_SESSION['user'])) {

@@ -5,12 +5,12 @@ function changeImg(event){
     var imageUrl = event.target.result;
     var img = document.createElement('img');
     img.src = imageUrl;
-    img.style.height = '120px';
-    img.style.width = '100px';
+    img.style.height = '100px';
+    img.style.width = '120px';
     var imageContainer = document.querySelector('#imgContainer');
     var oldimg = document.querySelector('#oldimg');
     var heightForm = document.querySelector('.list__form-add');
-    heightForm.style.height = '600px';
+    heightForm.style.height = '605px';
     oldimg.style.display="none";
     imageContainer.innerHTML = '';
     imageContainer.appendChild(img);

@@ -40,16 +40,25 @@ class userModel extends baseModel
     return $query;
   }
 
-  public function getAllBook()
+  public function getAllBook($limit = null)
   {
     $sql = "SELECT * FROM book LEFT JOIN upload ON book.idBook = upload.id_Book";
+
+    if (isset($limit)) {
+      $sql .= " LIMIT " . $limit;
+    }
+
     $query = $this->_query($sql);
     return $query;
   }
 
-  public function getAllNews()
+  public function getAllNews($limit = null)
   {
     $sql = "SELECT * FROM news";
+
+    if (isset($limit)) {
+      $sql .= " LIMIT " . $limit;
+    }
     $query = $this->_query($sql);
     return $query;
   }
@@ -59,7 +68,7 @@ class userModel extends baseModel
     $query = $this->_query($sql);
     return $query;
   }
-  
+
   public function searchBooks($contentSearch, $optionSearch)
   {
     if ($optionSearch == 'all') {
@@ -79,7 +88,20 @@ class userModel extends baseModel
     $query = $this->_query($sql);
     return $query;
   }
+  public function newsSearch($contentSearch,$sortSearch,$dateSearch)
+  {
+      $sql = "SELECT *
+      FROM news
+      WHERE 
+          OR title LIKE '%$contentSearch%'
+          OR date LIKE '%$dateSearch%'
+      ORDER BY
+          id $sortSearch
+      ";
 
+    $query = $this->_query($sql);
+    return $query;
+  }
   public function getOneBook($id)
   {
     $sql = "SELECT book.*, upload.*, category.*

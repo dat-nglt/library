@@ -1,4 +1,4 @@
-<div class="footer">
+<!-- <div class="footer">
   <div class="footer-subcontainer img">
     <img src="./upload/logo.png" alt="">
   </div>
@@ -37,4 +37,4 @@
       <li>Nghỉ: Thứ 7, CN và các ngày lễ</li>
     </ul>
   </div>
-</div>
+</div> -->

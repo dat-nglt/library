@@ -18,7 +18,6 @@
 <!-- </form> -->
 <div class="search-container">
   <div class="search-book-name">Kết quả tìm kiếm <?= $optionText ?>: <i><?= $contentSearch ?></i></div>
-
   <?php
   require_once './views/user/homeHotBook.php'
     ?>
@@ -29,10 +28,10 @@
     const contentSearch = $("#content-search").val();
     const optionSearch = $("#option-search").val();
 
-    if (!contentSearch) {
-      showAlert("Vui lòng từ khóa cần tìm kiếm!", "warning");
-      return;
-    }
+    // if (!contentSearch) {
+    //   showAlert("Vui lòng từ khóa cần tìm kiếm!", "warning");
+    //   return;
+    // }
 
     window.location.href = '?controller=user&action=searchBook&contentSearch=' + encodeURIComponent(contentSearch) + '&optionSearch=' + encodeURIComponent(optionSearch);
   })

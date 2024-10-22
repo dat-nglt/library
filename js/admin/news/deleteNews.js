@@ -2,7 +2,7 @@ $(document).ready(function () {
   $('.list__action-btn').on('click', function () {
     Swal.fire({
       title: 'Xác nhận',
-      text: 'Bạn có muốn xóa thể loại sách!',
+      text: 'Bạn có muốn xóa tin này không!',
       icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d33',
@@ -13,7 +13,7 @@ $(document).ready(function () {
       if (result.isConfirmed) {
         var id = $(this).data('id');
     $.ajax({
-      url: './services/admin/category/delete.php',
+      url: './services/admin/news/deleteNews.php',
       type: 'DELETE',
       dataType: 'json',
       data: { id: id },
@@ -34,7 +34,7 @@ $(document).ready(function () {
           icon: "error",
           showConfirmButton: true,
         }).then(function () {
-            window.location.assign("?controller=admin&action=category");
+            window.location.assign("?controller=admin&action=news");
         });
       }
     });
