@@ -54,7 +54,7 @@ class userModel extends baseModel
 
   public function getAllNews($limit = null)
   {
-    $sql = "SELECT * FROM news";
+    $sql = "SELECT * FROM news ORDER BY datenews desc";
 
     if (isset($limit)) {
       $sql .= " LIMIT " . $limit;
@@ -90,14 +90,30 @@ class userModel extends baseModel
   }
   public function newsSearch($contentSearch,$sortSearch,$dateSearch)
   {
-      $sql = "SELECT *
-      FROM news
-      WHERE 
-          OR title LIKE '%$contentSearch%'
-          OR date LIKE '%$dateSearch%'
-      ORDER BY
-          id $sortSearch
-      ";
+      if ($contentSearch!='') {
+        $sql = "SELECT *
+        FROM news
+        WHERE 
+            title LIKE '%$contentSearch%'
+            OR datenews = '$dateSearch'
+        ORDER BY
+            datenews $sortSearch
+        ";
+      } elseif ($dateSearch==''){
+        $sql = "SELECT *
+        FROM news
+        ORDER BY
+            datenews $sortSearch
+        ";
+      } else {
+        $sql = "SELECT *
+        FROM news
+        WHERE 
+          datenews = '$dateSearch'
+        ORDER BY
+            datenews $sortSearch
+        ";
+      }
 
     $query = $this->_query($sql);
     return $query;

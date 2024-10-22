@@ -48,6 +48,7 @@
 </div>
 
 <script>
+  //?
   const searchBtn = document.querySelector('#search-btn')
 
   $("#search-btn").on('click', function () {

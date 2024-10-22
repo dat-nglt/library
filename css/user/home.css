@@ -29,7 +29,7 @@
 .news-search-sub {
   width: 100%;
   display: grid;
-  grid-template-columns: 15% 10% 60% 15%;
+  grid-template-columns: 15% 15% 55% 15%;
   line-height: 29px;
   font-size: 18px;
   overflow: hidden;

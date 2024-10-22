@@ -212,11 +212,14 @@ class userController extends baseController
   public function searchNews()
   {
     $contentSearch = $_GET['contentSearch'];
-    $sortSearch = $_GET['sortSearch'];
+    $sortSearch = isset($_GET['sortSearch']) ? $_GET['sortSearch'] : 'desc';
     $dateSearch = $_GET['dateSearch'];
-
+    // var_dump($contentSearch);
+    // var_dump($dateSearch);
+    // var_dump($sortSearch);
+    
     $books = $this->userModel->newsSearch($contentSearch,$sortSearch,$dateSearch);
-    $this->loadview('user.searchBook', [
+    $this->loadview('user.searchNews', [
       'componentDatas' => $books,
       'contentSearch' => $contentSearch,
       'dateSearch' => $dateSearch

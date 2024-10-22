@@ -4,7 +4,6 @@
     $count = 0;
     $limit = 8;
     foreach ($data['componentDatas'] as $componentData) {
-      // var_dump($componentData);
       if ($count >= $limit) {
         break;
       } ?>
@@ -28,7 +27,6 @@
     }
     ?>
   </div>
-  <!-- <a class="BN-viewAll" href="?controller=user&action=allBooks">Xem tất cả</a> -->
 </div>
 
 <style>

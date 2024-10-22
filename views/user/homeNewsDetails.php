@@ -13,7 +13,7 @@
               class="fa-solid fa-user icon-newdetail"></i><span><?php echo htmlspecialchars($componentData['author']); ?></span>
           </div>
           <div><i
-              class="fa-solid fa-calendar-days icon-newdetail"></i><span><?php echo htmlspecialchars($componentData['date']); ?></span>
+              class="fa-solid fa-calendar-days icon-newdetail"></i><span><?php echo htmlspecialchars($componentData['datenews']); ?></span>
           </div>
         </div>
         <a class="back-newhot" href="?controller=user&action=newsHot">Quay lại</a>

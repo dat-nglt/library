@@ -21,19 +21,20 @@
         <a href="?controller=user&action=newsdetails&id=<?php echo $componentData['id'] ?>" class="news-title"><?php echo $componentData['title'] ?></a>
         <div class="info-field-news">
           <div class="content-container"><i class="fa-solid fa-newspaper"></i><span><?php echo $componentData['content'] ?></span></div>
-          <div><i class="fa-solid fa-calendar-days"></i><span><?php echo $componentData['date'] ?></span></div>
+          <div><i class="fa-solid fa-calendar-days"></i><span><?php echo $componentData['datenews'] ?></span></div>
         </div>
       </div>
     </div>
   <?php } ?>
 </div>
 <script>
-  const searchBtn = document.querySelector('#search-btn')
   $("#search-btn").on('click', function () {
     const contentSearch = $("#content-search").val();
     const sortSearch = $("#sort-search").val();
     const dateSearch = $("#date-search").val();
-    window.location.href = '?controller=user&action=searchNews&contentSearch=' + encodeURIComponent(contentSearch) + '&sortSearch=' + encodeURIComponent(optionSearch) + '&=' + encodeURIComponent(optionSearch);
+
+    // alert(dateSearch)
+    window.location.href = '?controller=user&action=searchNews&contentSearch=' + encodeURIComponent(contentSearch) + '&sortSearch=' + encodeURIComponent(sortSearch) + '&dateSearch=' + encodeURIComponent(dateSearch);
   })
   function showAlert(message, icon) {
     Swal.fire({

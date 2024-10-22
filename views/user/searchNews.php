@@ -19,12 +19,11 @@
 </div>
 
 <script>
-const searchBtn = document.querySelector('#search-btn')
   $("#search-btn").on('click', function () {
     const contentSearch = $("#content-search").val();
     const sortSearch = $("#sort-search").val();
     const dateSearch = $("#date-search").val();
-    window.location.href = '?controller=user&action=searchNews&contentSearch=' + encodeURIComponent(contentSearch) + '&sortSearch=' + encodeURIComponent(optionSearch) + '&=' + encodeURIComponent(optionSearch);
+    window.location.href = '?controller=user&action=searchNews&contentSearch=' + encodeURIComponent(contentSearch) + '&sortSearch=' + encodeURIComponent(sortSearch) + '&dateSearch=' + encodeURIComponent(dateSearch);
   })
   function showAlert(message, icon) {
     Swal.fire({
@@ -34,4 +33,4 @@ const searchBtn = document.querySelector('#search-btn')
       showConfirmButton: true,
     }).then(location.reload);
   }
-  }</script>
+</script>
