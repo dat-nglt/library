@@ -97,7 +97,7 @@ input[type='number']::-webkit-outer-spin-button {
 .current-page {
   li,
   span {
-    color: var(--orange-color) !important;
+    color: #2ac312 !important;
   }
 }
 
