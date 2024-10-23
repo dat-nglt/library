@@ -8,7 +8,7 @@ function openFormAdd() {
   addFormAdd.innerHTML = `
          <form action="" method="post" id="form-add-book" class="list__form-add" style="height: 505px;">
             <div class="list__form-title">
-                <span><i class="fa-solid fa-newspaper"></i>Thêm tin tức</span><i class="fa-solid fa-xmark close-icon"
+                <span><i class="fa-solid fa-newspaper" style="margin-right: 10px;"></i>Thêm tin tức</span><i class="fa-solid fa-xmark close-icon"
                 onclick="closeFormAdd()"></i>
             </div>
             <div class="list__form-content"style="display: block">
