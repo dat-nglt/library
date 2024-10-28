@@ -643,5 +643,36 @@ class adminController extends baseController
       exit();
     }
   }
+
+  public function fine()
+  {
+    if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
+      $limit = 5;
+      $_SESSION['sort-fine'] = isset($_SESSION['sort-fine']) ? $_SESSION['sort-fine'] : 'desc';
+      $_SESSION['search-fine'] = isset($_SESSION['search-fine']) ? $_SESSION['search-fine'] : '';
+      if (isset($_POST['sort-fine'])) {
+        $_SESSION['sort-fine'] = $_POST['sort-fine'];
+      }
+      if (isset($_POST['search-fine'])) {
+        $_SESSION['search-fine'] = $_POST['search-fine'];
+   
+      }
+      $total = $this->adminModel->getAllFine($_SESSION['search-fine']);
+      $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+      $total_page = ceil(mysqli_num_rows($total) / $limit);
+      if ($current_page > $total_page) {
+        $current_page = $total_page;
+      }
+      if ($current_page < 1) {
+        $current_page = 1;
+      }
+      $start = ($current_page - 1) * $limit;
+      $listFine = $this->adminModel->getListFine($start, $limit, $_SESSION['sort-fine'], $_SESSION['search-fine']);
+      return $this->loadview('admin.fine', ['listFine' => $listFine, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+    } else {
+      header('Location: http://localhost/library/');
+      exit();
+    }
+  }
 }
 

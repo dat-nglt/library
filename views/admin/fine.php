@@ -3,18 +3,26 @@
         <div>
             <div style="flex: 1;display:flex;justify-content: space-between">
                 <div>
-                    <span>Danh sách đóng phạt <span style="font-size: 14px">(Phạt 2.000 VNĐ với mỗi 1 ngày trễ hạn)</span></span>
+                    <span>Danh sách đóng phạt <span style="font-size: 14px"><button onclick="openFormAdd()" id="list__add-btn" type="button">Thêm
+                    phiếu phạt</button>
                 </div>
                 <div style="display:flex; gap: 5px; justify-content: center; padding: 0 0 5px;align-items: center;">
                     <fieldset>
+                        <legend>Tìm kiếm</legend>
+                        <form action="?controller=admin&action=fine" method="post" class="admin__form-search">
+                            <input type="text" name="search-fine" placeholder="MSSV" autocomplete="off">
+                            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                    </fieldset>
+                    <fieldset>
                         <legend>Sắp xếp</legend>
-                        <form action="" method="post" class="admin__form-search">
-                            <select name="sort-punish" id="">
-                                <option value="DESC" <?php if ($_SESSION['sort-punish'] === 'DESC')
+                        <form action="?controller=admin&action=fine" method="post" class="admin__form-search">
+                            <select name="sort-fine" id="">
+                                <option value="desc" <?php if ($_SESSION['sort-fine'] === 'desc')
                                     echo 'selected' ?>>
                                         Mới nhất
                                     </option>
-                                    <option value="ASC" <?php if ($_SESSION['sort-punish'] === 'ASC')
+                                    <option value="asc" <?php if ($_SESSION['sort-fine'] === 'asc')
                                     echo 'selected' ?>>Cũ
                                         nhất
                                     </option>
@@ -37,7 +45,7 @@
                 </tr>
                 <?php
                                 $stt = (($current_page - 1) * $limit) + 1;
-                                foreach ($listPunish as $key => $value) {
+                                foreach ($listFine as $key => $value) {
                                     ?>
                 <tr class="list__content">
                     <td><?= $stt ?></td>

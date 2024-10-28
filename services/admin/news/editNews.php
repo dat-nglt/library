@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
       $response = array(
         'status' => 'error',
-        'msg' => 'Chỉnh sửa không thành công1.',
+        'msg' => 'Chỉnh sửa không thành công.',
         'path' => "?controller=admin&action=news"
       );
       echo json_encode($response);
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } else {
         $response = array(
           'status' => 'error',
-          'msg' => 'Chỉnh sửa không thành công2',
+          'msg' => 'Chỉnh sửa không thành công',
           'path' => "?controller=admin&action=news"
         );
         echo json_encode($response);

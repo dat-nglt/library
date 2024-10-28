@@ -96,11 +96,11 @@
                         <div class="list__hidden-text"  style="-webkit-line-clamp: 2;"><?= $value[7] ?></div>
                     </td>
                     <td>
-                        <div>
+                        <div style="justify-content: center">
                             <button class="list__action-open-edit" type="button" data-id="<?= $value[0] ?>"><i
                                     class="fa-solid fa-pen-to-square list__icon-edit"></i></button>
-                            <button class="list__action-btn" type="button" data-id="<?= $value[0] ?>"><i
-                                    class="fa-solid fa-trash list__icon-del"></i></button>
+                            <!-- <button class="list__action-btn" type="button" data-id="<?= $value[0] ?>"><i
+                                    class="fa-solid fa-trash list__icon-del"></i></button> -->
                         </div>
                     </td>
                 </tr>

@@ -4,7 +4,7 @@
             <div style="flex: 1;display:flex;justify-content: space-between">
                 <div>
                     <span>Danh sách độc giả</span><button onclick="openFormAdd()" id="list__add-btn" type="button">Thêm
-                        thủ công</button>
+                        độc giả</button>
                         <!-- <button onclick="openFormAddExcel()" id="list__add-btn" type="button">Thêm
                         file excel</button> -->
                 </div>
@@ -41,12 +41,12 @@
                     <th style="width: 7%;">MSSV</th>
                     <th style="width: 18%;">Họ tên</th>
                     <th style="width: 13%;">Quên quán</th>
-                    <th style="width: 10%;">Ngày sinh</th>
+                    <th style="width: 8%;">Ngày sinh</th>
                     <th style="width: 9%;">SĐT</th>
                     <th style="width: 16%;">Email</th>
                     <th style="width: 10%;">CCCD</th>
-                    <th style="width: 8%;">Lớp</th>
-                    <th style="width: 4%;"></th>
+                    <th style="width: 6%;">Lớp</th>
+                    <th style="width: 6%;"></th>
                 </tr>
                 <?php
                                 $stt = (($current_page - 1) * $limit) + 1;

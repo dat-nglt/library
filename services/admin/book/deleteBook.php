@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     if (mysqli_num_rows($result) > 0) {
         $response = array(
             'status' => 'warning',
-            'msg' => 'Vui lòng đảm bảo không có phiếu mượn nào chứa thông tin sách',
+            'msg' => 'Vui lòng đảm bảo không có phiếu mượn nào chứa thông tin sách!',
             'path' => "?controller=admin&action=category"
         );
         echo json_encode($response);
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
             } else {
                 $response = array(
                     'status' => 'error',
-                    'msg' => 'Xóa không thành công',
+                    'msg' => 'Xóa không thành công!',
                     'path' => "?controller=admin&action=book"
                 );
                 echo json_encode($response);
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
             } else {
                 $response = array(
                     'status' => 'error',
-                    'msg' => 'Xóa không thành công',
+                    'msg' => 'Xóa không thành công!',
                     'path' => "?controller=admin&action=book"
                 );
                 echo json_encode($response);
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     }
 
 } else {
-    echo "Phương thức không được hỗ trợ.";
+    echo "Phương thức không được hỗ trợ!";
 }
 
 $conn = null;

@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
       $response = array(
         'status' => 'error',
-        'msg' => 'Chỉnh sửa không thành công.',
+        'msg' => 'Chỉnh sửa không thành công!',
         'path' => "?controller=admin&action=book"
       );
       echo json_encode($response);
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (mysqli_num_rows($result) > 0) {
       $response = array(
         'status' => 'error',
-        'msg' => 'Tên sách đã tồn tại.',
+        'msg' => 'Tên sách đã tồn tại!',
         'path' => "?controller=admin&action=book"
       );
       echo json_encode($response);
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } else {
         $response = array(
           'status' => 'error',
-          'msg' => 'Chỉnh sửa không thành công',
+          'msg' => 'Chỉnh sửa không thành công!',
           'path' => "?controller=admin&action=book"
         );
         echo json_encode($response);
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
   $response = array(
     'status' => 'success',
-    'msg' => 'Lỗi không thể chỉnh sửa.',
+    'msg' => 'Lỗi không thể chỉnh sửa!',
     'path' => "?controller=admin&action=book"
   );
   echo json_encode($response);

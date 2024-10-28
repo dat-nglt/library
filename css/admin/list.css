@@ -16,16 +16,19 @@
         }
 
         span {
+            display: flex;
+            align-items: center;
             text-transform: uppercase;
             font-weight: 600;
             font-size: 25px;
         }
 
         button {
-            font-size: 15px;
+            margin-left: 5px;
+            font-size: 14px;
             color: var(--white-cl);
             background-color: var(--blue-white-cl);
-            padding: 8px 13px;
+            padding:6px 13px;
             border: none;
             border-radius: 5px;
             cursor: pointer;

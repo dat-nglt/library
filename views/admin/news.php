@@ -67,7 +67,7 @@
                         <div class="list__hidden-text"><?= $value['content'] ?></div>
                     </td>
                     <td>
-                        <div class="list__hidden-text"><?= date("d-m-Y", strtotime($value['datenews'])) ?></div>
+                        <div class="list__hidden-text"><?= date("d-m-Y", strtotime($value['date'])) ?></div>
                     </td>
                     <td>
                         <div>

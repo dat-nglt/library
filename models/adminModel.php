@@ -359,22 +359,23 @@ class adminModel extends baseModel
     return $query;
   }
 
-  public function getAllPunish($start, $limit, $sort)
+  public function getAllFine($sort)
   {
-    if ($sort === 'DESC') {
-      $sql = "SELECT r.*, u.studentCode, u.fullName, p.* FROM request AS r 
-    LEFT JOIN book AS b ON r.id_book = b.idBook LEFT JOIN user AS u ON r.id_User = u.id
-    JOIN punish as p On p.id_Request = r.idRequest ORDER BY idPunish DESC LIMIT $start, $limit";
-    } else {
-      $sql = "SELECT r.*, u.studentCode, u.fullName, p.* FROM request AS r 
-    LEFT JOIN book AS b ON r.id_book = b.idBook LEFT JOIN user AS u ON r.id_User = u.id
-    JOIN punish as p On p.id_Request = r.idRequest ORDER BY idPunish LIMIT $start, $limit";
-    }
+      $sql = "SELECT * FROM fine";
     $query = $this->_query($sql);
     return $query;
   }
 
-  public function getPunish()
+  public function getListFine($start, $limit, $sort)
+  {
+    $sql = "SELECT rd.*, u.studentCode, u.fullName, f.* FROM request_detail AS rd
+    LEFT JOIN book AS b ON rd.id_book = b.idBook LEFT JOIN request AS r ON r.idRequest = rd.id_Request LEFT JOIN user AS u ON r.id_User = u.id
+    JOIN fine as f On f.id_RequestDetail  = rd.idRequestDetail  ORDER BY idFine DESC LIMIT $start, $limit";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function getFine()
   {
     $sql = "SELECT r.*, u.studentCode, u.fullName, p.* FROM request AS r 
     LEFT JOIN book AS b ON r.id_book = b.idBook LEFT JOIN user AS u ON r.id_User = u.id
@@ -389,6 +390,7 @@ class adminModel extends baseModel
     $query = $this->_query($sql);
     return $query;
   }
+
   public function getReport($id)
   {
       $sql = "SELECT * FROM report WHERE id = $id"; // Truy vấn

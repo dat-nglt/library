@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
       $response = array(
         'status' => 'error',
-        'msg' => 'Thêm sách không thành công.',
+        'msg' => 'Thêm sách không thành công!',
         'path' => "?controller=admin&action=book"
       );
       echo json_encode($response);
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } else {
     $response = array(
       'status' => 'error',
-      'msg' => 'Tên sách đã tồn tại.',
+      'msg' => 'Tên sách đã tồn tại!',
       'path' => "?controller=admin&action=book"
     );
     echo json_encode($response);
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
   $response = array(
     'status' => 'error',
-    'msg' => 'Lỗi không thể thêm sách.',
+    'msg' => 'Lỗi không thể thêm sách!',
     'path' => "?controller=admin&action=book"
   );
   echo json_encode($response);

@@ -25,7 +25,7 @@
         <a href="?controller=admin&action=upload">
             <li><i class="fa-solid fa-file-arrow-up icon"></i>Upload</li>
         </a>
-        <a href="?controller=admin&action=punish">
+        <a href="?controller=admin&action=fine">
             <li><i class="fa-solid fa-dollar-sign icon"></i>Phí phạt</li>
         </a>
         <a href="?controller=admin&action=news">
