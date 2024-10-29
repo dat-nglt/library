@@ -42,7 +42,6 @@
   </div>
 </div>
 
-<script src="./js/user/profile.js"></script>
 <style>
   .profile-box {
     padding: 20px;

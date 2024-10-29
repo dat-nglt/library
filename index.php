@@ -4,6 +4,7 @@ require './controllers/baseController.php';
 require './models/baseModel.php';
 require './message.php';
 session_start();
+ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -116,8 +117,8 @@ session_start();
     ;
     ?>
   </div>
-
-
 </body>
-
 </html>
+<?php 
+  ob_end_flush();
+?>

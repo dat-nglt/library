@@ -12,7 +12,7 @@
     }
 
     .modalContent {
-        background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        background: #1c3250;
         margin: 10% auto;
         padding: 30px;
         border-radius: 15px;
@@ -204,7 +204,6 @@
                 <p><strong>Nội dung:</strong> ${report[4]}</p>
                 <p><strong>Ngày gửi:</strong> ${new Date(report[5]).toLocaleDateString()}</p>
             `;
-           
         } else {
             console.log("Report not found");
         }

@@ -2,9 +2,10 @@
 require_once '../databaseUsingAjax.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
   $oldPassword = $_POST['oldPassword'];
   $newPassword = $_POST['newPassword'];
+  
+  // Trường hợp mật khẩu cũ chính xác
   if (password_verify($oldPassword, $_SESSION['user']['password'])) {
     $id = $_SESSION['user']['id'];
     $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
@@ -18,7 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'path' => "?controller=user&action=profile&profilePage=changePassword"
       );
       echo json_encode($response);
-    } else {
+    } 
+    // Trường hợp cập nhật không thành công
+    else {
       $response = array(
         'status' => 'warning',
         'msg' => 'Cập nhật mật khẩu không thành công',
@@ -26,7 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       );
       echo json_encode($response);
     }
-  } else {
+  } 
+  // Trường hợp mật khẩu cũ không chính xác
+  else {
     $response = array(
       'status' => 'error',
       'msg' => 'Mật khẩu cũ không chính xác',
@@ -34,13 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
     echo json_encode($response);
   }
-} else {
-  $response = array(
-    'status' => 'error',
-    'msg' => 'Tên tài khoản hoặc mật khẩu không chính xác',
-    'path' => "?controller=admin&action=account"
-  );
-  echo json_encode($response);
 }
 
 $conn = null;

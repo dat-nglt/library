@@ -35,7 +35,6 @@
       <div class="header-login">
         <?php
         if (isset($_SESSION['user'])) {
-
           echo '
         <div class="rent-sticket">
           <a class="menu-item" href="http://localhost/library/?controller=user&action=rentSticket">

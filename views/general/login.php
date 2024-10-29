@@ -125,22 +125,33 @@
   }
 </style>
 
+<?php 
+  $taiKhoanDaLuu = isset($_COOKIE["taiKhoan"]) ? htmlspecialchars($_COOKIE["taiKhoan"]) : "";
+  $matKhauDaLuu = isset($_COOKIE["matKhau"]) ? htmlspecialchars($_COOKIE["matKhau"]) : "";
+ 
+?>
 <div class="login">
   <form action="?controller=user&action=login" method="POST">
     <div class="input-field">
       <label for="taiKhoan">Tên đăng nhập</label>
-      <input class="input-login" id="taiKhoan" name="taiKhoan" type="text">
+      <input class="input-login" id="taiKhoan" name="taiKhoan" type="text"
+      value="<?php echo $taiKhoanDaLuu; ?>"
+      >
       <span class="error-message">Tên tài khoản không được để trống!</span>
     </div>
     <div class="input-field">
       <label for="matKhau">Mật khẩu</label>
-      <input class="input-login" id="matKhau" name="matKhau" type="password">
+      <input class="input-login" id="matKhau" name="matKhau" type="password"
+      value="<?php echo $matKhauDaLuu; ?>"
+      >
       <span class="error-message">Mật khẩu không được để trống!</span>
       <i id="eye" class="fa-regular fa-eye-slash"></i>
     </div>
     <div class="remember-pass">
-      <input type="checkbox" name="" id="nhoMatKhau">
-      <label for="nhoMatKhau">Nhớ mật khẩu</label>
+      <input type="checkbox" name="nhoMatKhau" id="nhoMatKhau"
+      <?php echo isset($_COOKIE['taiKhoan']) ? 'checked' : ''; ?>
+      >
+      <label for="nhoMatKhau">Ghi nhớ đăng nhập</label>
     </div>
     <button id="loginBtn" name="login" type="submit">Đăng nhập</button>
 

@@ -24,19 +24,31 @@ class userController extends baseController
 
   public function login()
   {
-
     if (isset($_POST["login"])) {
+
       $taiKhoan = $_POST["taiKhoan"];
       $matKhau = $_POST["matKhau"];
 
+      // Xử lí trường hợp thông tin đăng nhập bị trống
       if ($taiKhoan == "" || $matKhau == "") {
-        errorNotLoad('Tên tài khoản hoặc mật khẩu không được để trống!');
+        warningNotLoad('Tên tài khoản hoặc mật khẩu không được để trống!');
       }
+      // Xử lí trường hợp thông tin đăng nhập đầy đủ
       else {
         // Kiểm tra sự tồn tại của tài khoản trong DB.
         $result = mysqli_fetch_assoc($this->userModel->getAccount($taiKhoan));
         // Kiểm tra mật khẩu có chính xác hay không.
         if ($result && password_verify($matKhau, $result['password'])) {
+          // Thiết lập ghi nhớ thông tin đăng nhập
+          if (isset($_POST["nhoMatKhau"])) {
+            setcookie("matKhau", $matKhau, time() + (86400 * 7), "/");
+            setcookie("taiKhoan", $taiKhoan, time() + (86400 * 7), "/");
+          }
+          // Hủy thiết lập ghi nhớ đăng nhập
+          else {
+            setcookie("matKhau", "", time() - 3600, "/");
+            setcookie("taiKhoan", "", time() - 3600, "/");
+          }
           $_SESSION['user'] = $result;
           if ($_SESSION['user']['roleAccess'] == 1) {
             // Trường hợp người dùng thông thường
@@ -47,7 +59,7 @@ class userController extends baseController
           } elseif ($_SESSION['user']['roleAccess'] == 0) {
             // Trường hợp tài khoản bị khóa
             unset($_SESSION['user']);
-            warningNotLoad('Tài khoản của bạn tạm thời đã bị khóa!  Vui lòng đến thư viện và đóng phí 50.000VND để mở khóa!');
+            warningNotLoad('Tài khoản của bạn tạm thời đã bị khóa! Vui lòng đến thư viện và đóng phí 50.000VND để mở khóa!');
           }
         } else {
           errorNotLoad('Tên tài khoản hoặc mật khẩu không chính xác!');
@@ -105,41 +117,6 @@ class userController extends baseController
 
   public function newshot()
   {
-    // $news = [
-    //   [
-    //     'image' => './upload/check-in.png',
-    //     'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
-    //     'author' => 'Trương Văn Đạt',
-    //     'views' => 2601,
-    //     'date' => '26/01/2024',
-    //     'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư việnHướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư việnHướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư việnHướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư việnHướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư việnHướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
-    //   ],
-    //   [
-    //     'image' => './upload/check-in.png',
-    //     'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
-    //     'author' => 'Trương Văn Đạt',
-    //     'views' => 2601,
-    //     'date' => '26/01/2024',
-    //     'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
-    //   ],
-    //   [
-    //     'image' => './upload/check-in.png',
-    //     'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
-    //     'author' => 'Trương Văn Đạt',
-    //     'views' => 2601,
-    //     'date' => '26/01/2024',
-    //     'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
-    //   ],
-    //   [
-    //     'image' => './upload/check-in.png',
-    //     'title' => 'Hướng Dẫn Check-In Khi Đến Thư Viện',
-    //     'author' => 'Trương Văn Đạt',
-    //     'views' => 2601,
-    //     'date' => '26/01/2024',
-    //     'content' => 'Hướng dẫn sinh viên, viên chức của trường Check-In khi đến sử dụng thư viện'
-    //   ],
-    // ];
-
     $componentName = 'homeHotNews';
     $news = $this->userModel->getAllNews(3);
     return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $news]);
