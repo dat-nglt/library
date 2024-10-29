@@ -60,17 +60,17 @@
                         </div>
                     </td>
                     <td>
-                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;"><?= $value['countDate'] ?>
+                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;">
                         </div>
                     </td>
                     <td>
-                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;"><?= $value['moneyPunish'] ?> VNĐ
+                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;"> VNĐ
                         </div>
                     </td>
 
                     <td>
                         <div style="justify-content: center;">
-                            <button class="list__action-btn" type="button" data-id="<?= $value['idPunish'] ?>"><i
+                            <button class="list__action-btn" type="button" data-id="<?= $value['idFine'] ?>"><i
                                     class="fa-solid fa-trash list__icon-del"></i></button>
                         </div>
                     </td>
@@ -105,8 +105,20 @@
                     }
                 }
                 ?>
-            </div>
+                
+            </div> <?php if ($_SESSION['search-fine'] != '') { ?>
+                <span>Từ khóa đã tìm kiếm: <span><?= $_SESSION['search-fine'] ?></span></span>
+            <?php } ?>
         </div>
     </div>
-
-    <script src="./js/admin/punish/deletePunish.js"></script>
+</div>
+<script>
+    var listUser = <?php echo json_encode(mysqli_fetch_all($listUser)) ?>;
+    var listRequest = <?php echo json_encode(mysqli_fetch_all($listRequest)) ?>;
+    console.log(listUser)
+    console.log('---------------')
+    console.log(listRequest)
+</script>
+<script src="./js/admin/fine/openFormAdd.js"></script>
+<script src="./js/admin/closeFormAdd.js"></script>
+<script src="./js/admin/fine/openFormEdit.js"></script>

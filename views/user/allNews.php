@@ -2,7 +2,7 @@
   <div class="news-search-sub">
     <select class="select-search" id="sort-search">
       <option value="desc">Mới nhất</option>
-      <option value="asc">Xưa nhất</option>
+      <option value="asc">Củ nhất</option>
     </select>
     <input class="date-news" type="date" id="date-search">
     <input id="content-search" class="input-search" type="text"
@@ -21,7 +21,7 @@
         <a href="?controller=user&action=newsdetails&id=<?php echo $componentData['id'] ?>" class="news-title"><?php echo $componentData['title'] ?></a>
         <div class="info-field-news">
           <div class="content-container"><i class="fa-solid fa-newspaper"></i><span><?php echo $componentData['content'] ?></span></div>
-          <div><i class="fa-solid fa-calendar-days"></i><span><?php echo $componentData['datenews'] ?></span></div>
+          <div><i class="fa-solid fa-calendar-days"></i><span><?php echo $componentData['date'] ?></span></div>
         </div>
       </div>
     </div>

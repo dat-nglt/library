@@ -8,8 +8,8 @@ class userController extends baseController
   {
     $this->loadModel('userModel');
     $this->userModel = new userModel;
-
   }
+
   public function index()
   {
 
@@ -20,6 +20,47 @@ class userController extends baseController
       $this->userModel->denyRequest($_SESSION['user']['id']); //hủy yêu cầu sau 24h
     }
     return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
+  }
+
+  public function login()
+  {
+
+    if (isset($_POST["login"])) {
+      $taiKhoan = $_POST["taiKhoan"];
+      $matKhau = $_POST["matKhau"];
+
+      if ($taiKhoan == "" || $matKhau == "") {
+        errorNotLoad('Tên tài khoản hoặc mật khẩu không được để trống!');
+      }
+      else {
+        // Kiểm tra sự tồn tại của tài khoản trong DB.
+        $result = mysqli_fetch_assoc($this->userModel->getAccount($taiKhoan));
+        // Kiểm tra mật khẩu có chính xác hay không.
+        if ($result && password_verify($matKhau, $result['password'])) {
+          $_SESSION['user'] = $result;
+          if ($_SESSION['user']['roleAccess'] == 1) {
+            // Trường hợp người dùng thông thường
+            success('Đăng nhập thành công', 'http://localhost/library/');
+          } else if ($_SESSION['user']['roleAccess'] == 2 || $_SESSION['user']['roleAccess'] == 3) {
+            // Trường hợp thủ thư và quản trị viên
+            confirm('Đăng nhập thành công', 'Chọn trang bạn cần di chuyển đến!', 'success', 'Trang chủ', 'Admin', 'http://localhost/library/', 'http://localhost/library/?controller=admin');
+          } elseif ($_SESSION['user']['roleAccess'] == 0) {
+            // Trường hợp tài khoản bị khóa
+            unset($_SESSION['user']);
+            warningNotLoad('Tài khoản của bạn tạm thời đã bị khóa!  Vui lòng đến thư viện và đóng phí 50.000VND để mở khóa!');
+          }
+        } else {
+          errorNotLoad('Tên tài khoản hoặc mật khẩu không chính xác!');
+        }
+      }
+    }
+    return $this->loadview('general.login', []);
+  }
+
+  public function logout()
+  {
+    session_unset();
+    echo "<script>window.location.href = '?controller=user&action=login';</script>";
   }
 
   public function allBooks()
@@ -109,36 +150,6 @@ class userController extends baseController
     $componentName = 'homeNewsDetails';
     $news = $this->userModel->getNews($id);
     return $this->loadview('user.detailsNews', ['componentDatas' => $news]);
-  }
-
-  public function login()
-  {
-
-    if (isset($_POST["login"])) {
-      $taiKhoan = $_POST["taiKhoan"];
-      $matKhau = $_POST["matKhau"];
-      $result = mysqli_fetch_assoc($this->userModel->getAccount($taiKhoan));
-      if ($result && password_verify($matKhau, $result['password'])) {
-        $_SESSION['user'] = $result;
-        if ($_SESSION['user']['roleAccess'] == 1) {
-          success('Đăng nhập thành công', 'http://localhost/library/');
-        } else if ($_SESSION['user']['roleAccess'] == 2 || $_SESSION['user']['roleAccess'] == 3) {
-          confirm('Đăng nhập thành công', 'Chọn trang bạn cần di chuyển đến!', 'success', 'Trang chủ', 'Admin', 'http://localhost/library/', 'http://localhost/library/?controller=admin');
-        } elseif ($_SESSION['user']['roleAccess'] == 0) {
-          unset($_SESSION['user']);
-          warningNotLoad('Tài khoản của bạn tạm thời đã bị khóa!  Vui lòng đến thư viện và đóng phí 50.000VND để mở khóa!');
-        }
-      } else {
-        errorNotLoad('Tên tài khoản hoặc mật khẩu không chính xác!');
-      }
-    }
-    return $this->loadview('general.login', []);
-  }
-
-  public function logout()
-  {
-    session_unset();
-    echo "<script>window.location.href = '?controller=user&action=login';</script>";
   }
 
   public function profile()

@@ -26,7 +26,7 @@
             <li><i class="fa-solid fa-file-arrow-up icon"></i>Upload</li>
         </a>
         <a href="?controller=admin&action=fine">
-            <li><i class="fa-solid fa-dollar-sign icon"></i>Phí phạt</li>
+            <li><i class="fa-solid fa-file-invoice-dollar icon"></i>Phí phạt</li>
         </a>
         <a href="?controller=admin&action=news">
             <li><i class="fa-solid fa-newspaper icon"></i>Tin tức</li>

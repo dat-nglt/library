@@ -647,7 +647,7 @@ class adminController extends baseController
   public function fine()
   {
     if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
-      $limit = 5;
+      $limit = 15;
       $_SESSION['sort-fine'] = isset($_SESSION['sort-fine']) ? $_SESSION['sort-fine'] : 'desc';
       $_SESSION['search-fine'] = isset($_SESSION['search-fine']) ? $_SESSION['search-fine'] : '';
       if (isset($_POST['sort-fine'])) {
@@ -668,7 +668,9 @@ class adminController extends baseController
       }
       $start = ($current_page - 1) * $limit;
       $listFine = $this->adminModel->getListFine($start, $limit, $_SESSION['sort-fine'], $_SESSION['search-fine']);
-      return $this->loadview('admin.fine', ['listFine' => $listFine, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+      $listUser = $this->adminModel->getListFineOfUser();
+      $listRequest = $this->adminModel->getListRequest();
+      return $this->loadview('admin.fine', ['listFine' => $listFine, 'listUser' => $listUser, 'listRequest' => $listRequest, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
     } else {
       header('Location: http://localhost/library/');
       exit();

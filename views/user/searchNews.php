@@ -2,7 +2,7 @@
   <div class="news-search-sub">
     <select class="select-search" id="sort-search">
       <option value="desc">Mới nhất</option>
-      <option value="asc">Xưa nhất</option>
+      <option value="asc">Củ nhất</option>
     </select>
     <input class="date-news" type="date" id="date-search">
     <input id="content-search" class="input-search" type="text"

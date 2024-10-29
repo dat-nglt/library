@@ -8,7 +8,7 @@
           <div class="news-date">
             <i class="fa-solid fa-calendar-days icon-newdetail">
             </i>
-            <span><?php echo htmlspecialchars($componentData['datenews']); ?></span>
+            <span><?php echo htmlspecialchars($componentData['date']); ?></span>
           </div>
 
           <div class="news-content"><?php echo $componentData['content'] ?></div>

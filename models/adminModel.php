@@ -54,7 +54,7 @@ class adminModel extends baseModel
     if ($search != '') {
       $sql = "SELECT * FROM user WHERE (studentCode = '$search' OR fullName like '%$search%') AND roleAccess IN (0,1)";
     } else {
-      $sql = "SELECT * FROM user";
+      $sql = "SELECT * FROM user WHERE roleAccess IN (0,1)";
     }
     $query = $this->_query($sql);
     return $query;
@@ -359,31 +359,41 @@ class adminModel extends baseModel
     return $query;
   }
 
-  public function getAllFine($sort)
+  public function getAllFine($search)
   {
-      $sql = "SELECT * FROM fine";
+      $sql = "SELECT rd.*, u.studentCode, u.fullName, f.* FROM request_detail AS rd
+    LEFT JOIN request AS r ON r.idRequest = rd.id_Request LEFT JOIN user AS u ON r.id_User = u.id
+    JOIN fine as f On f.id_RequestDetail  = rd.idRequestDetail WHERE u.studentCode like '%$search%'";
     $query = $this->_query($sql);
     return $query;
   }
 
-  public function getListFine($start, $limit, $sort)
+  public function getListFine($start, $limit, $sort, $search)
   {
     $sql = "SELECT rd.*, u.studentCode, u.fullName, f.* FROM request_detail AS rd
     LEFT JOIN book AS b ON rd.id_book = b.idBook LEFT JOIN request AS r ON r.idRequest = rd.id_Request LEFT JOIN user AS u ON r.id_User = u.id
-    JOIN fine as f On f.id_RequestDetail  = rd.idRequestDetail  ORDER BY idFine DESC LIMIT $start, $limit";
+    JOIN fine as f On f.id_RequestDetail  = rd.idRequestDetail WHERE u.studentCode like '%$search%' ORDER BY f.idFine DESC LIMIT $start, $limit";
     $query = $this->_query($sql);
     return $query;
   }
 
-  public function getFine()
+  public function getListRequest()
   {
-    $sql = "SELECT r.*, u.studentCode, u.fullName, p.* FROM request AS r 
-    LEFT JOIN book AS b ON r.id_book = b.idBook LEFT JOIN user AS u ON r.id_User = u.id
-    JOIN punish as p On p.id_Request = r.idRequest";
-
+    $sql = "SELECT rd.*, u.studentCode, u.fullName, f.* FROM request_detail AS rd
+    LEFT JOIN book AS b ON rd.id_book = b.idBook LEFT JOIN request AS r ON r.idRequest = rd.id_Request LEFT JOIN user AS u ON r.id_User = u.id
+    JOIN fine as f On f.id_RequestDetail  = rd.idRequestDetail WHERE rd.status IN (1,3)";
     $query = $this->_query($sql);
     return $query;
   }
+
+  public function getListFineOfUser()
+  {
+    $sql = "SELECT u.studentCode, u.fullName FROM request_detail AS rd
+    LEFT JOIN request AS r ON r.idRequest = rd.id_Request LEFT JOIN user AS u ON u.id = r.id_User WHERE rd.status IN (1,3) GROUP BY u.id;";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
   public function getAllReport()
   {
     $sql = "SELECT * FROM report";

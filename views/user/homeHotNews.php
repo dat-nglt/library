@@ -8,7 +8,7 @@
         <a href="?controller=user&action=newsdetails&id=<?php echo $componentData['id'] ?>" class="news-title"><?php echo $componentData['title'] ?></a>
         <div class="info-field-news">
           <div class="content-container"><span class="hidden_content_news"><?php echo $componentData['content'] ?></span></div>
-          <div><i class="fa-solid fa-calendar-days"></i><span><?php echo $componentData['datenews'] ?></span></div>
+          <div><i class="fa-solid fa-calendar-days"></i><span><?php echo $componentData['date'] ?></span></div>
         </div>
       </div>
     </div>

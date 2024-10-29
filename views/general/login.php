@@ -142,9 +142,9 @@
       <input type="checkbox" name="" id="nhoMatKhau">
       <label for="nhoMatKhau">Nhớ mật khẩu</label>
     </div>
-    <button id="loginBtn" name="login" type="submit" disabled>Đăng nhập</button>
+    <button id="loginBtn" name="login" type="submit">Đăng nhập</button>
 
-    <div id="or">Hoặc</div>
+    <!-- <div id="or">Hoặc</div>
     <div class="login__google" style="margin: 0 auto">
       <div id="g_id_onload" data-client_id="554567692253-kgdu69c1indcvdctlnmi9r0083eeh2qg.apps.googleusercontent.com"
         data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse" data-auto_prompt="false">
@@ -153,19 +153,17 @@
       <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
         data-text="signin_with" data-size="large" data-logo_alignment="left">
       </div>
-    </div>
-
-
+    </div> -->
   </form>
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+
     const inputLogin = document.querySelectorAll('.input-login');
     const loginBtn = document.querySelector('#loginBtn');
     const eye = document.querySelector('#eye');
     const passwordInput = document.querySelector('#matKhau');
-    const accountInput = document.querySelector('#taiKhoan');
     const errorInfo = document.querySelectorAll('.error-message');
 
 
@@ -175,15 +173,11 @@
       });
     });
 
-    inputLogin.forEach(element => {
-      element.addEventListener('input', function () {
-        loginBtn.disabled = Array.from(inputLogin).some(input => input.value === '');
-      });
-    });
-
-    accountInput.addEventListener('input', function (e) {
-      e.target.value = e.target.value.replace(/\D/g, '');
-    });
+    // inputLogin.forEach(element => {
+    //   element.addEventListener('input', function () {
+    //     loginBtn.disabled = Array.from(inputLogin).some(input => input.value === '');
+    //   });
+    // });
 
     var show = false;
     eye.addEventListener('click', function () {
@@ -193,6 +187,5 @@
       eye.classList.toggle("fa-eye");
     });
   });
-
 </script>
-<script src="https://accounts.google.com/gsi/client" async></script>
+<!-- <script src="https://accounts.google.com/gsi/client"async></script> -->

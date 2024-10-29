@@ -54,7 +54,7 @@ class userModel extends baseModel
 
   public function getAllNews($limit = null)
   {
-    $sql = "SELECT * FROM news ORDER BY datenews desc";
+    $sql = "SELECT * FROM news ORDER BY date desc";
 
     if (isset($limit)) {
       $sql .= " LIMIT " . $limit;
@@ -95,23 +95,23 @@ class userModel extends baseModel
         FROM news
         WHERE 
             title LIKE '%$contentSearch%'
-            OR datenews = '$dateSearch'
+            OR date = '$dateSearch'
         ORDER BY
-            datenews $sortSearch
+            date $sortSearch
         ";
       } elseif ($dateSearch==''){
         $sql = "SELECT *
         FROM news
         ORDER BY
-            datenews $sortSearch
+            date $sortSearch
         ";
       } else {
         $sql = "SELECT *
         FROM news
         WHERE 
-          datenews = '$dateSearch'
+          date = '$dateSearch'
         ORDER BY
-            datenews $sortSearch
+            date $sortSearch
         ";
       }
 

@@ -16,7 +16,6 @@ session_start();
   <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-jquery/2.13.1/cloudinary-jquery.min.js"></script>
   <link rel="stylesheet" href="./css/style.css">
-  <link rel="stylesheet" href="./css/login.css">
   <link rel="stylesheet" href="./css/user/main.css">
   <link rel="stylesheet" href="./css/user/profile.css">
   <link rel="stylesheet" href="./css/admin/main.css">
@@ -84,7 +83,12 @@ session_start();
         padding: 40px 0px 20px;
              ">';
       } else if ($_GET['controller'] === 'admin') {
-        require_once './views/admin/header.php';
+        if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
+          require_once './views/admin/header.php';
+        }else{
+          header('Location: http://localhost/library/');
+          exit();
+        }
       }
 
       require_once "./controllers/" . $controllerName . ".php";
