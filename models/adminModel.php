@@ -3,47 +3,33 @@
 class adminModel extends baseModel
 {
 
-  public function countRequestInMonth()
+  public function countBookInStock()
   {
-    $sql = "SELECT 
-    MONTH(dateRental) AS month,
-    COUNT(*) AS count
-    FROM 
-        request
-    WHERE 
-        YEAR(dateRental) = 2024
-    GROUP BY 
-        MONTH(dateRental)
-    ORDER BY month;";
-    $query = $this->_query($sql);
-    return $query;
-  }
-
-  public function countStatusRequest()
-  {
-    $sql = "SELECT statusRequest, COUNT(*) AS total 
-    FROM request
-    GROUP BY statusRequest";
-
-    $query = $this->_query($sql);
-    return $query;
-  }
-
-  public function countUser()
-  {
-    $sql = "SELECT roleAccess, COUNT(*) AS total 
-    FROM user
-    GROUP BY roleAccess;";
-    $query = $this->_query($sql);
-    return $query;
-  }
-
-  public function countCategory()
-  {
-    $sql = "SELECT category.idCategory, category.nameCategory, COUNT(*)
+    $sql = 'SELECT SUM(quantityBook) AS "count", category.nameCategory AS "nameCategory"
     FROM book
-    INNER JOIN category ON book.id_Category = category.idCategory
-    GROUP BY category.nameCategory";
+    JOIN category ON book.id_Category = category.idCategory
+    GROUP BY book.id_Category, category.nameCategory;
+    ';
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function countReader()
+  {
+    $sql = 'SELECT COUNT(*) AS "countReader", user.sex AS "gender" FROM user GROUP BY user.sex';
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function countRequest($yearChart = 2024, $statusRequest = null)
+  {
+    $sql = "SELECT COUNT(*) AS 'countRequest', MONTH(request.created_at) AS 'month', YEAR(request.created_at) AS 'year'
+    FROM `request`
+    WHERE YEAR(request.created_at) = $yearChart";
+    $sql .= !isset($statusRequest) || $statusRequest === "all" ? "" : " AND request.statusRequest = $statusRequest";
+
+    $sql .= "  GROUP BY MONTH(request.created_at)";
+
     $query = $this->_query($sql);
     return $query;
   }
@@ -361,7 +347,7 @@ class adminModel extends baseModel
 
   public function getAllFine($search)
   {
-      $sql = "SELECT rd.*, u.studentCode, u.fullName, f.* FROM request_detail AS rd
+    $sql = "SELECT rd.*, u.studentCode, u.fullName, f.* FROM request_detail AS rd
     LEFT JOIN request AS r ON r.idRequest = rd.id_Request LEFT JOIN user AS u ON r.id_User = u.id
     JOIN fine as f On f.id_RequestDetail  = rd.idRequestDetail WHERE u.studentCode like '%$search%'";
     $query = $this->_query($sql);
@@ -403,19 +389,19 @@ class adminModel extends baseModel
 
   public function getReport($id)
   {
-      $sql = "SELECT * FROM report WHERE id = $id"; // Truy vấn
-      $query = $this->_query($sql); // Thực hiện truy vấn
-  
-      // Kiểm tra xem có kết quả không
-      if ($query) {
-          $data = []; // Khởi tạo mảng để chứa kết quả
-          while ($row = mysqli_fetch_assoc($query)) {
-              $data[] = $row; // Thêm từng dòng vào mảng
-          }
-          return $data; // Trả về mảng kết quả
+    $sql = "SELECT * FROM report WHERE id = $id"; // Truy vấn
+    $query = $this->_query($sql); // Thực hiện truy vấn
+
+    // Kiểm tra xem có kết quả không
+    if ($query) {
+      $data = []; // Khởi tạo mảng để chứa kết quả
+      while ($row = mysqli_fetch_assoc($query)) {
+        $data[] = $row; // Thêm từng dòng vào mảng
       }
-  
-      return null; // Nếu không có kết quả nào, trả về null
+      return $data; // Trả về mảng kết quả
+    }
+
+    return null; // Nếu không có kết quả nào, trả về null
   }
   public function getListReport($start, $limit, $sort, $search)
   {

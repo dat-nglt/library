@@ -12,11 +12,41 @@ class adminController extends baseController
   }
 
   public function index()
-  { 
+  {
     if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
+
+      // Lựa chọn thống kê
       $_SESSION['chart_option'] = isset($_SESSION['chart_option']) ? $_SESSION['chart_option'] : 'chartReader';
       $_SESSION['chart_option'] = isset($_POST['chart_option']) ? $_POST['chart_option'] : $_SESSION['chart_option'];
-      return $this->loadview('admin.home');
+
+      $chartData = null;
+
+      switch ($_SESSION['chart_option']) {
+        case 'chartBook':
+          // Thống kê tài liệu
+          $_SESSION['category_filter'] = isset($_SESSION['category_filter']) ? $_SESSION['category_filter'] : 'Sách khoa học';
+          $_SESSION['category_filter'] = isset($_POST['category_filter']) ? $_POST['category_filter'] : $_SESSION['category_filter'];
+          $chartData = $this->adminModel->countBookInStock();
+          break;
+        case 'chartReader':
+          // Thống kê số lượng độc giả
+          $_SESSION['sex_filter'] = isset($_SESSION['sex_filter']) ? $_SESSION['sex_filter'] : 'male';
+          $_SESSION['sex_filter'] = isset($_POST['sex_filter']) ? $_POST['sex_filter'] : $_SESSION['sex_filter'];
+          $_SESSION['grade_filter'] = isset($_SESSION['grade_filter']) ? $_SESSION['grade_filter'] : '9';
+          $_SESSION['grade_filter'] = isset($_POST['grade_filter']) ? $_POST['grade_filter'] : $_SESSION['grade_filter'];
+          $chartData = $this->adminModel->countReader();
+          break;
+        case 'chartRequest':
+          // Thống kê số lượt mượn sách
+          $_SESSION['years_filter'] = isset($_SESSION['years_filter']) ? $_SESSION['years_filter'] : '2024';
+          $_SESSION['years_filter'] = isset($_POST['years_filter']) ? $_POST['years_filter'] : $_SESSION['years_filter'];
+          $_SESSION['status_filter'] = isset($_SESSION['status_filter']) ? $_SESSION['status_filter'] : 'all';
+          $_SESSION['status_filter'] = isset($_POST['status_filter']) ? $_POST['status_filter'] : $_SESSION['status_filter'];
+          $chartData = $this->adminModel->countRequest($_SESSION['years_filter'], $_SESSION['status_filter']);
+          break;
+      }
+
+      return $this->loadview('admin.home', ['chartData' => $chartData]);
     } else {
       header('Location: http://localhost/library/');
       exit();
@@ -574,7 +604,7 @@ class adminController extends baseController
         $_SESSION['sort-report'] = $_POST['sort-report'];
       }
       if (isset($_POST['search-report'])) {
-          $_SESSION['search-report'] = $_POST['search-report'];
+        $_SESSION['search-report'] = $_POST['search-report'];
       }
       $total = $this->adminModel->getAllReport($_SESSION['search-report']);
 
@@ -617,7 +647,7 @@ class adminController extends baseController
       }
       if (isset($_POST['search-news'])) {
         $_SESSION['search-news'] = $_POST['search-news'];
-   
+
       }
       $total = $this->adminModel->getAllNews($_SESSION['search-news']);
       $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -648,7 +678,7 @@ class adminController extends baseController
       }
       if (isset($_POST['search-fine'])) {
         $_SESSION['search-fine'] = $_POST['search-fine'];
-   
+
       }
       $total = $this->adminModel->getAllFine($_SESSION['search-fine']);
       $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
