@@ -169,14 +169,14 @@ class userModel extends baseModel
     LEFT JOIN
         user ON request.id_User = user.id
     WHERE 
-        request.id_User = 1
+        request.id_User = $idUser
     ";
 
     $sql .= $statusRent === "all" ? "" : " AND request.statusRequest = $statusRent";
 
-    // $sql .= $searchListRentBook
-    //   ? " AND book.nameBook like '%$searchListRentBook%' ORDER BY book.nameBook $sortListRentBook"
-    //   : " ORDER BY book.nameBook $sortListRentBook";
+    $sql .= $searchListRentBook
+      ? " AND book.nameBook like '%$searchListRentBook%' ORDER BY request.created_at $sortListRentBook"
+      : " ORDER BY request.created_at $sortListRentBook";
 
     $query = $this->_query($sql);
     return $query;
@@ -184,19 +184,38 @@ class userModel extends baseModel
 
   public function listRentBook($idUser, $sortListRentBook, $searchListRentBook, $statusRent, $start, $limit)
   {
-    $sql = "SELECT idRequest, id_User, id_Book, dateRequest, dateRental, dateReturn, book.nameBook, book.publisherBook, statusRequest FROM request,
-    book, user WHERE request.id_User = user.id AND request.id_Book = book.idBook AND user.id = $idUser";
+    $sql = "SELECT 
+    request.idRequest,
+    request_detail.id_Book,
+    book.nameBook,
+    book.creatorBook,
+    request.statusRequest,
+    request.id_User,
+    request.created_at,
+    request_detail.return_date
+    FROM 
+        request
+    LEFT JOIN 
+        request_detail ON request.idRequest = request_detail.id_Request
+    LEFT JOIN
+        book ON request_detail.id_Book = book.idBook
+    LEFT JOIN
+        user ON request.id_User = user.id
+    WHERE 
+        request.id_User = $idUser
+    ";
 
     $sql .= $statusRent === "all" ? "" : " AND request.statusRequest = $statusRent";
 
 
     $sql .= $searchListRentBook
-      ? " AND book.nameBook like '%$searchListRentBook%' ORDER BY request.dateRequest $sortListRentBook LIMIT $start, $limit"
-      : " ORDER BY request.dateRequest $sortListRentBook LIMIT $start, $limit";
+      ? " AND book.nameBook like '%$searchListRentBook%' ORDER BY request.created_at $sortListRentBook LIMIT $start, $limit"
+      : " ORDER BY request.created_at $sortListRentBook LIMIT $start, $limit";
 
     $query = $this->_query($sql);
     return $query;
   }
+
   public function addReport($name, $email, $tel, $des)
   {
     $sql = "INSERT INTO report( name, email, tel, description, timeReport ) VALUES ('$name', '$email', '$tel', '$des',NOW())";

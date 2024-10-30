@@ -34,9 +34,9 @@ function openFormAdd() {
                             placeholder="Nhập email">
                     </div>
                     <div class="list__form-box">
-                        <label for="input-class" class="list__form-label">Khoa <span>*</span></label>
+                        <label for="input-class" class="list__form-label">Lớp <span>*</span></label>
                         <input type="text" class="list__form-input" name="class_user" required id="input-class" 
-                            placeholder="Nhập khoa">
+                            placeholder="Nhập Lớp">
                     </div>
                     <div class="list__form-box" id="password-admin">
                         <label for="input-password" class="list__form-label">Mật khẩu <span>*</span></label>

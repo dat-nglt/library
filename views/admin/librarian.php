@@ -41,7 +41,7 @@
                     <th style="width: 22%;">Họ tên</th>
                     <th style="width: 10%;">SĐT</th>
                     <th style="width: 20%;">Email</th>
-                    <th style="width: 20%;">Khoa</th>
+                    <th style="width: 20%;">Lớp</th>
                     <th style="width: 8%;"></th>
                 </tr>
                 <?php

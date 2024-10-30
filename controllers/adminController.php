@@ -14,16 +14,9 @@ class adminController extends baseController
   public function index()
   { 
     if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
-      $countRequestInMonth = mysqli_fetch_all($this->adminModel->countRequestInMonth());
-      $countStatusRequest = mysqli_fetch_all($this->adminModel->countStatusRequest());
-      $countUser = mysqli_fetch_all($this->adminModel->countUser());
-      $countCategory = mysqli_fetch_all($this->adminModel->countCategory());
-      return $this->loadview('admin.home', [
-        'countStatusRequest' => $countStatusRequest,
-        'countUser' => $countUser,
-        'countCategory' => $countCategory,
-        'countRequestInMonth' => $countRequestInMonth
-      ]);
+      $_SESSION['chart_option'] = isset($_SESSION['chart_option']) ? $_SESSION['chart_option'] : 'chartReader';
+      $_SESSION['chart_option'] = isset($_POST['chart_option']) ? $_POST['chart_option'] : $_SESSION['chart_option'];
+      return $this->loadview('admin.home');
     } else {
       header('Location: http://localhost/library/');
       exit();

@@ -3,7 +3,9 @@
         <div>
             <div style="flex: 1;display:flex;justify-content: space-between">
                 <div>
-                    <span>Danh sách đóng phạt <span style="font-size: 14px"><button onclick="openFormAdd()" id="list__add-btn" type="button">Thêm
+                    <span>Danh sách đóng phạt <span style="font-size: 14px"><button
+                     <?php if(mysqli_num_rows($listUser) < 1) echo 'disabled style="background-color: gray" title="Không thể thêm phiếu phạt do không có phiếu đang mượn hoặc quá hạn trả sách"' ?> 
+                     <?php if(mysqli_num_rows($listUser) > 0) echo 'onclick="openFormAdd()"' ?>  id="list__add-btn" type="button">Thêm
                     phiếu phạt</button>
                 </div>
                 <div style="display:flex; gap: 5px; justify-content: center; padding: 0 0 5px;align-items: center;">
@@ -36,11 +38,12 @@
             <table>
                 <tr>
                     <th style="width: 5%;">#</th>
-                    <th style="width: 10%;">MSSV</th>
-                    <th style="width: 20%;">Họ & tên</th>
-                    <th style="width: 20%;">Mã mượn sách</th>
-                    <th style="width: 20%;">Số ngày trễ hạn</th>
-                    <th style="width: 20%;">Tổng phí phạt</th>
+                    <th style="width: 8%;">MSSV</th>
+                    <th style="width: 17%;">Họ & tên</th>
+                    <th style="width: 20%;">Tên sách mượn</th>
+                    <th style="width: 10%;">Số tiền phạt</th>
+                    <th style="width: 10%;">Ngày nộp</th>
+                    <th style="width: 20%;">Lý do</th>
                     <th style="width: 5%;"></th>
                 </tr>
                 <?php
@@ -56,18 +59,22 @@
                         <div class="list__hidden-text" style="-webkit-line-clamp: 2;"><?= $value['fullName'] ?></div>
                     </td>
                     <td>
-                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;"><?= $value['id_Request'] ?>
+                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;"><?= $value['nameBook'] ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;"><?= number_format($value['amount'], 0, '.', '.') ?>&#8363;
                         </div>
                     </td>
                     <td>
                         <div class="list__hidden-text" style="-webkit-line-clamp: 2;">
+                            <?= date("d-m-Y", strtotime($value['fine_date'])) ?>
                         </div>
                     </td>
                     <td>
-                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;"> VNĐ
+                        <div class="list__hidden-text" style="-webkit-line-clamp: 2;"><?= $value['reason'] ?>
                         </div>
                     </td>
-
                     <td>
                         <div style="justify-content: center;">
                             <button class="list__action-btn" type="button" data-id="<?= $value['idFine'] ?>"><i
@@ -115,9 +122,6 @@
 <script>
     var listUser = <?php echo json_encode(mysqli_fetch_all($listUser)) ?>;
     var listRequest = <?php echo json_encode(mysqli_fetch_all($listRequest)) ?>;
-    console.log(listUser)
-    console.log('---------------')
-    console.log(listRequest)
 </script>
 <script src="./js/admin/fine/openFormAdd.js"></script>
 <script src="./js/admin/closeFormAdd.js"></script>

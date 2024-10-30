@@ -23,8 +23,8 @@
                                         Mới nhất
                                     </option>
                                     <option value="asc" <?php if ($_SESSION['sort-news'] === 'asc')
-                                    echo 'selected' ?>>Cũ
-                                        nhất
+                                    echo 'selected' ?>>
+                                        Cũ nhất
                                     </option>
                                 </select>
                                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>

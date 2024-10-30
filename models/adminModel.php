@@ -370,7 +370,7 @@ class adminModel extends baseModel
 
   public function getListFine($start, $limit, $sort, $search)
   {
-    $sql = "SELECT rd.*, u.studentCode, u.fullName, f.* FROM request_detail AS rd
+    $sql = "SELECT rd.*, u.studentCode, u.fullName, f.*, b.nameBook FROM request_detail AS rd
     LEFT JOIN book AS b ON rd.id_book = b.idBook LEFT JOIN request AS r ON r.idRequest = rd.id_Request LEFT JOIN user AS u ON r.id_User = u.id
     JOIN fine as f On f.id_RequestDetail  = rd.idRequestDetail WHERE u.studentCode like '%$search%' ORDER BY f.idFine DESC LIMIT $start, $limit";
     $query = $this->_query($sql);
@@ -379,16 +379,16 @@ class adminModel extends baseModel
 
   public function getListRequest()
   {
-    $sql = "SELECT rd.*, u.studentCode, u.fullName, f.* FROM request_detail AS rd
+    $sql = "SELECT r.id_User, b.idBook, b.nameBook, rd.idRequestDetail, DATEDIFF(NOW(), rd.due_date) AS totalDay FROM request_detail AS rd
     LEFT JOIN book AS b ON rd.id_book = b.idBook LEFT JOIN request AS r ON r.idRequest = rd.id_Request LEFT JOIN user AS u ON r.id_User = u.id
-    JOIN fine as f On f.id_RequestDetail  = rd.idRequestDetail WHERE rd.status IN (1,3)";
+    LEFT JOIN fine as f On f.id_RequestDetail  = rd.idRequestDetail WHERE rd.status IN (1,3)";
     $query = $this->_query($sql);
     return $query;
   }
 
   public function getListFineOfUser()
   {
-    $sql = "SELECT u.studentCode, u.fullName FROM request_detail AS rd
+    $sql = "SELECT u.id, u.studentCode, u.fullName FROM request_detail AS rd
     LEFT JOIN request AS r ON r.idRequest = rd.id_Request LEFT JOIN user AS u ON u.id = r.id_User WHERE rd.status IN (1,3) GROUP BY u.id;";
     $query = $this->_query($sql);
     return $query;
