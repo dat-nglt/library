@@ -88,10 +88,10 @@ class userModel extends baseModel
     $query = $this->_query($sql);
     return $query;
   }
-  public function newsSearch($contentSearch,$sortSearch,$dateSearch)
+  public function newsSearch($contentSearch, $sortSearch, $dateSearch)
   {
-      if ($contentSearch!='') {
-        $sql = "SELECT *
+    if ($contentSearch != '') {
+      $sql = "SELECT *
         FROM news
         WHERE 
             title LIKE '%$contentSearch%'
@@ -99,21 +99,21 @@ class userModel extends baseModel
         ORDER BY
             date $sortSearch
         ";
-      } elseif ($dateSearch==''){
-        $sql = "SELECT *
+    } elseif ($dateSearch == '') {
+      $sql = "SELECT *
         FROM news
         ORDER BY
             date $sortSearch
         ";
-      } else {
-        $sql = "SELECT *
+    } else {
+      $sql = "SELECT *
         FROM news
         WHERE 
           date = '$dateSearch'
         ORDER BY
             date $sortSearch
         ";
-      }
+    }
 
     $query = $this->_query($sql);
     return $query;
@@ -151,14 +151,32 @@ class userModel extends baseModel
 
   public function listAllRentBook($idUser, $sortListRentBook, $searchListRentBook, $statusRent)
   {
-    $sql = "SELECT idRequest, id_User, id_Book, dateRequest, dateRental, dateReturn, book.nameBook, book.publisherBook, statusRequest FROM request,
-    book, user WHERE request.id_User = user.id AND request.id_Book = book.idBook AND user.id = $idUser";
+    $sql = "SELECT 
+    request.idRequest,
+    request_detail.id_Book,
+    book.nameBook,
+    book.creatorBook,
+    request.statusRequest,
+    request.id_User,
+    request.created_at,
+    request_detail.return_date
+    FROM 
+        request
+    LEFT JOIN 
+        request_detail ON request.idRequest = request_detail.id_Request
+    LEFT JOIN
+        book ON request_detail.id_Book = book.idBook
+    LEFT JOIN
+        user ON request.id_User = user.id
+    WHERE 
+        request.id_User = 1
+    ";
 
     $sql .= $statusRent === "all" ? "" : " AND request.statusRequest = $statusRent";
 
-    $sql .= $searchListRentBook
-      ? " AND book.nameBook like '%$searchListRentBook%' ORDER BY book.nameBook $sortListRentBook"
-      : " ORDER BY book.nameBook $sortListRentBook";
+    // $sql .= $searchListRentBook
+    //   ? " AND book.nameBook like '%$searchListRentBook%' ORDER BY book.nameBook $sortListRentBook"
+    //   : " ORDER BY book.nameBook $sortListRentBook";
 
     $query = $this->_query($sql);
     return $query;

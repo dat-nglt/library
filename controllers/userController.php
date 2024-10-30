@@ -16,9 +16,9 @@ class userController extends baseController
     $books = $this->userModel->getAllBook(9);
 
     $componentName = 'homeHotBook';
-    if (isset($_SESSION['user'])) {
-      $this->userModel->denyRequest($_SESSION['user']['id']); //hủy yêu cầu sau 24h
-    }
+    // if (isset($_SESSION['user'])) {
+    //   $this->userModel->denyRequest($_SESSION['user']['id']); //hủy yêu cầu sau 24h
+    // }
     return $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
   }
 
@@ -144,7 +144,8 @@ class userController extends baseController
           $limit = 10;
           $listAllRentBook = $this->userModel->listAllRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook, $_SESSION['status-rent']);
           $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
-          $totalPage = ceil(mysqli_num_rows($listAllRentBook) / $limit);
+          // $totalPage = ceil(mysqli_num_rows($listAllRentBook) / $limit);
+          $totalPage = 10;
           if ($currentPage > $totalPage) {
             $currentPage = $totalPage;
           }
@@ -153,14 +154,16 @@ class userController extends baseController
           }
           $start = ($currentPage - 1) * $limit;
 
-          $listRentBook = mysqli_fetch_all($this->userModel->listRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook, $_SESSION['status-rent'], $start, $limit));
+          // $listRentBook = mysqli_fetch_all($this->userModel->listRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook, $_SESSION['status-rent'], $start, $limit));
 
-          return $this->loadview('user.profile.profile', ['listRentBook' => $listRentBook, 'currentPage' => $currentPage, 'limit' => $limit, 'totalPage' => $totalPage, 'searchListRentBook' => $searchListRentBook]);
+          return $this->loadview('user.profile.profile', [ 'listRentBook' => $listAllRentBook, 'currentPage' => $currentPage, 'limit' => $limit, 'totalPage' => $totalPage, 'searchListRentBook' => $searchListRentBook]);
+
         case 'infoUser':
           return $this->loadview('user.profile.profile', []);
 
         case 'changePassword':
           return $this->loadview('user.profile.profile', []);
+
         default:
           return $this->loadview('user.profile.profile', []);
 
@@ -205,8 +208,8 @@ class userController extends baseController
     // var_dump($contentSearch);
     // var_dump($dateSearch);
     // var_dump($sortSearch);
-    
-    $books = $this->userModel->newsSearch($contentSearch,$sortSearch,$dateSearch);
+
+    $books = $this->userModel->newsSearch($contentSearch, $sortSearch, $dateSearch);
     $this->loadview('user.searchNews', [
       'componentDatas' => $books,
       'contentSearch' => $contentSearch,

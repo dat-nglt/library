@@ -1,13 +1,7 @@
-<?php
-$listRentBook = $listRentBook ? $listRentBook : [];
-// var_dump($listRentBook);
-?>
-
 <div class="content">
   <div id="profile__title"> Lịch sử mượn sách</div>
   <div class="filterRentBook">
     <div class="sub-filter">
-  
       <fieldset>
         <legend>Tìm kiếm</legend>
         <form action="?controller=user&action=profile&profilePage=rentHistory" method="post" class="admin__form-search">
@@ -78,7 +72,7 @@ $listRentBook = $listRentBook ? $listRentBook : [];
           <?php
             $stt = ($currentPage - 1) * $limit + 1;
             foreach ($listRentBook as $item) {
-              switch ($item[8]) {
+              switch ($item["statusRequest"]) {
                 case 0:
                   $statusRequest = 'Chờ xét duyệt';
                   break;
@@ -97,13 +91,13 @@ $listRentBook = $listRentBook ? $listRentBook : [];
                 default:
                   $statusRequest = "Chờ xét duyệt";
               }
-              echo '<tr' . ($item[8] == 4 ? ' style="background-color: #ffe9bf;"' : '') . '>';
+              echo '<tr' . ($item["statusRequest"] == 4 ? ' style="background-color: #ffe9bf;"' : '') . '>';
               echo '<td>' . $stt . '</td>';
-              echo '<td>' . $item[0] . '</td>';
-              echo '<td>' . $item[6] . '</td>';
-              echo '<td>' . $item[7] . '</td>';
-              echo '<td>' . $item[4] . '</td>';
-              echo '<td>' . $item[5] . '</td>';
+              echo '<td>' . $item["idRequest"] . '</td>';
+              echo '<td>' . $item["nameBook"] . '</td>';
+              echo '<td>' . $item["creatorBook"] . '</td>';
+              echo '<td>' . $item["created_at"] . '</td>';
+              echo '<td>' . $item["return_date"] . '</td>';
               echo '<td style="max-width: 30px;">' . $statusRequest . '</td>';
               echo '</tr>';
               $stt++;
