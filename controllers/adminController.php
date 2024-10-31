@@ -410,7 +410,7 @@ class adminController extends baseController
   public function borrow()
   {
     if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] === '2' || $_SESSION['user']['roleAccess'] === '3')) {
-      $this->adminModel->denyRequest();
+      // $this->adminModel->denyRequest();
       $limit = 15;
       $_SESSION['sort-borrow'] = isset($_SESSION['sort-borrow']) ? $_SESSION['sort-borrow'] : 'desc';
       $_SESSION['search-borrow'] = isset($_SESSION['search-borrow']) ? $_SESSION['search-borrow'] : '';
@@ -441,97 +441,156 @@ class adminController extends baseController
       $listBorrow = mysqli_fetch_all($this->adminModel->getListBorrow($start, $limit, $_SESSION['sort-borrow'], $_SESSION['search-borrow'], $_SESSION['status-borrow']));
       $listBook = $this->adminModel->getAllBook('', 'all');
       $listUser = $this->adminModel->getAllUser('');
-      if (isset($_POST['add-borrow'])) {
-        $idUser = $_POST['user_borrow'];
-        $idBook = $_POST['book_borrow'];
-        $time = date('Y/m/d');
-        $dayReturn = date('Y/m/d', strtotime($time . ' + 7 days'));
-        if (mysqli_num_rows($this->adminModel->checkUserBorrow($idUser)) < 10) {
-          $add = $this->adminModel->addBorrow($idUser, $idBook, $time, $dayReturn);
-          if ($add) {
-            $book = $this->adminModel->minusCountBook($idBook);
-            if (!$book) {
-              $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-              error('Lỗi khi giảm số lượng sách có trong thư viện', '?controller=admin&action=borrow&page=' . $current_page);
-            }
-            $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-            success('Thêm phiếu mượn thành công!', '?controller=admin&action=borrow&page=' . $current_page);
-          } else {
-            $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-            error('Thêm phiếu mượn thất bại!', '?controller=admin&action=borrow&page=' . $current_page);
-          }
-        } else {
-          $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-          warning('Người dùng đang mượn 10 quyển sách!', '?controller=admin&action=borrow&page=' . $current_page);
-        }
-        exit();
+
+      foreach ($listBorrow as $detail) {
+        $this->adminModel->updateRequestStatusIfOverdue($detail[0]);
       }
+
+      if (isset($_POST['add-borrow'])) {
+        $user = isset($_POST['user-id']) ? $_POST['user-id'] : ''; // Nhận mã số sinh viên
+        $idBooks = isset($_POST['books']) ? json_decode($_POST['books'], true) : []; // Dữ liệu sách
+        $time = date('Y/m/d H:i:s');
+        $dayReturn = date('Y/m/d H:i:s', strtotime($time . ' + 7 days'));
+        $requestedBooks = $this->adminModel->getRequestedBooks($user);
+
+        // Lưu ID sách vào session
+        if (!isset($_SESSION['selectedBooks'])) {
+          $_SESSION['selectedBooks'] = [];
+        }
+
+        $_SESSION['selectedBooks'] = array_merge($_SESSION['selectedBooks'], $idBooks);
+
+        $totalBooksToBorrow = count($_SESSION['selectedBooks']) + count($requestedBooks);
+
+        if ($totalBooksToBorrow > 5) {
+          unset($_SESSION['selectedBooks']);
+          warning('Bạn chỉ có thể mượn tối đa 5 sách.', '');
+          return $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+        }
+
+        // Kiểm tra trùng lặp sách
+        $duplicates = [];
+        foreach ($_SESSION['selectedBooks'] as $item) {
+          if (in_array($item, $requestedBooks)) {
+            $duplicates[] = $item;
+          }
+        }
+
+        if (!empty($duplicates)) {
+          // Nếu có sách trùng, không thực hiện yêu cầu
+          unset($_SESSION['selectedBooks']);
+          warning('Tồn tại sách đã mượn trước đó.', '');
+          return $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+        }
+
+        // Không có sách trùng, thực hiện yêu cầu mượn
+        $requestId = $this->adminModel->addBorrow($user); // Đảm bảo có ID người dùng
+
+        foreach ($_SESSION['selectedBooks'] as $item) {
+          $this->adminModel->addBorrowDetail($item, $requestId, $dayReturn);
+          $this->adminModel->decreaseBookStock($item);
+        }
+
+        unset($_SESSION['selectedBooks']); // Xóa ID sách khỏi session
+
+        success('Gửi yêu cầu mượn sách thành công', 'http://localhost/library/?controller=admin&action=borrow');
+        return $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+      }
+
+
+
       if (isset($_POST['edit-borrow'])) {
         $id = $_POST['id_borrow'];
-        $user = $_POST['user_borrow'];
-        $book = $_POST['book_borrow'];
-        $timeBorrow = $_POST['time_borrow'];
         $statusBorrow = $_POST['status_borrow'];
-        if ($timeBorrow === '' && $statusBorrow === '1') {
-          $time = date('Y/m/d');
-          $dayReturn = date('Y/m/d', strtotime($time . ' + 7 days'));
-          $edit = $this->adminModel->editBorrow($id, $user, $book, $statusBorrow, $time, $dayReturn);
-          if ($edit) {
-            if ($statusBorrow === '1') {
-              $book = $this->adminModel->minusCountBook($book);
-              if (!$book) {
-                $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-                error('Lỗi khi giảm số lượng sách có trong thư viện', '?controller=admin&action=borrow&page=' . $current_page);
-              }
-            }
-            $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-            success('Chỉnh sửa thành công!', '?controller=admin&action=borrow&page=' . $current_page);
-          } else {
-            $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-            error('Chỉnh sửa thất bại!', '?controller=admin&action=borrow&page=' . $current_page);
-          }
-        } else {
-          $edit = $this->adminModel->editBorrow($id, $user, $book, $statusBorrow, '', '');
-          if ($edit) {
-            if ($statusBorrow === '2') {
-              $book = $this->adminModel->plusCountBook($book);
-              if (!$book) {
-                $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-                error('Lỗi khi tăng số lượng sách có trong thư viện', '?controller=admin&action=borrow&page=' . $current_page);
-              }
-            }
-            $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-            success('Chỉnh sửa thành công!', '?controller=admin&action=borrow&page=' . $current_page);
-          } else {
-            $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-            error('Chỉnh sửa thất bại!', '?controller=admin&action=borrow&page=' . $current_page);
-          }
+        $time = date('Y-m-d H:i:s');
+        $dayReturn = date('Y-m-d H:i:s', strtotime($time . ' + 7 days'));
 
-        }
-        exit();
-      }
-      if (isset($_POST['new_time'])) {
-        $id = $_POST['id_borrow'];
-        $user = $_POST['user_borrow'];
-        $statusBorrow = $_POST['status_borrow'];
-        $book = $_POST['book_borrow'];
-        $time = date('Y/m/d');
-        $dayReturn = date('Y/m/d', strtotime($time . ' + 7 days'));
-        $edit = $this->adminModel->editBorrow($id, $user, $book, $statusBorrow, '', $dayReturn);
-        if ($edit) {
-          $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-          success('Gia hạn thành công!', '?controller=admin&action=borrow&page=' . $current_page);
+        $updateSuccess = $this->adminModel->updateRequest($id, $statusBorrow);
+
+        // Cập nhật trạng thái yêu cầu
+        if ($updateSuccess) {
+          if ($statusBorrow === '1') {
+            $this->adminModel->updateBorrowDetails($id, 0, $dayReturn, NULL);
+            success('Gửi yêu cầu mượn sách thành công', 'http://localhost/library/?controller=admin&action=borrow');
+            return $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+          } elseif ($statusBorrow === '0' || $statusBorrow === '4' || $statusBorrow === '5') {
+
+            $this->adminModel->updateBorrowDetails($id, 'NULL', NULL, NULL);
+            success('Gửi yêu cầu mượn sách thành công', 'http://localhost/library/?controller=admin&action=borrow');
+            return $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+          }
         } else {
-          $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
-          error('Gia hạn thất bại!', '?controller=admin&action=borrow&page=' . $current_page);
+
+          error('Cập nhật yêu cầu không thành công.', 'http://localhost/library/?controller=admin&action=borrow');
+          return $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
         }
-        exit();
       }
+
       return $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
+
     } else {
       header('Location: http://localhost/library/');
       exit();
     }
+  }
+
+  public function borrow_detail()
+  {
+    $id = $_GET['id'];
+    $getBorrowDetailInfo = $this->adminModel->getBorrowDetailInfo($id);
+    $getBorrowDetail = $this->adminModel->getBorrowDetail($id);
+    $this->adminModel->autoOverdue($id);
+
+
+    if (isset($_POST['extendBorrow'])) {
+      $extend = $this->adminModel->extendBorrowDetail($_POST['extendBorrow']);
+      if ($extend === true) {
+        success('Gia hạn thời hạn trả sách thêm 5 ngày', 'http://localhost/library/?controller=admin&action=borrow_detail&id=' . $id);
+      } else {
+        error('Gia hạn thất bại!', 'http://localhost/library/?controller=admin&action=borrow_detail&id=' . $id);
+      }
+      return $this->loadview('admin.borrowdetail', ['borrowDetail' => $getBorrowDetail, 'borrowDetailInfo' => $getBorrowDetailInfo]);
+    }
+
+    if (isset($_POST['update-statusBorrowDetail'])) {
+      $newStatus = $_POST['status_borrow']; // Trạng thái mới từ form
+      $returnDate = $_POST['returnDate'];
+      $idRequestDetail = $_POST['idRequestDetail'];
+      $idBook = $_POST['idBook'];
+
+      // Cập nhật trạng thái và due_Date
+      $dueDate = $newStatus === '1' ? date('Y-m-d H:i:s') : null;
+      $updateSuccess = $this->adminModel->updateBorrowDetail($idRequestDetail, $newStatus, $returnDate, $dueDate);
+
+      if ($updateSuccess) {
+        if ($newStatus === '1') { // Giả sử '1' là trạng thái "đã trả"
+          $this->adminModel->increaseBookStock($idBook); // Tăng số lượng sách trong kho
+        } elseif ($newStatus === '0') { // Giả sử '0' là trạng thái "chưa trả"
+          $this->adminModel->decreaseBookStock($idBook); // Giảm số lượng sách trong kho
+        }
+
+        // Lấy lại thông tin chi tiết để kiểm tra trạng thái mới
+        $getBorrowDetail = $this->adminModel->getBorrowDetail($id);
+
+        // Kiểm tra lại trạng thái tổng thể
+        $hasNotReturnedBook = false; // Reset flag
+        foreach ($getBorrowDetail as $detail) {
+          if ($detail['statusRD'] === '0') { // Nếu có quyển chưa trả
+            $hasNotReturnedBook = true;
+            break;
+          }
+        }
+        // Cập nhật lại trạng thái tổng thể
+        $overallStatus = $hasNotReturnedBook ? '1' : '2'; // '1' là Đã duyệt, '2' là Hoàn thành
+        $this->adminModel->updateRequest($id, $overallStatus);
+
+        success('Cập nhật trạng thái thành công!', 'http://localhost/library/?controller=admin&action=borrow_detail&id=' . $id);
+      } else {
+        error('Cập nhật trạng thái thất bại!', 'http://localhost/library/?controller=admin&action=borrow_detail&id=' . $id);
+      }
+
+    }
+    $this->loadview('admin.borrowdetail', ['borrowDetail' => $getBorrowDetail, 'borrowDetailInfo' => $getBorrowDetailInfo]);
   }
 
   public function upload()

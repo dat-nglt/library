@@ -110,11 +110,6 @@ class userController extends baseController
     $this->loadview('user.home', ['componentName' => $componentName, 'componentDatas' => $books]);
   }
 
-  public function rentSticket()
-  {
-    $this->loadview(viewPath: 'user.rentSticket');
-  }
-
   public function newshot()
   {
     $componentName = 'homeHotNews';
@@ -158,7 +153,7 @@ class userController extends baseController
 
           $listRentBook = $this->userModel->listRentBook($_SESSION['user']['id'], $_SESSION['sort_list_rent_book'], $searchListRentBook, $_SESSION['status-rent'], $start, $limit);
 
-          return $this->loadview('user.profile.profile', [ 'listRentBook' => $listRentBook, 'currentPage' => $currentPage, 'limit' => $limit, 'totalPage' => $totalPage, 'searchListRentBook' => $searchListRentBook]);
+          return $this->loadview('user.profile.profile', ['listRentBook' => $listRentBook, 'currentPage' => $currentPage, 'limit' => $limit, 'totalPage' => $totalPage, 'searchListRentBook' => $searchListRentBook]);
 
         case 'infoUser':
           return $this->loadview('user.profile.profile', []);
@@ -230,11 +225,77 @@ class userController extends baseController
       $nhanDe = $_POST['title1'];
       $loaiTaiLieu = $_POST['type1'];
       $this->userModel->uploadFile($upload_url, $nhanDe, $loaiTaiLieu, $_SESSION['user']['id']);
-
     }
     $uploadData = $this->userModel->uploadData($_SESSION['user']['id']);
     $typeData = $this->userModel->getDataType();
     return $this->loadview('user.upload', ['uploadData' => $uploadData, 'typeData' => $typeData]);
+  }
+
+  public function rentsticket()
+  {
+    if (isset($_SESSION["cart"]) && count($_SESSION["cart"]) > 0) {
+      $idUser = $_SESSION["user"]['id'];
+
+      $requestedBooks = $this->userModel->getRequestedBooks($idUser);
+
+      if (isset($_POST['bookRemove'])) {
+        foreach ($_SESSION['cart'] as $key => $item) {
+          if ($item['bid'] == $_POST['bookBid']) {
+            unset($_SESSION['cart'][$key]);
+            break;
+          }
+        }
+        echo "<script>window.location.href='http://localhost/library/?controller=user&action=rentSticket';</script>";
+        exit();
+      }
+
+      if (isset($_POST['comfirmRequest'])) {
+
+        $totalBooksToBorrow = count($_SESSION["cart"]) + count($requestedBooks);
+        if ($totalBooksToBorrow > 5) {
+          warning('Bạn chỉ có thể mượn tối đa 5 sách.', '');
+          return $this->loadview('user.rentsticket', [
+            'cartData' => $_SESSION["cart"],
+          ]);
+        }
+
+        // Kiểm tra trùng lặp sách
+        $duplicates = [];
+        foreach ($_SESSION['cart'] as $item) {
+          if (in_array($item['bid'], $requestedBooks)) {
+            $duplicates[] = $item['bid'];
+          }
+        }
+
+        if (!empty($duplicates)) {
+          // Nếu có sách trùng, không thực hiện yêu cầu
+          warning('Tồn tại sách đã mượn trong giỏ', '');
+          return $this->loadview('user.rentsticket', [
+            'cartData' => $_SESSION["cart"],
+            'duplicates' => $duplicates // Chuyển dữ liệu trùng lặp
+          ]);
+        }
+
+        // Không có sách trùng, thực hiện yêu cầu mượn
+        $requestId = $this->userModel->requestBooks($idUser, '');
+
+        foreach ($_SESSION['cart'] as $item) {
+          $this->userModel->requestBookDetail($item['bid'], $requestId);
+
+          $this->userModel->decreaseBookStock($item['bid']);
+        }
+
+        unset($_SESSION['cart']);
+
+        success('Gửi yêu cầu mượn sách thành công', 'http://localhost/library/?controller=user&action=rentSticket');
+        return;
+      }
+
+      return $this->loadview('user.rentsticket', ['cartData' => $_SESSION["cart"]]);
+
+    } else {
+      return $this->loadview('user.rentsticket', ['cartData' => []]);
+    }
   }
 
   public function book_detail()
@@ -242,13 +303,36 @@ class userController extends baseController
     $id = $_GET['id'];
     $getOneBook = $this->userModel->getOneBook($id);
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-      $this->userModel->requestBook($_SESSION['user']['id'], $id);
+    if (isset($_POST['request-Book'])) {
+      $newItem = array(
+        'bid' => $_POST["idBook"],
+        'bname' => $_POST["nameBook"],
+        'category' => $_POST["nameCategory"],
+        'author' => $_POST["creatorBook"],
+        'bookImg' => $_POST["imgBook"],
+        'dateBook' => $_POST["dateBook"],
+        'publisherBook' => $_POST["publisherBook"],
+      );
+
+      // Check if the cart session exists
+      if (isset($_SESSION["cart"])) {
+
+        $cartArray = array_column($_SESSION["cart"], 'bid');
+
+        if (in_array($newItem['bid'], $cartArray)) {
+          warning('Sách đã tồn tại trong giỏ', 'http://localhost/library/?controller=user&action=book_detail&id=' . $id);
+        } else {
+          success('Thêm sách vào giỏ', 'http://localhost/library/?controller=user&action=book_detail&id=' . $id);
+          $_SESSION["cart"][] = $newItem;
+        }
+      } else {
+        success('Thêm sách vào giỏ', 'http://localhost/library/?controller=user&action=book_detail&id=' . $id);
+        $_SESSION["cart"][0] = $newItem;
+      }
     }
 
     return $this->loadview('user.book-detail', ['bookData' => $getOneBook]);
   }
-
 }
 
 ?>

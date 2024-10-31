@@ -34,10 +34,16 @@
 
 .book-form-sub > ul > li {
   font-weight: 700;
+  color: var(--green-color);
 }
 
-.book-form-sub > ul > li > span {
-  font-weight: 500;
+.book-form-sub > ul > li > input {
+  padding: 0 5px;
+  background: transparent;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  outline: none;
 }
 
 .table-book {
@@ -63,6 +69,17 @@
     font-size: 14px;
     padding: 20px;
     background-color: var(--white-cl);
+  }
+
+  input {
+    width: 65px;
+    color: var(--white-cl);
+    padding: 0 5px;
+    background: transparent;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    outline: none;
   }
 
   a {

@@ -187,78 +187,213 @@ class adminModel extends baseModel
 
   //borrow
 
+  public function getBorrowDetailInfo($idRequest)
+  {
+    $sql = "SELECT * FROM request_detail WHERE id_Request = '$idRequest'";
+    $query = $this->_query($sql);
+    $requestDetail = $query->fetch_assoc();
+    return $requestDetail;
+  }
+
+
+  public function extendBorrowDetail($idRequestDetail)
+  {
+    // Lấy ngày hiện tại và kiểm tra statusRD
+    $sql = "SELECT return_date, statusRD FROM request_detail WHERE idRequestDetail = '$idRequestDetail'";
+    $query = $this->_query($sql);
+    $requestDetail = $query->fetch_assoc();
+
+    // Kiểm tra nếu $requestDetail tồn tại và statusRD là 0
+    if ($requestDetail['statusRD'] == 0) {
+      // Lấy ngày trả hiện tại
+      $currentReturnDate = $requestDetail['return_date'];
+
+      // Thêm 5 ngày vào ngày trả hiện tại
+      $newReturnDate = date('Y-m-d H:i:s', strtotime($currentReturnDate . ' + 5 days'));
+
+      // Cập nhật ngày trả
+      $updateSql = "UPDATE request_detail SET return_date = '$newReturnDate' WHERE idRequestDetail = '$idRequestDetail'";
+      $this->_query($updateSql); // Không cần kiểm tra kết quả cập nhật
+
+      return true; // Trả về true nếu gia hạn thành công
+    }
+
+    return false; // Trả về false nếu không tìm thấy yêu cầu hoặc statusRD không phải 0
+  }
+
+  public function autoOverdue($idRequest)
+  {
+    $time = date('Y-m-d H:i:s'); // Lấy thời gian hiện tại
+    $sql = "SELECT * FROM request_detail WHERE id_Request = '$idRequest'";
+    $query = $this->_query($sql);
+
+    // Duyệt qua từng chi tiết mượn sách
+    while ($requestDetail = $query->fetch_assoc()) {
+      // Kiểm tra nếu ngày hiện tại lớn hơn return_date và sách chưa được trả
+      if ($time > $requestDetail['return_date'] && $requestDetail['due_date'] === NULL && $requestDetail['statusRD'] !== '1') {
+        // Cập nhật statusRD thành 2 (quá hạn)
+        $updateSql = "UPDATE request_detail SET statusRD = 2 WHERE idRequestDetail = " . $requestDetail['idRequestDetail'];
+        $this->_query($updateSql); // Thực hiện câu lệnh cập nhật
+      }
+    }
+
+    return $query; // Trả về kết quả ban đầu nếu cần
+  }
+
+  public function updateRequestStatusIfOverdue($idRequest)
+  {
+    // Truy vấn để kiểm tra xem có chi tiết nào quá hạn không
+    $sql = "SELECT * FROM request_detail WHERE id_Request = '$idRequest' AND statusRD = 2";
+    $query = $this->_query($sql);
+
+    // Nếu có ít nhất một chi tiết quá hạn
+    if ($query->num_rows > 0) {
+      // Cập nhật trạng thái yêu cầu thành quá hạn
+      $updateRequestSql = "UPDATE request SET statusRequest = '3' WHERE idRequest = '$idRequest'";
+      $this->_query($updateRequestSql); // Thực hiện câu lệnh cập nhật
+    }
+  }
+
+  public function getBorrowDetail($idRequest)
+  {
+    $sql = "SELECT * FROM request_detail as rd JOIN book as b ON rd.id_Book = b.idBook WHERE id_Request = '$idRequest'";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  //borrow
   public function getAllBorrow($search, $status)
   {
     if ($status === 'all') {
-      $sql = "SELECT r.*, u.studentCode, u.identificationNumber, b.nameBook FROM request AS r 
-        JOIN book AS b ON r.id_book = b.idBook JOIN user AS u ON r.id_User = u.id
-        WHERE b.nameBook LIKE '%$search%' OR u.studentCode = '$search' OR u.identificationNumber = '$search'";
+      $sql = "SELECT r.*, u.studentCode, u.fullName FROM request AS r 
+        JOIN user AS u ON r.id_User = u.id
+        WHERE ('$search' = '' OR u.studentCode = '$search' OR u.fullName LIKE '%$search%')";
     } else {
-      $sql = "SELECT r.*, u.studentCode, u.identificationNumber, b.nameBook FROM request AS r 
-      JOIN book AS b ON r.id_book = b.idBook JOIN user AS u ON r.id_User = u.id
-      WHERE (b.nameBook LIKE '%$search%' OR u.studentCode = '$search' OR u.identificationNumber = '$search') 
+      $sql = "SELECT r.*, u.studentCode, u.fullName FROM request AS r 
+      JOIN user AS u ON r.id_User = u.id
+      WHERE ('$search' = '' OR u.studentCode = '$search' OR u.fullName LIKE '%$search%') 
       AND r.statusRequest = '$status'";
     }
     $query = $this->_query($sql);
     return $query;
   }
 
-  public function denyRequest()
-  {
-    $sql = "UPDATE request
-    SET statusRequest = 4
-    WHERE (DATE(dateRequest) < DATE(NOW())) 
-    AND (TIME(NOW()) > TIME(dateRequest))
-    AND statusRequest = 0";
-    $query = $this->_query($sql);
-    return $query;
-  }
+  // public function denyRequest()
+  // {
+  //   $sql = "UPDATE request
+  //   SET statusRequest = 4
+  //   WHERE (DATE(dateRequest) < DATE(NOW())) 
+  //   AND (TIME(NOW()) > TIME(dateRequest))
+  //   AND statusRequest = 0";
+  //   $query = $this->_query($sql);
+  //   return $query;
+  // }
 
 
   public function getListBorrow($start, $limit, $sort, $search, $status)
   {
     if ($status === 'all') {
-      $sql = "SELECT r.*, u.studentCode, b.nameBook FROM request AS r 
-      JOIN book AS b ON r.id_book = b.idBook JOIN user AS u ON r.id_User = u.id
-      WHERE b.nameBook LIKE '%$search%' OR u.studentCode = '$search'
+      $sql = "SELECT r.*, u.studentCode, u.fullName FROM request AS r 
+      JOIN user AS u ON r.id_User = u.id
+     WHERE ('$search' = '' OR u.studentCode = '$search' OR u.fullName LIKE '%$search%')
       ORDER BY r.idRequest $sort LIMIT $start, $limit;";
     } else {
-      $sql = "SELECT r.*, u.studentCode, b.nameBook FROM request AS r 
-      JOIN book AS b ON r.id_book = b.idBook JOIN user AS u ON r.id_User = u.id
-      WHERE (b.nameBook LIKE '%$search%' OR u.studentCode = '$search') 
+      $sql = "SELECT r.*, u.studentCode, u.fullName FROM request AS r 
+      JOIN user AS u ON r.id_User = u.id
+     WHERE ('$search' = '' OR u.studentCode = '$search' OR u.fullName LIKE '%$search%')
       AND r.statusRequest = '$status' ORDER BY r.idRequest $sort LIMIT $start, $limit;";
     }
     $query = $this->_query($sql);
     return $query;
   }
 
-  public function checkUserBorrow($id)
+  public function addBorrow($idUser)
   {
-    $sql = "select * from request WHERE id_user = $id and statusRequest = '1'";
+    // Thực hiện câu lệnh INSERT
+    $sql = "INSERT INTO request(created_at, id_User, statusRequest, updated_at) VALUES (NOW(), '$idUser', 1, NOW())";
+    $this->_query($sql);
+
+    // Lấy ID của bản ghi vừa được thêm
+    $result = $this->_query("SELECT LAST_INSERT_ID() AS id");
+    $row = $result->fetch_assoc(); // Dùng fetch_assoc() để lấy kết quả
+    $lastId = $row['id']; // Lấy giá trị ID
+
+    return $lastId; // Trả về ID
+  }
+
+  public function addBorrowDetail($idBook, $idRequest, $return_date)
+  {
+    // $currentDateTime = date('Y-m-d H:i:s');
+    $sql = "INSERT INTO request_detail(created_at, id_Book, id_Request, quantity, statusRD , return_date) VALUES (NOW(), '$idBook', '$idRequest', 1, 0, '$return_date')";
     $query = $this->_query($sql);
     return $query;
   }
 
-  public function addBorrow($id, $book, $time, $dayReturn)
+  public function getRequestedBooks($idUser)
   {
-    $sql = "INSERT INTO request VALUES ('', '$id', '$book', '$time', '1', '$time', '$dayReturn')";
-    $query = $this->_query($sql);
-    return $query;
-  }
+    $sql = "SELECT rd.id_Book FROM request r 
+            JOIN request_detail rd ON r.idRequest = rd.id_Request 
+            WHERE r.id_User = '$idUser' AND r.statusRequest IN (0,1,3)";
+    $result = $this->_query($sql);
 
-  public function editBorrow($idBorrow, $id, $book, $status, $timeBorrow, $timeReturn)
-  {
-    if ($timeBorrow != '') {
-      $sql = "UPDATE request SET id_User = '$id', id_Book = '$book', statusRequest = '$status', dateRental = '$timeBorrow', dateReturn = '$timeReturn' where idRequest = '$idBorrow'";
-    } else if ($timeReturn != '') {
-      $sql = "UPDATE request SET id_User = '$id', id_Book = '$book', statusRequest = '$status', dateReturn = '$timeReturn' where idRequest = '$idBorrow'";
-    } else {
-      $sql = "UPDATE request SET id_User = '$id', id_Book = '$book', statusRequest = '$status' where idRequest = '$idBorrow'";
+    $books = [];
+    while ($row = $result->fetch_assoc()) {
+      $books[] = $row['id_Book'];
     }
+    return $books;
+  }
+
+  public function updateRequest($idRequest, $statusRequest)
+  {
+    // Cập nhật trạng thái yêu cầu
+    $sql = "UPDATE request 
+                         SET statusRequest = '$statusRequest', 
+                             updated_at = NOW() 
+                         WHERE idRequest = '$idRequest'";
+    $query = $this->_query($sql);
+    return $query;
+  }
+  public function updateBorrowDetails($idRequest, $statusRequest, $return_date, $due_date)
+  {
+
+    $return_date_sql = is_null($return_date) ? 'NULL' : "'$return_date'";
+    $due_date_sql = is_null($due_date) ? 'NULL' : "'$due_date'";
+
+    $sql = "UPDATE request_detail 
+                               SET statusRD = $statusRequest, 
+                                   return_date = $return_date_sql,
+                                   due_date = $due_date_sql
+                               WHERE id_Request = '$idRequest'";
     $query = $this->_query($sql);
     return $query;
   }
 
+  public function updateBorrowDetail($idRequestDetail, $statusRequest, $return_date, $due_date)
+  {
+
+    $return_date_sql = is_null($return_date) ? 'NULL' : "'$return_date'";
+    $due_date_sql = is_null($due_date) ? 'NULL' : "'$due_date'";
+
+    $sql = "UPDATE request_detail 
+                               SET statusRD = $statusRequest, 
+                                   return_date = $return_date_sql,
+                                   due_date = $due_date_sql
+                               WHERE idRequestDetail = '$idRequestDetail'";
+    $query = $this->_query($sql);
+    return $query;
+  }
+
+  public function decreaseBookStock($bookId)
+  {
+    $sql = "UPDATE book SET quantityBook = quantityBook - 1 WHERE idBook = '$bookId' AND quantityBook > 0";
+    return $this->_query($sql);
+  }
+
+  public function increaseBookStock($bookId)
+  {
+    $sql = "UPDATE book SET quantityBook = quantityBook + 1 WHERE idBook = '$bookId'";
+    return $this->_query($sql);
+  }
 
   // librarian
 

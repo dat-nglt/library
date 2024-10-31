@@ -129,24 +129,65 @@ class userModel extends baseModel
     return $query;
   }
 
-  public function denyRequest($id)
+  // public function denyRequest($id)
+  // {
+  //   $sql = "UPDATE request, user
+  //   SET request.statusRequest = 4
+  //   WHERE (DATE(dateRequest) < DATE(NOW())) 
+  //   AND (TIME(NOW()) > TIME(dateRequest))
+  //   AND user.id = $id
+  //   AND request.statusRequest = 0";
+  //   $query = $this->_query($sql);
+  //   return $query;
+  // }
+
+  public function requestBooks($idUser, $status)
   {
-    $sql = "UPDATE request, user
-    SET request.statusRequest = 4
-    WHERE (DATE(dateRequest) < DATE(NOW())) 
-    AND (TIME(NOW()) > TIME(dateRequest))
-    AND user.id = $id
-    AND request.statusRequest = 0";
+    // Thực hiện câu lệnh INSERT
+    $sql = "INSERT INTO request(created_at, id_User, statusRequest) VALUES (NOW(), '$idUser', '$status')";
+    $this->_query($sql);
+
+    // Lấy ID của bản ghi vừa được thêm
+    $result = $this->_query("SELECT LAST_INSERT_ID() AS id");
+    $row = $result->fetch_assoc(); // Dùng fetch_assoc() để lấy kết quả
+    $lastId = $row['id']; // Lấy giá trị ID
+
+    return $lastId; // Trả về ID
+  }
+
+
+  public function requestBookDetail($idBook, $idRequest)
+  {
+    // $currentDateTime = date('Y-m-d H:i:s');
+    $sql = "INSERT INTO request_detail(created_at, id_Book, id_Request, quantity, statusRD) VALUES (NOW(), '$idBook', '$idRequest', 1, '')";
     $query = $this->_query($sql);
     return $query;
   }
 
-  public function requestBook($idUser, $idBook)
+  public function getRequestedBooks($idUser)
   {
-    // $currentDateTime = date('Y-m-d H:i:s');
-    $sql = "INSERT INTO request(dateRequest, id_User, id_Book) VALUES (NOW(), '$idUser', '$idBook')";
-    $query = $this->_query($sql);
-    return $query;
+    $sql = "SELECT rd.id_Book FROM request r 
+            JOIN request_detail rd ON r.idRequest = rd.id_Request 
+            WHERE r.id_User = '$idUser' AND r.statusRequest IN (0,1,3)";
+    $result = $this->_query($sql);
+
+    $books = [];
+    while ($row = $result->fetch_assoc()) {
+      $books[] = $row['id_Book'];
+    }
+    return $books;
+  }
+
+  public function decreaseBookStock($bookId)
+  {
+    $sql = "UPDATE book SET quantityBook = quantityBook - 1 WHERE idBook = '$bookId' AND quantityBook > 0";
+    return $this->_query($sql);
+  }
+
+  public function increaseBookStock($bookId)
+  {
+    $sql = "UPDATE book SET quantityBook = quantityBook + 1 WHERE idBook = '$bookId'";
+    return $this->_query($sql);
   }
 
   public function listAllRentBook($idUser, $sortListRentBook, $searchListRentBook, $statusRent)

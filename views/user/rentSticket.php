@@ -1,46 +1,67 @@
 <div class="container book-basket">
-  <div class="book-basket-container">
-    <div class="book-basket-title">
-      Giỏ sách của tôi
-    </div>
-    <div class="book-basket-list">
-      <div class="book-in-basket">
-        <div class="image-book-in-basket">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Book_icon_%28closed%29_-_Blue_and_gold.svg/1170px-Book_icon_%28closed%29_-_Blue_and_gold.svg.png" alt="">
-        </div>
-        <div class="info-book-in-basket">
-          <div class="info-field-book-in-basket">
-            <h5>Tên sách:</h5>
-            <p>Đắc nhân tâm</p>
-          </div>
-          <div class="info-field-book-in-basket">
-            <h5>Thể loại sách:</h5>
-            <p>Tâm lí học</p>
-          </div>
-          <div class="info-field-book-in-basket">
-            <h5>Tác giả:</h5>
-            <p>Tác giả 1 </p>
-          </div>
-          <div class="info-field-book-in-basket">
-            <h5>Kho:</h5>
-            <p>Còn 6 quyển</p>
-          </div>
-          <div class="info-field-book-in-basket">
-            <h5>Số lượng:</h5>
-            <p class="quantityElement"></p>
-            <div class="update-count">
-              <i class="fa-solid fa-circle-up"></i>
-              <i class="fa-solid fa-circle-down"></i>
+  <form action="" method="POST" class>
+    <div class="book-basket-container">
+      <div class="book-basket-title">
+        Giỏ sách của tôi
+      </div>
+      <div class="book-basket-list">
+        <?php
+        if (isset($_SESSION["cart"]) && count($_SESSION["cart"]) > 0) {
+          foreach ($_SESSION["cart"] as $item) {
+            ?>
+            <div class="book-in-basket">
+              <div class="image-book-in-basket">
+                <a href="<?php echo 'http://localhost/library/?controller=user&action=book_detail&id=' . $item['bid'] ?>">
+                  <img src="<?= $item['bookImg']; ?>" alt="">
+                </a>
+              </div>
+              <div class="info-book-in-basket">
+                <div class="info-field-book-in-basket">
+                  <h5>Tên sách:</h5>
+                  <p><?= $item['bname']; ?></p>
+                  <input type="hidden" name="bookName" value="<?= $item['bname']; ?>">
+                </div>
+                <div class="info-field-book-in-basket">
+                  <h5>Loại sách:</h5>
+                  <p><?= $item['category']; ?></p>
+                  <input type="hidden" name="bookCategory" value="<?= $item['category']; ?>">
+                </div>
+                <div class="info-field-book-in-basket">
+                  <h5>Tác giả:</h5>
+                  <p><?= $item['author']; ?></p>
+                  <input type="hidden" name="bookAuthor" value="<?= $item['author']; ?>">
+                </div>
+                <div class="info-field-book-in-basket">
+                  <h5>Năm xuất bản:</h5>
+                  <p><?= $item['dateBook']; ?></p>
+                  <input type="hidden" name="bookYear" value="<?= $item['dateBook']; ?>">
+                </div>
+                <div class="info-field-book-in-basket">
+                  <h5>Nhà xuất bản:</h5>
+                  <p class="quantityElement"><?= $item['publisherBook']; ?></p>
+                  <input type="hidden" name="bookPublisher[]" value="<?= $item['publisherBook']; ?>">
+                </div>
+                <input type="hidden" name="bookImg" value="<?= $item['bookImg']; ?>">
+              </div>
+              <div class="options-book-in-basket">
+                <form action="" method="POST" style="display:inline;">
+                  <input type="hidden" name="bookBid" value="<?= $item['bid']; ?>">
+                  <button class="bookRemove" name="bookRemove" type="submit">Xoá khỏi giỏ</button>
+                </form>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="options-book-in-basket">
-          <button>Xoá khỏi giỏ</button>
-        </div>
+          <?php }
+          echo '<button id="comfirmRequest" name="comfirmRequest" type="submit">Xác nhận mượn</button>';
+        } else {
+          echo '<p>Giỏ sách của bạn đang trống.</p>';
+        }
+        ?>
       </div>
     </div>
-  </div>
+  </form>
 </div>
+
+
 
 <style>
   .book-basket-container {
@@ -88,7 +109,7 @@
     >.image-book-in-basket {
       flex: 1;
 
-      >img {
+      >a>img {
         width: 100%;
         border-radius: 5px;
         aspect-ratio: 1 / 1;
@@ -134,6 +155,7 @@
         }
 
         >p {
+          font-weight: 600;
           margin-left: 5px;
           font-size: 13px;
         }
@@ -145,57 +167,38 @@
       display: flex;
       justify-content: center;
       align-items: center;
+    }
 
-      >button {
-        background-color: var(--red-cl);
-        padding: 8px 15px;
-        border: none;
-        outline: none;
-        color: var(--white-color);
-        font-weight: 600;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+  }
+
+  .bookRemove {
+    background-color: var(--red-cl);
+    color: #ffffff;
+    padding: 8px 15px;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  #comfirmRequest {
+    background-color: var(--orange-color);
+    padding: 10px 25px;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
     }
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const bookInBasket = document.querySelectorAll('.book-in-basket');
-    console.log(bookInBasket);
-
-
-    bookInBasket.forEach(book => {
-      const increaseCount = book.querySelector('.fa-circle-up');
-      const decreaseCount = book.querySelector('.fa-circle-down');
-      const quantityElement = book.querySelector('.quantityElement')
-
-      let quantity = 1;
-
-      // Hàm cập nhật số lượng
-      function updateQuantity() {
-        quantityElement.textContent = `${quantity} quyển`;
-      }
-
-      // Sự kiện click cho nút tăng
-      increaseCount.addEventListener('click', () => {
-        quantity++;
-        updateQuantity();
-      });
-
-      // Sự kiện click cho nút giảm
-      decreaseCount.addEventListener('click', () => {
-        if (quantity > 1) { // Đảm bảo số lượng không nhỏ hơn 1
-          quantity--;
-        }
-        updateQuantity();
-      });
-
-      // Khởi tạo hiển thị
-      updateQuantity();
-    })
-
-  });
-
-</script>
+<script src="./js/user/detail-book.js"></script>
