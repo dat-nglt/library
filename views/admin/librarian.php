@@ -10,7 +10,7 @@
                     <fieldset>
                         <legend>Tìm kiếm</legend>
                         <form action="?controller=admin&action=librarian" method="post" class="admin__form-search">
-                            <input type="text" name="search-librarian" placeholder="MSSV, họ tên" autocomplete="off">
+                            <input type="text" name="search-librarian" placeholder="Họ tên" autocomplete="off">
                             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
                     </fieldset>

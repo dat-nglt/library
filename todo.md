@@ -16,7 +16,7 @@ Trang danh sách(user)
 P Đạt
 Quản lý thủ thư(admin)
 Quản lý phản hồi(user/admin)
-Quản lý tin tức(admin/user)
+Quản lý tin tức(user/admin)
 
 Tr Đạt
 Quản lý upload(admin)
