@@ -405,7 +405,7 @@ class adminModel extends baseModel
   }
   public function getListReport($start, $limit, $sort, $search)
   {
-    $sql = "SELECT * FROM report AS r WHERE r.name LIKE '%$search%' OR r.email like '%$search%' OR r.tel like '%$search%' OR r.description like '%$search%' OR timeReport = '$search' ORDER BY r.id $sort LIMIT $start, $limit;";
+    $sql = "SELECT * FROM report AS r WHERE r.name LIKE '%$search%' OR r.email like '%$search%' ORDER BY r.id $sort LIMIT $start, $limit;";
     $query = $this->_query($sql);
     return $query;
   }
