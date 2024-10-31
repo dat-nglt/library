@@ -1,8 +1,8 @@
-function submitFine() {
+function submitFineEdit() {
 
-    var idRequest = $('#idRequest').val();
+    var idFine = $('#idFine').val();
     var price = $("#price").val();
-    var des = $("#input-des").val();
+    var des = $("#des").val();
 
     if (
         price.trim() === "" ||
@@ -30,7 +30,7 @@ function submitFine() {
     }
 
     if (
-        !idRequest
+        !idFine
     ) {
         Swal.fire({
             title: "Thông báo",
@@ -43,13 +43,13 @@ function submitFine() {
 
    
         var data = {
-          idRequest,
+          idFine,
           price,
           des
          };
         $.ajax({
             type: "POST",
-            url: "./services/admin/fine/addFine.php",
+            url: "./services/admin/fine/editFine.php",
             dataType: "json",
             data: data,
             success: function (result) {
@@ -65,7 +65,7 @@ function submitFine() {
             error: function () {
                 Swal.fire({
                     title: "Thông báo",
-                    text: "Thêm phiếu phạt không thành công",
+                    text: "Cập nhật phiếu phạt không thành công",
                     icon: "error",
                     showConfirmButton: true,
                 }).then(function () {

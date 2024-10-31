@@ -76,9 +76,9 @@
                         </div>
                     </td>
                     <td>
-                        <div style="justify-content: center;">
-                            <button class="list__action-btn" type="button" data-id="<?= $value['idFine'] ?>"><i
-                                    class="fa-solid fa-trash list__icon-del"></i></button>
+                    <div style="justify-content: center">
+                            <button class="list__action-open-edit" type="button" data-id="<?= $value['idFine'] ?>"><i
+                                    class="fa-solid fa-pen-to-square list__icon-edit"></i></button>
                         </div>
                     </td>
                 </tr>
@@ -124,5 +124,7 @@
     var listRequest = <?php echo json_encode(mysqli_fetch_all($listRequest)) ?>;
 </script>
 <script src="./js/admin/fine/openFormAdd.js"></script>
+<script src="./js/admin/fine/addFine.js"></script>
+<script src="./js/admin/fine/editFine.js"></script>
 <script src="./js/admin/closeFormAdd.js"></script>
 <script src="./js/admin/fine/openFormEdit.js"></script>

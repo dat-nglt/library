@@ -65,7 +65,7 @@ function openFormAdd() {
                 
             <div class="list__form-btn">
                 <button type="button" class="close-btn" onclick="closeFormAdd()">Đóng</button>
-                <button type="submit" name="add_fine" onclick="submitFine()">Thêm</button>
+                <button type="button" name="add_fine" onclick="submitFine()">Thêm</button>
             </div>
         </form>`;
         $(document).ready(function() {
