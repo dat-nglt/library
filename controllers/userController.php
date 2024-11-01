@@ -126,7 +126,7 @@ class userController extends baseController
 
   public function profile()
   {
-    if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] == 1 || $_SESSION['user']['roleAccess'] == 2)) {
+    if (isset($_SESSION['user']) && ($_SESSION['user']['roleAccess'] == 1 || $_SESSION['user']['roleAccess'] == 2 || $_SESSION['user']['roleAccess'] == 3)) {
       $pageOption = $_GET['profilePage'];
       switch ($pageOption) {
         case 'rentHistory':

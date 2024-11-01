@@ -20,7 +20,7 @@
         </a>
 
         <?php
-        if ($_SESSION['user']['roleAccess'] == 2) {
+        if ($_SESSION['user']['roleAccess'] == 2 || $_SESSION['user']['roleAccess'] == 3) {
           echo '<a href="?controller=admin" class="profile__menu-option">
             Quản trị viên
           </a>';
