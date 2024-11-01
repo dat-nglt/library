@@ -11,6 +11,15 @@
     box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.3);
 }
 
+#profile__title {
+    padding: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 16px;
+    background: var(--green-color);
+    text-transform: uppercase;
+  }
+
 .form-upload {
     padding: 25px 24px 10px 24px;
 }
