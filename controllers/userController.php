@@ -272,7 +272,7 @@ class userController extends baseController
           warning('Tồn tại sách đã mượn trong giỏ', '');
           return $this->loadview('user.rentsticket', [
             'cartData' => $_SESSION["cart"],
-            'duplicates' => $duplicates // Chuyển dữ liệu trùng lặp
+            'duplicates' => $duplicates // Chuyển dữ liệu trùng lặ p
           ]);
         }
 

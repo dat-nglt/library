@@ -6,7 +6,7 @@
                 <li>- Tài liệu là 01 file hoàn chỉnh với định dạng .pdf có đầy đủ các nội dung (từ
                     trang bìa - trang phụ lục).</li>
                 <li>- Các trường thông tin bắt buộc (*) phải điền đầy đủ.</li>
-                <li>- Tên file được đặt theo cú pháp: MSSV_Họ tên(VD: 2100143_TruongVanDat).</li>
+                
                 <li> <strong>B1.</strong> Bạn cần đăng nhập để sử dụng chức năng này.</li>
                 <li> <strong>B2.</strong> Điền đầy đủ thông tin theo biểu mẫu.</li>
                 <li> <strong>B3.</strong> Chọn Browse để tải file tài liệu cần nộp.</li>
