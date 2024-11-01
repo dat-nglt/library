@@ -80,7 +80,7 @@ class adminModel extends baseModel
 
   public function addUser($studentCode, $password, $fullName, $dateOfBirth, $address, $phoneNumber, $email, $identificationNumber, $class)
   {
-    $sql = "INSERT INTO user VALUES ('', '$studentCode', '$password', '$fullName', '$dateOfBirth', '$address', '$phoneNumber', '$email', '$identificationNumber' , '1', '$class')";
+    $sql = "INSERT INTO user VALUES ('', '$studentCode', '$password', '$fullName', '$dateOfBirth', '$address', '$phoneNumber', '$email', '$identificationNumber' , '1', '$class', '1')";
     $query = $this->_query($sql);
     return $query;
   }
@@ -502,7 +502,7 @@ class adminModel extends baseModel
   {
     $sql = "SELECT r.id_User, b.idBook, b.nameBook, rd.idRequestDetail, DATEDIFF(NOW(), rd.due_date) AS totalDay FROM request_detail AS rd
     LEFT JOIN book AS b ON rd.id_book = b.idBook LEFT JOIN request AS r ON r.idRequest = rd.id_Request LEFT JOIN user AS u ON r.id_User = u.id
-    LEFT JOIN fine as f On f.id_RequestDetail  = rd.idRequestDetail WHERE rd.status IN (1,3)";
+    LEFT JOIN fine as f On f.id_RequestDetail  = rd.idRequestDetail WHERE rd.statusRD IN (1,3)";
     $query = $this->_query($sql);
     return $query;
   }
@@ -510,7 +510,7 @@ class adminModel extends baseModel
   public function getListFineOfUser()
   {
     $sql = "SELECT u.id, u.studentCode, u.fullName FROM request_detail AS rd
-    LEFT JOIN request AS r ON r.idRequest = rd.id_Request LEFT JOIN user AS u ON u.id = r.id_User WHERE rd.status IN (1,3) GROUP BY u.id;";
+    LEFT JOIN request AS r ON r.idRequest = rd.id_Request LEFT JOIN user AS u ON u.id = r.id_User WHERE rd.statusRD IN (1,3) GROUP BY u.id;";
     $query = $this->_query($sql);
     return $query;
   }

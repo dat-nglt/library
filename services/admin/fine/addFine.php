@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $sql = "INSERT INTO fine VALUES ('', '$idRequest', '$price', DATE(NOW()), '$des')";
   $result = mysqli_query($conn, $sql);
   if ($result) {
-    $sql = "UPDATE request_detail SET status = '2' WHERE idRequestDetail = '$idRequest'";
+    $sql = "UPDATE request_detail SET statusRD = '2' WHERE idRequestDetail = '$idRequest'";
     $result = mysqli_query($conn, $sql);
     if($result){
       $response = array(
