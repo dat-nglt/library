@@ -9,7 +9,7 @@ function openFormAdd() {
   bodyContainer.appendChild(addFormAdd);
 
   addFormAdd.innerHTML = `
-        <form action="" method="post" class="list__form-add" style="height: 500px;" onsubmit="updateBooksInput()">
+        <form action="" method="post" class="list__form-add" style="height: 500px;" onsubmit="return updateBooksInput(event)">
             <div class="list__form-title">
                 <span><i class="fa-solid fa-book icon"></i> Thêm phiếu mượn</span>
                 <i class="fa-solid fa-xmark close-icon" onclick="closeFormAdd()"></i>
@@ -166,7 +166,35 @@ function closeFormAdd() {
   }
 }
 
-function updateBooksInput() {
+function updateBooksInput(event) {
+  const userInput = document.getElementById("user-input").value.trim();
+  const bookInput = document.getElementById("book-input").value.trim();
+
+  // Kiểm tra nếu trường MSSV hoặc tên sách bị bỏ trống
+  if (userInput === "") {
+    Swal.fire({
+      title: "Thông báo",
+      text: "Vui lòng nhập mã số sinh viên.",
+      icon: "warning",
+      showConfirmButton: true,
+    });
+    event.preventDefault(); // Ngăn chặn gửi biểu mẫu
+    return false; // Trả về false
+  }
+
+  if (selectedBooks.length === 0) {
+    Swal.fire({
+      title: "Thông báo",
+      text: "Vui lòng chọn ít nhất một sách.",
+      icon: "warning",
+      showConfirmButton: true,
+    });
+    event.preventDefault(); // Ngăn chặn gửi biểu mẫu
+    return false; // Trả về false
+  }
+
+  // Nếu tất cả đều hợp lệ, cập nhật giá trị vào các input ẩn
   document.getElementById("books-input").value = JSON.stringify(selectedBooks);
   document.getElementById("user-id-input").value = selectedUserId; // Thêm ID người dùng vào input ẩn
+  return true; // Trả về true để cho phép gửi biểu mẫu
 }

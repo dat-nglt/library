@@ -458,6 +458,15 @@ class adminController extends baseController
           $_SESSION['selectedBooks'] = [];
         }
 
+        if (!is_array($idBooks)) {
+          $idBooks = []; // Nếu không, khởi tạo thành mảng rỗng
+        }
+
+        // Đảm bảo rằng $_SESSION['selectedBooks'] là một mảng
+        if (!isset($_SESSION['selectedBooks']) || !is_array($_SESSION['selectedBooks'])) {
+          $_SESSION['selectedBooks'] = []; // Khởi tạo nếu không có
+        }
+
         $_SESSION['selectedBooks'] = array_merge($_SESSION['selectedBooks'], $idBooks);
 
         $totalBooksToBorrow = count($_SESSION['selectedBooks']) + count($requestedBooks);
@@ -496,7 +505,6 @@ class adminController extends baseController
         success('Gửi yêu cầu mượn sách thành công', 'http://localhost/library/?controller=admin&action=borrow');
         return $this->loadview('admin.borrow', ['listBorrow' => $listBorrow, 'listBook' => $listBook, 'listUser' => $listUser, 'current_page' => $current_page, 'limit' => $limit, 'total_page' => $total_page]);
       }
-
 
 
       if (isset($_POST['edit-borrow'])) {
